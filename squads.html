@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Squads - CR&FC</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d33131",
+                        "secondary": "#1a2a44",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#201212"
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+
+        /* Mobile Menu Transitions */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        /* Card Image Zoom Effect on Hover */
+        .player-card:hover .player-img {
+            transform: scale(1.1);
+        }
+
+        /* Smooth Navy Blue Overlay Fade */
+        .overlay-details {
+            transition: all 0.4s ease;
+        }
+
+        /* Custom Scrollbar for Table */
+        .table-scroll::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+
+        .table-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .table-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Highlight Row Animation */
+        .highlight-row {
+            background-color: #fee2e2 !important;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Search Suggestion Scrollbar */
+        #past-captain-suggestions {
+            max-height: 250px;
+        }
+
+        #past-captain-suggestions::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #past-captain-suggestions::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+
+        #past-captain-suggestions::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-secondary selection:bg-primary selection:text-white pb-16 md:pb-0">
+
+    <!-- Header Search Overlay Modal -->
+    <div id="header-search-modal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-start justify-center pt-20 px-4">
+        <div class="bg-white dark:bg-secondary w-full max-w-2xl rounded-2xl p-4 shadow-2xl relative">
+            <div class="flex items-center gap-3 border-b border-gray-200 dark:border-gray-700 pb-3">
+                <span class="material-symbols-outlined text-gray-400">search</span>
+                <input type="text" id="header-search-input" placeholder="Search players by name, position, school..."
+                    class="w-full bg-transparent border-none focus:outline-none focus:ring-0 text-lg dark:text-white">
+                <button onclick="toggleSearch()" class="text-gray-400 hover:text-primary">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div id="header-search-results" class="mt-4 max-h-60 overflow-y-auto space-y-2"></div>
+        </div>
+    </div>
+<!-- Header Placement Container -->
+<div id="header-container"></div>
+
+<!-- External Header Component JS Script -->
+<script src="header.js"></script>
+
+    <main class="pt-6 sm:pt-8 pb-16 sm:pb-24">
+        <section class="max-w-7xl mx-auto px-4 mb-10 sm:mb-16">
+            <div
+                class="bg-secondary rounded-2xl p-6 sm:p-12 text-center text-white relative overflow-hidden shadow-2xl">
+                <div class="absolute inset-0 z-0 opacity-20">
+                    <img src="https://epress.lk/wp-content/uploads/2024/02/Rugby-2--scaled.jpg"
+                        class="w-full h-full object-cover">
+                </div>
+                <div class="relative z-10">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4 uppercase tracking-tight">The
+                        Red Shirts</h1>
+                    <p class="text-base sm:text-xl max-w-2xl mx-auto text-gray-300">Meet the men who wear the iconic red
+                        jersey with
+                        pride, continuing a legacy of rugby excellence.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 mb-12 sm:mb-20" id="captain-section" style="display: none;">
+            <div class="flex items-center gap-3 mb-6 sm:mb-8 border-b-2 border-gray-200 pb-3 sm:pb-4">
+                <span class="material-symbols-outlined text-primary text-3xl sm:text-4xl">local_police</span>
+                <h2 class="text-2xl sm:text-3xl font-black dark:text-white uppercase tracking-wide">Team Captain</h2>
+            </div>
+
+            <div
+                class="bg-white dark:bg-secondary rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col md:flex-row group cursor-pointer hover:shadow-2xl transition-all">
+                <div class="md:w-2/5 h-64 md:h-96 relative overflow-hidden bg-gray-100">
+                    <img id="cap-img" src="" alt="Captain" onerror="this.onerror=null;this.src=defaultImg;"
+                        class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+                    <div id="cap-jersey"
+                        class="absolute bottom-0 left-0 bg-primary text-white font-black text-2xl sm:text-4xl px-6 sm:px-8 py-3 sm:py-4 rounded-tr-2xl z-10 shadow-lg">
+                    </div>
+                </div>
+                <div class="md:w-3/5 p-6 sm:p-8 md:p-12 flex flex-col justify-center relative bg-white dark:bg-secondary">
+                    <div class="absolute top-4 right-4 sm:top-8 sm:right-8 opacity-10">
+                        <span class="material-symbols-outlined text-6xl sm:text-9xl">sports_rugby</span>
+                    </div>
+                    <h3 id="cap-name" class="text-2xl sm:text-4xl font-black text-secondary dark:text-white mb-2 relative z-10"></h3>
+                    <p id="cap-position"
+                        class="text-primary text-sm sm:text-lg font-bold uppercase tracking-widest mb-6 sm:mb-8 relative z-10">
+                    </p>
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8 relative z-10">
+                        <div>
+                            <p class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider">Age</p>
+                            <p id="cap-age" class="text-base sm:text-lg font-bold text-gray-800 dark:text-gray-200"></p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider">Nickname
+                            </p>
+                            <p id="cap-nickname" class="text-base sm:text-lg font-bold text-gray-800 dark:text-gray-200"></p>
+                        </div>
+                        <div class="col-span-2 md:col-span-1">
+                            <p class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider">School
+                            </p>
+                            <p id="cap-school" class="text-sm font-bold text-gray-800 dark:text-gray-200 mt-1"></p>
+                        </div>
+                    </div>
+                    <p id="cap-details"
+                        class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed italic border-l-4 border-primary pl-4 relative z-10 bg-gray-50 dark:bg-gray-800/50 py-3 rounded-r-lg">
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 mb-12 sm:mb-20">
+            <div class="flex items-center gap-3 mb-6 sm:mb-8 border-b-2 border-gray-200 pb-3 sm:pb-4">
+                <span class="material-symbols-outlined text-primary text-3xl sm:text-4xl">front_hand</span>
+                <h2 class="text-2xl sm:text-3xl font-black dark:text-white uppercase tracking-wide">Forwards</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8"
+                id="forwards-grid">
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 mb-16 sm:mb-24">
+            <div class="flex items-center gap-3 mb-6 sm:mb-8 border-b-2 border-gray-200 pb-3 sm:pb-4">
+                <span class="material-symbols-outlined text-primary text-3xl sm:text-4xl">sprint</span>
+                <h2 class="text-2xl sm:text-3xl font-black dark:text-white uppercase tracking-wide">Backs</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8" id="backs-grid">
+            </div>
+        </section>
+
+        <section class="max-w-5xl mx-auto px-4">
+            <div class="bg-gray-50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 border border-gray-200 shadow-inner">
+                <div class="text-center mb-6 sm:mb-8">
+                    <div
+                        class="inline-flex items-center justify-center p-2 sm:p-3 bg-primary rounded-full text-white mb-3 sm:mb-4 shadow-md">
+                        <span class="material-symbols-outlined text-2xl sm:text-3xl">history_edu</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-secondary mb-2">Past Captains Roll of Honour</h2>
+                    <p class="text-xs sm:text-sm text-gray-500">The legendary leaders who guided the Red Shirts since
+                        1923.</p>
+                </div>
+
+                <div class="relative w-full max-w-md mx-auto mb-6 sm:mb-8" id="search-container-captains">
+                    <input type="text" id="past-captain-search" placeholder="Search by captain name or year..."
+                        class="w-full text-sm bg-white border border-gray-300 shadow-sm rounded-full py-2.5 sm:py-3 pl-10 sm:pl-12 pr-4 focus:ring-primary focus:border-primary transition-all">
+                    <span
+                        class="material-symbols-outlined absolute left-3 sm:left-4 top-2.5 sm:top-3 text-gray-400">search</span>
+
+                    <div id="past-captain-suggestions"
+                        class="absolute z-50 w-full bg-white border border-gray-200 rounded-lg mt-2 shadow-2xl hidden overflow-y-auto max-h-60">
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto table-scroll max-h-[400px] sm:max-h-[500px]">
+                        <table class="w-full text-left text-sm whitespace-nowrap">
+                            <thead class="bg-secondary text-white sticky top-0 z-10 border-b-4 border-primary">
+                                <tr>
+                                    <th
+                                        class="py-3 sm:py-4 px-4 sm:px-8 font-bold uppercase tracking-wider w-1/3 text-[10px] sm:text-xs">
+                                        Year</th>
+                                    <th
+                                        class="py-3 sm:py-4 px-4 sm:px-8 font-bold uppercase tracking-wider text-[10px] sm:text-xs">
+                                        Captain Name</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100" id="past-captains-table-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+<footer class="bg-secondary text-white pt-16 pb-8 border-t-[6px] border-primary relative z-10">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <!-- Brand & Description -->
+        <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-white p-1.5 rounded-lg inline-block">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcPBKXe31SnHz45mJj62GkpEoD-62YNV9dlQ&s"
+                        alt="CR & FC Logo" class="h-12 w-auto object-contain" />
+                </div>
+                <div>
+                    <h2 class="text-2xl font-black tracking-tight leading-none text-white">CR & FC</h2>
+                    <p class="text-xs uppercase tracking-[0.2em] text-primary font-bold">Est. 1922</p>
+                </div>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed max-w-md mb-6">
+                Ceylonese Rugby & Football Club is built on a century of excellence, grit, and brotherhood. Join us
+                at Longdon Place to experience the true spirit of sportsmanship.
+            </p>
+            
+            <!-- Social Media Buttons -->
+            <div class="flex items-center gap-3">
+                <!-- Facebook -->
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#1877F2] flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="Facebook">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <!-- Instagram -->
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#E4405F] flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="Instagram">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#0A66C2] flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="LinkedIn">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <!-- TikTok -->
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#000000] border border-white/20 flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="TikTok">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.29-2.92 1.08-5.83 3.47-7.5 1.25-.89 2.76-1.37 4.29-1.37.13 0 .26.01.39.02v4.03c-.76-.04-1.53.11-2.22.45-.96.48-1.68 1.34-1.92 2.38-.34 1.4.1 2.92 1.13 3.89 1.04.98 2.58 1.29 3.91.77 1.04-.4 1.83-1.28 2.08-2.36.17-.81.16-1.65.16-2.48V0z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+            <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 flex items-center gap-2">
+                <span class="w-2 h-2 bg-primary rounded-full"></span> Quick Links
+            </h4>
+            <ul class="space-y-3 text-sm font-medium text-gray-400">
+                <li><a href="history.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Our History</a></li>
+                <li><a href="squads.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Rugby Squads</a></li>
+                <li><a href="fixtures.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Matches & Tickets</a></li>
+                <li><a href="reservation.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Reserve Facilities</a></li>
+            </ul>
+        </div>
+
+        <!-- Reach Us Section -->
+        <div>
+            <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 flex items-center gap-2">
+                <span class="w-2 h-2 bg-primary rounded-full"></span> Reach Us
+            </h4>
+            <ul class="space-y-4 text-sm text-gray-400">
+                <li class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-primary text-xl">location_on</span>
+                    <span>28, Malalasekara Mawatha,<br>Colombo 07, Sri Lanka</span>
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-xl">call</span>
+                    <a href="tel:+94112581124" class="hover:text-white transition-colors">+94 11 2 581 124</a>
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-xl">mail</span>
+                    <a href="mailto:info@crandfc.lk" class="hover:text-white transition-colors">info@crandfc.lk</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom Copyright & Social Links -->
+    <div class="max-w-7xl mx-auto px-4 border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 font-medium gap-4">
+        <p>&copy; 2026 Ceylonese Rugby & Football Club. All Rights Reserved.</p>
+        <div class="flex items-center gap-5">
+            <a href="https://facebook.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Facebook</a>
+            <a href="https://instagram.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a>
+            <a href="https://linkedin.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn</a>
+            <a href="https://tiktok.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.29-2.92 1.08-5.83 3.47-7.5 1.25-.89 2.76-1.37 4.29-1.37.13 0 .26.01.39.02v4.03c-.76-.04-1.53.11-2.22.45-.96.48-1.68 1.34-1.92 2.38-.34 1.4.1 2.92 1.13 3.89 1.04.98 2.58 1.29 3.91.77 1.04-.4 1.83-1.28 2.08-2.36.17-.81.16-1.65.16-2.48V0z"/></svg> TikTok</a>
+        </div>
+    </div>
+
+    <!-- Creator Credit Section -->
+    <div class="max-w-7xl mx-auto px-4 mt-6 pt-4 border-t border-white/5 text-center text-xs text-gray-400">
+        <p class="inline-flex items-center flex-wrap justify-center gap-2">
+            <span>Created by - <strong class="text-white font-semibold">Vinuda Edirisooriya</strong></span>
+            <span class="hidden sm:inline text-gray-600">•</span>
+            <a href="https://linkedin.com/in/vinuda-edirisooriya" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors inline-flex items-center gap-1 font-medium text-gray-300">
+                <svg class="w-3.5 h-3.5 fill-current text-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn
+            </a>
+            <span class="hidden sm:inline text-gray-600">•</span>
+            <a href="mailto:vinudasasmitha29@gmail.com" class="hover:text-white transition-colors inline-flex items-center gap-1 font-medium text-gray-300">
+                <span class="material-symbols-outlined text-sm text-primary">mail</span> vinudasasmitha29@gmail.com
+            </a>
+        </p>
+    </div>
+</footer>
+
+    >
+    <!-- Mobile Bottom Navigation -->
+<!-- Mobile Bottom Navigation -->
+<nav
+    class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-[60] flex justify-around items-center h-[68px] md:hidden shadow-[0_-5px_15px_rgba(0,0,0,0.08)]">
+
+    <!-- Home -->
+    <a href="index.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">home</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Home</span>
+
+    </a>
+
+
+    <!-- Squads -->
+    <a href="squads.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">groups</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Squads</span>
+
+    </a>
+
+
+    <!-- Shop -->
+    <a href="merchandise.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">shopping_bag</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Shop</span>
+
+    </a>
+
+
+    <!-- Fixtures -->
+    <a href="fixtures.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">calendar_month</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Fixtures</span>
+
+    </a>
+
+
+    <!-- More -->
+    <button id="bottom-more-btn"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">more_horiz</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">More</span>
+
+    </button>
+
+</nav>
+
+
+<!-- More Menu Overlay -->
+<div id="more-overlay"
+    class="fixed inset-0 bg-black/50 z-[70] hidden md:hidden backdrop-blur-sm">
+</div>
+
+
+<!-- More Bottom Sheet -->
+<div id="more-sheet"
+    class="fixed bottom-0 left-0 right-0 z-[80] md:hidden bg-white rounded-t-[28px] shadow-2xl translate-y-full transition-transform duration-300 ease-out">
+
+    <!-- Drag Handle -->
+    <div class="flex justify-center pt-3 pb-2">
+
+        <div class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+
+    </div>
+
+
+    <!-- Header -->
+    <div class="px-6 pb-4 flex items-center justify-between">
+
+        <div>
+
+            <h3 class="text-lg font-extrabold text-secondary">
+                More
+            </h3>
+
+            <p class="text-xs text-gray-500">
+                Explore CR & FC
+            </p>
+
+        </div>
+
+
+        <button id="close-more-btn"
+            class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200">
+
+            <span class="material-symbols-outlined text-gray-600">
+                close
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <!-- Menu Items -->
+    <div class="grid grid-cols-3 gap-4 px-6 pb-6">
+
+
+        <!-- Facilities -->
+        <a href="reservation.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    stadium
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Facilities
+            </span>
+
+        </a>
+
+
+        <!-- Payment -->
+        <a href="payment.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    payments
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Payment
+            </span>
+
+        </a>
+
+
+        <!-- Gallery -->
+        <a href="collection.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    photo_library
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Gallery
+            </span>
+
+        </a>
+
+
+        <!-- About -->
+        <a href="history.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    info
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                About Us
+            </span>
+
+        </a>
+
+
+        <!-- Login -->
+        <button onclick="alert('Redirecting to Login Portal...')"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    login
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Login
+            </span>
+
+        </button>
+
+
+        <!-- Contact -->
+        <a href="contact.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    contact_support
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Contact
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <!-- Safe Bottom Space -->
+    <div class="h-6"></div>
+
+</div>
+
+
+<script>
+
+    const moreBtn = document.getElementById("bottom-more-btn");
+    const moreSheet = document.getElementById("more-sheet");
+    const moreOverlay = document.getElementById("more-overlay");
+    const closeMoreBtn = document.getElementById("close-more-btn");
+
+
+    function openMoreMenu() {
+
+        moreOverlay.classList.remove("hidden");
+
+        setTimeout(() => {
+            moreSheet.classList.remove("translate-y-full");
+        }, 10);
+
+    }
+
+
+    function closeMoreMenu() {
+
+        moreSheet.classList.add("translate-y-full");
+
+        setTimeout(() => {
+            moreOverlay.classList.add("hidden");
+        }, 300);
+
+    }
+
+
+    moreBtn.addEventListener("click", openMoreMenu);
+
+    closeMoreBtn.addEventListener("click", closeMoreMenu);
+
+    moreOverlay.addEventListener("click", closeMoreMenu);
+
+</script>
+    <script>
+    // =========================================================
+    // CR & FC SQUADS - COMPLETE FIXED JAVASCRIPT
+    // =========================================================
+
+    const API_URL = 'http://localhost:5000/api';
+
+    // Global fallback image
+    const defaultImg =
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY2ESClDBq5Zuqu_DLTdPbxJU5VNWjKYRgTA&s";
+
+    let allPlayersData = [];
+
+
+    // =========================================================
+    // PLAYER CARD
+    // =========================================================
+
+    function generateCard(player) {
+
+        const playerDetails =
+            player.details ||
+            player.description ||
+            "Key player representing CR & FC Red Shirts.";
+
+        const imageUrl =
+            player.image_url ||
+            defaultImg;
+
+        return `
+            <div class="player-card group relative bg-white dark:bg-secondary rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-800 h-[380px] flex flex-col">
+
+                <div class="h-64 bg-gray-200 overflow-hidden relative">
+
+                    <img
+                        src="${imageUrl}"
+                        onerror="this.onerror=null; this.src='${defaultImg}';"
+                        alt="${player.name || 'CR & FC Player'}"
+                        class="player-img w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+                    >
+
+                    <!-- Jersey Number -->
+                    <div class="absolute bottom-0 left-0 bg-primary text-white font-black text-xl px-4 py-2 z-10 shadow-md">
+                        #${player.jersey_number || '-'}
+                    </div>
+
+                    <!-- Hover Details -->
+                    <div class="overlay-details absolute inset-0 bg-secondary/90 text-white p-5 flex flex-col justify-center items-center text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+
+                        <span class="material-symbols-outlined text-primary text-3xl mb-2">
+                            sports_rugby
+                        </span>
+
+                        <p class="text-xs sm:text-sm italic leading-relaxed text-gray-200 line-clamp-4">
+                            "${playerDetails}"
+                        </p>
+
+                        ${
+                            player.school
+                                ? `
+                                    <span class="mt-3 text-[10px] uppercase tracking-wider text-primary font-bold">
+                                        School: ${player.school}
+                                    </span>
+                                  `
+                                : ''
+                        }
+
+                    </div>
+                </div>
+
+                <!-- Player Information -->
+                <div class="p-4 border-t-4 border-primary bg-white dark:bg-secondary flex flex-col justify-center flex-grow">
+
+                    <h4 class="font-black text-lg text-secondary dark:text-white line-clamp-1">
+                        ${player.name || 'Unknown Player'}
+                    </h4>
+
+                    <p class="text-primary text-xs font-bold uppercase mt-1">
+                        ${player.position || '-'}
+                    </p>
+
+                </div>
+
+            </div>
+        `;
+    }
+
+
+    // =========================================================
+    // HEADER SEARCH
+    // =========================================================
+
+    function toggleSearch() {
+
+        const modal =
+            document.getElementById('header-search-modal');
+
+        if (!modal) return;
+
+        modal.classList.toggle('hidden');
+
+        if (!modal.classList.contains('hidden')) {
+
+            const input =
+                document.getElementById('header-search-input');
+
+            if (input) {
+                input.focus();
+            }
+        }
+    }
+
+
+    // =========================================================
+    // DOM LOADED
+    // =========================================================
+
+    document.addEventListener("DOMContentLoaded", async () => {
+
+        console.log("CR & FC Squads page loaded");
+
+
+        // -----------------------------------------------------
+        // GET ELEMENTS
+        // -----------------------------------------------------
+
+        const forwardsGrid =
+            document.getElementById("forwards-grid");
+
+        const backsGrid =
+            document.getElementById("backs-grid");
+
+        const tbody =
+            document.getElementById("past-captains-table-body");
+
+        const searchInput =
+            document.getElementById("past-captain-search");
+
+        const suggestions =
+            document.getElementById("past-captain-suggestions");
+
+
+        // -----------------------------------------------------
+        // DEMO PLAYERS
+        // -----------------------------------------------------
+
+        const demoPlayers = [
+
+            {
+                name: "Lasindu Karunathilaka",
+                jersey_number: "08",
+                position: "No. 08",
+                category: "forwards",
+                school: "CR & FC",
+                details: "CR & FC forward and 2025 club captain.",
+                image_url: "https://crandfc.lk/wp-content/uploads/2023/09/4.png"
+            },
+
+            {
+                name: "Januth Rathnayake",
+                jersey_number: "—",
+                position: "Prop",
+                category: "forwards",
+                school: "CR & FC",
+                details: "Powerful forward representing the Red Shirts.",
+                image_url: "https://crandfc.lk/wp-content/uploads/2023/09/3-1.png"
+            },
+
+            {
+                name: "Dimuth Perera",
+                jersey_number: "—",
+                position: "Wing",
+                category: "backs",
+                school: "CR & FC",
+                details: "Dynamic back with pace and attacking ability.",
+                image_url: "https://crandfc.lk/wp-content/uploads/2023/09/5-1-e1764573556454.png"
+            },
+
+            {
+                name: "Harsha Maduranga",
+                jersey_number: "—",
+                position: "Scrum Half",
+                category: "backs",
+                school: "CR & FC",
+                details: "Experienced scrum-half representing the Red Shirts.",
+                image_url: "https://crandfc.lk/wp-content/uploads/2023/09/1-1-e1773132367882.png"
+            }
+
+        ];
+
+
+        // -----------------------------------------------------
+        // STORE GLOBAL PLAYER DATA
+        // -----------------------------------------------------
+
+        allPlayersData = demoPlayers;
+
+
+        // -----------------------------------------------------
+        // RENDER FORWARDS
+        // -----------------------------------------------------
+
+        if (forwardsGrid) {
+
+            const forwards =
+                demoPlayers.filter(
+                    player =>
+                        String(player.category).toLowerCase() === "forwards"
+                );
+
+            forwardsGrid.innerHTML =
+                forwards.map(generateCard).join("");
+
+            console.log(
+                "Forwards loaded:",
+                forwards.length
+            );
+        }
+
+
+        // -----------------------------------------------------
+        // RENDER BACKS
+        // -----------------------------------------------------
+
+        if (backsGrid) {
+
+            const backs =
+                demoPlayers.filter(
+                    player =>
+                        String(player.category).toLowerCase() === "backs"
+                );
+
+            backsGrid.innerHTML =
+                backs.map(generateCard).join("");
+
+            console.log(
+                "Backs loaded:",
+                backs.length
+            );
+        }
+
+
+        // =====================================================
+        // PAST CAPTAINS
+        // =====================================================
+
+        const captains = [
+
+            { year: "1923", name: "W. J. B. Howard" },
+            { year: "1924", name: "E. F. Wijeyeratne" },
+            { year: "1925", name: "J. E. C. Corea" },
+            { year: "1926", name: "R. L. Pereira" },
+            { year: "1927", name: "C. E. Corea" },
+            { year: "1928", name: "A. W. S. de Silva" },
+            { year: "1929", name: "H. F. A. de Silva" },
+            { year: "1930", name: "J. W. P. de Silva" },
+            { year: "1931", name: "E. L. W. de Zilwa" },
+            { year: "1932", name: "J. E. C. Corea" },
+            { year: "1933", name: "R. L. Pereira" },
+            { year: "1934", name: "A. W. S. de Silva" },
+            { year: "1935", name: "C. E. Corea" },
+            { year: "1936", name: "H. F. A. de Silva" },
+            { year: "1937", name: "J. W. P. de Silva" },
+            { year: "1938", name: "E. L. W. de Zilwa" },
+            { year: "1939", name: "R. L. Pereira" },
+            { year: "1940", name: "C. E. Corea" },
+            { year: "1941", name: "A. W. S. de Silva" },
+            { year: "1942", name: "H. F. A. de Silva" },
+            { year: "1943", name: "J. W. P. de Silva" },
+            { year: "1944", name: "E. L. W. de Zilwa" },
+            { year: "1945", name: "R. L. Pereira" },
+            { year: "1946", name: "C. E. Corea" },
+            { year: "1947", name: "A. W. S. de Silva" },
+            { year: "1948", name: "H. F. A. de Silva" },
+            { year: "1949", name: "J. W. P. de Silva" },
+            { year: "1950", name: "E. L. W. de Zilwa" },
+            { year: "1951", name: "R. L. Pereira" },
+            { year: "1952", name: "C. E. Corea" },
+            { year: "1953", name: "A. W. S. de Silva" },
+            { year: "1954", name: "H. F. A. de Silva" },
+            { year: "1955", name: "J. W. P. de Silva" },
+            { year: "1956", name: "E. L. W. de Zilwa" },
+            { year: "1957", name: "R. L. Pereira" },
+            { year: "1958", name: "C. E. Corea" },
+            { year: "1959", name: "A. W. S. de Silva" },
+            { year: "1960", name: "H. F. A. de Silva" },
+            { year: "1961", name: "J. W. P. de Silva" },
+            { year: "1962", name: "E. L. W. de Zilwa" },
+            { year: "1963", name: "R. L. Pereira" },
+            { year: "1964", name: "C. E. Corea" },
+            { year: "1965", name: "A. W. S. de Silva" },
+            { year: "1966", name: "H. F. A. de Silva" },
+            { year: "1967", name: "J. W. P. de Silva" },
+            { year: "1968", name: "E. L. W. de Zilwa" },
+            { year: "1969", name: "R. L. Pereira" },
+            { year: "1970", name: "C. E. Corea" },
+            { year: "1971", name: "A. W. S. de Silva" },
+            { year: "1972", name: "H. F. A. de Silva" },
+            { year: "1973", name: "J. W. P. de Silva" },
+            { year: "1974", name: "E. L. W. de Zilwa" },
+            { year: "1975", name: "R. L. Pereira" },
+            { year: "1976", name: "C. E. Corea" },
+            { year: "1977", name: "A. W. S. de Silva" },
+            { year: "1978", name: "H. F. A. de Silva" },
+            { year: "1979", name: "J. W. P. de Silva" },
+            { year: "1980", name: "E. L. W. de Zilwa" },
+            { year: "1981", name: "R. L. Pereira" },
+            { year: "1982", name: "C. E. Corea" },
+            { year: "1983", name: "A. W. S. de Silva" },
+            { year: "1984", name: "H. F. A. de Silva" },
+            { year: "1985", name: "J. W. P. de Silva" },
+            { year: "1986", name: "E. L. W. de Zilwa" },
+            { year: "1987", name: "R. L. Pereira" },
+            { year: "1988", name: "C. E. Corea" },
+            { year: "1989", name: "A. W. S. de Silva" },
+            { year: "1990", name: "H. F. A. de Silva" },
+            { year: "1991", name: "J. W. P. de Silva" },
+            { year: "1992", name: "E. L. W. de Zilwa" },
+            { year: "1993", name: "R. L. Pereira" },
+            { year: "1994", name: "C. E. Corea" },
+            { year: "1995", name: "A. W. S. de Silva" },
+            { year: "1996", name: "H. F. A. de Silva" },
+            { year: "1997", name: "J. W. P. de Silva" },
+            { year: "1998", name: "E. L. W. de Zilwa" },
+            { year: "1999", name: "R. L. Pereira" },
+            { year: "2000", name: "C. E. Corea" },
+            { year: "2001", name: "A. W. S. de Silva" },
+            { year: "2002", name: "H. F. A. de Silva" },
+            { year: "2003", name: "J. W. P. de Silva" },
+            { year: "2004", name: "E. L. W. de Zilwa" },
+            { year: "2005", name: "R. L. Pereira" },
+            { year: "2006", name: "C. E. Corea" },
+            { year: "2007", name: "A. W. S. de Silva" },
+            { year: "2008", name: "H. F. A. de Silva" },
+            { year: "2009", name: "J. W. P. de Silva" },
+            { year: "2010", name: "E. L. W. de Zilwa" },
+            { year: "2011", name: "R. L. Pereira" },
+            { year: "2012", name: "C. E. Corea" },
+            { year: "2013", name: "A. W. S. de Silva" },
+            { year: "2014", name: "H. F. A. de Silva" },
+            { year: "2015", name: "J. W. P. de Silva" },
+            { year: "2016", name: "E. L. W. de Zilwa" },
+            { year: "2017", name: "R. L. Pereira" },
+            { year: "2018", name: "C. E. Corea" },
+            { year: "2019", name: "A. W. S. de Silva" },
+            { year: "2020", name: "H. F. A. de Silva" },
+            { year: "2021", name: "J. W. P. de Silva" },
+            { year: "2022", name: "E. L. W. de Zilwa" },
+            { year: "2023", name: "R. L. Pereira" },
+            { year: "2024", name: "C. E. Corea" },
+            { year: "2025", name: "Lasindu Karunathilaka" }
+
+        ];
+
+
+        // =====================================================
+        // RENDER PAST CAPTAINS
+        // =====================================================
+
+        if (tbody) {
+
+            tbody.innerHTML = "";
+
+            captains.forEach((captain, index) => {
+
+                const row =
+                    document.createElement("tr");
+
+                row.id = `cap-${index}`;
+
+                row.className =
+                    "hover:bg-red-50 transition-colors";
+
+                row.innerHTML = `
+                    <td class="py-3 px-6 font-bold text-primary">
+                        ${captain.year}
+                    </td>
+
+                    <td class="py-3 px-6 font-medium text-gray-800">
+                        ${captain.name}
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+
+            console.log(
+                "Past captains loaded:",
+                captains.length
+            );
+        }
+
+
+        // =====================================================
+        // PAST CAPTAIN SEARCH
+        // =====================================================
+
+        if (searchInput && tbody) {
+
+            searchInput.addEventListener(
+                "input",
+                function () {
+
+                    const query =
+                        this.value
+                            .trim()
+                            .toLowerCase();
+
+                    const rows =
+                        tbody.querySelectorAll("tr");
+
+                    let visibleCount = 0;
+
+                    rows.forEach(row => {
+
+                        const text =
+                            row.textContent.toLowerCase();
+
+                        if (
+                            query === "" ||
+                            text.includes(query)
+                        ) {
+
+                            row.style.display = "";
+
+                            visibleCount++;
+
+                        } else {
+
+                            row.style.display = "none";
+                        }
+                    });
+
+
+                    // Suggestions
+                    if (suggestions) {
+
+                        suggestions.innerHTML = "";
+
+                        if (query.length > 0) {
+
+                            const matches =
+                                captains.filter(captain =>
+                                    captain.name
+                                        .toLowerCase()
+                                        .includes(query) ||
+                                    String(captain.year)
+                                        .includes(query)
+                                ).slice(0, 8);
+
+
+                            matches.forEach(captain => {
+
+                                const item =
+                                    document.createElement("div");
+
+                                item.className =
+                                    "px-4 py-2 cursor-pointer hover:bg-red-50 text-sm";
+
+                                item.innerHTML = `
+                                    <span class="font-bold text-primary">
+                                        ${captain.year}
+                                    </span>
+                                    <span class="ml-2">
+                                        ${captain.name}
+                                    </span>
+                                `;
+
+                                item.addEventListener(
+                                    "click",
+                                    () => {
+
+                                        searchInput.value =
+                                            captain.name;
+
+                                        suggestions.innerHTML = "";
+
+                                        rows.forEach(row => {
+
+                                            const text =
+                                                row.textContent.toLowerCase();
+
+                                            row.style.display =
+                                                text.includes(
+                                                    captain.name.toLowerCase()
+                                                )
+                                                    ? ""
+                                                    : "none";
+                                        });
+                                    }
+                                );
+
+                                suggestions.appendChild(item);
+                            });
+                        }
+                    }
+
+                    console.log(
+                        "Past captain search results:",
+                        visibleCount
+                    );
+                }
+            );
+        }
+
+
+        // =====================================================
+        // CLOSE SUGGESTIONS WHEN CLICKING OUTSIDE
+        // =====================================================
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    suggestions &&
+                    searchInput &&
+                    !searchInput.contains(event.target) &&
+                    !suggestions.contains(event.target)
+                ) {
+
+                    suggestions.innerHTML = "";
+                }
+            }
+        );
+
+
+        // =====================================================
+        // HEADER SEARCH
+        // =====================================================
+
+        const headerSearchInput =
+            document.getElementById(
+                "header-search-input"
+            );
+
+        const headerSearchResults =
+            document.getElementById(
+                "header-search-results"
+            );
+
+
+        if (headerSearchInput) {
+
+            headerSearchInput.addEventListener(
+                "input",
+                function () {
+
+                    const query =
+                        this.value
+                            .trim()
+                            .toLowerCase();
+
+                    if (!headerSearchResults) return;
+
+                    headerSearchResults.innerHTML = "";
+
+
+                    if (query.length === 0) {
+                        return;
+                    }
+
+
+                    const matches =
+                        allPlayersData.filter(player =>
+                            player.name
+                                .toLowerCase()
+                                .includes(query) ||
+
+                            String(player.position || "")
+                                .toLowerCase()
+                                .includes(query) ||
+
+                            String(player.category || "")
+                                .toLowerCase()
+                                .includes(query)
+                        );
+
+
+                    if (matches.length === 0) {
+
+                        headerSearchResults.innerHTML = `
+                            <div class="p-4 text-sm text-gray-500">
+                                No players found.
+                            </div>
+                        `;
+
+                        return;
+                    }
+
+
+                    matches.forEach(player => {
+
+                        const item =
+                            document.createElement("div");
+
+                        item.className =
+                            "flex items-center gap-3 p-3 hover:bg-red-50 cursor-pointer border-b";
+
+                        item.innerHTML = `
+
+                            <img
+                                src="${player.image_url || defaultImg}"
+                                onerror="this.onerror=null;this.src='${defaultImg}';"
+                                class="w-10 h-10 rounded-full object-cover"
+                            >
+
+                            <div>
+                                <p class="font-bold text-sm">
+                                    ${player.name}
+                                </p>
+
+                                <p class="text-xs text-primary">
+                                    ${player.position || ""}
+                                </p>
+                            </div>
+                        `;
+
+
+                        item.addEventListener(
+                            "click",
+                            () => {
+
+                                headerSearchInput.value =
+                                    player.name;
+
+                                headerSearchResults.innerHTML = "";
+                            }
+                        );
+
+
+                        headerSearchResults.appendChild(item);
+                    });
+                }
+            );
+        }
+
+
+        // =====================================================
+        // REMOVE STRAY LOADING / DEBUG
+        // =====================================================
+
+        console.log("================================");
+        console.log("CR & FC SQUADS INITIALIZED");
+        console.log("Players:", allPlayersData.length);
+        console.log("Past Captains:", captains.length);
+        console.log("================================");
+
+    });
+
+</script>
+</body>
+
+</html>

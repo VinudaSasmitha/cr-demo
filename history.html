@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>About Us | CR & FC</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d33131",
+                        "secondary": "#1a2a44",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#201212",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        /* Custom Scrollbar for Horizontal Slider & Tables */
+        .hide-scroll::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+
+        .hide-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .hide-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+
+        .hide-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .table-scroll::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+
+        .table-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .table-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        /* Highlight Row Animation */
+        .highlight-row {
+            background-color: #fee2e2 !important;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Search Suggestion Scrollbar */
+        #search-suggestions {
+            max-height: 250px;
+        }
+
+        #search-suggestions::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #search-suggestions::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+
+        #search-suggestions::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-secondary selection:bg-primary selection:text-white">
+<!-- Header Placement Container -->
+<div id="header-container"></div>
+
+<!-- External Header Component JS Script -->
+<script src="header.js"></script>
+
+
+    <main>
+
+        <section
+            class="bg-secondary py-20 md:py-28 px-4 text-center relative overflow-hidden border-b-[8px] border-primary">
+            <div
+                class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1543165243-d92e591a457c?q=80&w=1920')] bg-cover bg-center">
+            </div>
+            <div class="relative z-10 max-w-4xl mx-auto">
+                <h4 class="text-primary font-bold uppercase tracking-[0.3em] text-[10px] md:text-[12px] mb-4">Home of
+                    Sri Lankan Rugby</h4>
+                <h1 class="text-4xl md:text-7xl font-black text-white mb-6 md:mb-8">About CR & FC</h1>
+                <p class="text-gray-300 text-sm md:text-lg leading-relaxed font-medium px-2">
+                    Welcome to the Ceylonese Rugby & Football Club (CR & FC), the premier destination for sports,
+                    entertainment, and camaraderie in Sri Lanka. Widely acknowledged both locally and abroad, our club
+                    seamlessly blends a century of rich history with state-of-the-art modern facilities.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-20 px-4 max-w-6xl mx-auto">
+
+            <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-12 mb-20">
+                <div class="lg:w-1/2 order-2 lg:order-1 text-center md:text-left">
+                    <h2 class="text-2xl md:text-3xl font-black text-secondary mb-4">Our Historic Legacy</h2>
+                    <div class="h-1 w-16 bg-primary mx-auto md:mx-0 mb-6"></div>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-4 text-justify">
+                        As we turn back the pages of history, the roots of CR & FC take us back to 1922. The club was
+                        born out of a passionate clamor for the recognition of Ceylonese ruggerites. Our founding
+                        father, <strong>Colonel Ernest Huntley Joseph</strong>, initially gathered and coached a team to
+                        play on the Non-descript Cricket Club (N.C.C.) grounds. The instant success of these fixtures
+                        prompted Colonel Joseph to canvass public support and officially form a truly Ceylonese Rugby &
+                        Football Club.
+                    </p>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed text-justify">
+                        Displaying our proud regimental colors of Red and Blue, the club quickly grew in stature.
+                        Adhering to steadfast principles, dignity, and the highest traditions of the game, our legendary
+                        teams—popularly known as the <strong>‘Red Shirts’</strong>—have produced generations of
+                        high-profile, outstanding players who have gone on to represent the country with immense
+                        distinction.
+                    </p>
+                </div>
+
+                <div class="lg:w-1/2 order-1 lg:order-2 w-full relative flex justify-center">
+                    <div
+                        class="absolute -inset-3 border-2 border-dashed border-gray-300 rounded-xl -z-10 hidden lg:block">
+                    </div>
+
+                    <div
+                        class="w-full bg-gray-100 rounded-lg shadow-xl overflow-hidden flex items-center justify-center p-2 border border-gray-200">
+                        <img src="e4a8ae6f-d80a-4e3d-b422-cdd901cef350.jpg" alt="Historic CRFC Team"
+                            class="w-full max-h-[500px] object-contain rounded grayscale hover:grayscale-0 transition-all duration-700">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-8 md:gap-12 mb-16 md:mb-24">
+                <div class="lg:w-1/2 order-2 lg:order-1 text-center md:text-left">
+                    <h2 class="text-2xl md:text-3xl font-black text-secondary mb-4">A Tradition of Champions</h2>
+                    <div class="h-1 w-16 bg-primary mx-auto md:mx-0 mb-6"></div>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-4 text-justify">
+                        Excellence on the field is woven into the very fabric of CR & FC. We are incredibly proud to
+                        celebrate our latest milestone: becoming the <strong>triple Champions of the 2025/26 Rugby
+                            Season</strong>, securing both the SLR Maliban Interclub Rugby Tournament and the
+                        prestigious Clifford Cup.
+                    </p>
+                    <div class="bg-red-50 border-l-4 border-primary p-4 rounded-r-xl mb-4 text-left">
+                        <p class="text-xs md:text-sm font-bold text-secondary italic">"Securing the triple championship
+                            is a testament to the dedication of our players and the enduring spirit of the Red Shirts."
+                        </p>
+                    </div>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed text-justify">
+                        To ensure this legacy continues, we are currently in the process of establishing a comprehensive
+                        Rugby Academy. This initiative is dedicated to developing rugby standards, nurturing aspiring
+                        ruggerites, and grooming the next generation of players to attain national and international
+                        recognition.
+                    </p>
+                </div>
+
+                <div class="lg:w-1/2 order-1 lg:order-2 w-full relative flex justify-center">
+                    <div
+                        class="w-full bg-white rounded-xl shadow-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-500 border border-gray-100 p-2">
+                        <img src="SLR - Maliban Club Rugby League 202526.jpg" alt="Champions Lifting Cup"
+                            class="w-full max-h-[500px] object-contain rounded-lg">
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section class="py-16 md:py-20 px-4 max-w-6xl mx-auto border-b border-gray-200">
+            <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+
+                <div class="lg:w-1/2 order-2 lg:order-1 text-center md:text-left">
+                    <h2 class="text-2xl md:text-3xl font-black text-secondary mb-4">Amenities </h2>
+                    <div class="h-1 w-16 bg-primary mx-auto md:mx-0 mb-6"></div>
+
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-4 text-justify">
+                        In recent years, the club has undergone significant developments and refurbishments to ensure
+                        our precincts are as comfortable, pleasant, and modern as possible for our valued members. We
+                        place a strong emphasis on fitness, recreation, and overall well-being.
+                    </p>
+
+                    <p class="text-gray-800 text-sm md:text-base leading-relaxed mb-4 font-bold text-left">
+                        Our expansive, multi-sport facilities currently include:
+                    </p>
+
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-left">
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                            <span class="text-sm text-secondary font-medium">Fully-equipped Gym</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                            <span class="text-sm text-secondary font-medium">Endurance Fitness</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                            <span class="text-sm text-secondary font-medium">Swimming Pool</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                            <span class="text-sm text-secondary font-medium">Floodlit Tennis Courts</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                            <span class="text-sm text-secondary font-medium">Padel Tennis</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                            <span class="text-sm text-secondary font-medium">Squash Courts</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                            <span class="text-sm text-secondary font-medium">Indoor Badminton</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                            <span class="text-sm text-secondary font-medium">Dedicated Futsal Court</span>
+                        </li>
+                    </ul>
+
+                    <div class="bg-gray-50 border-l-4 border-secondary p-4 rounded-r-xl text-left">
+                        <p class="text-xs md:text-sm font-bold text-gray-600 italic">
+                            "Our dedicated and highly capable staff - Management, Grounds, and the Bar & Restaurant—are
+                            committed to providing exceptional service to our members and guests every day."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 order-1 lg:order-2 w-full relative">
+                    <div
+                        class="absolute -inset-4 border-2 border-dashed border-gray-300 rounded-3xl -z-10 hidden lg:block">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop"
+                        alt="World Class Facilities"
+                        class="w-full h-64 md:h-[400px] object-cover rounded-2xl md:rounded-3xl shadow-xl hover:scale-[1.02] transition-transform duration-500">
+
+
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-20 px-4 max-w-6xl mx-auto">
+            <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+                <div class="lg:w-1/2 relative w-full">
+                    <img src="https://www.thepapare.com/wp-content/uploads/WhatsApp-Image-2024-10-09-at-7.56.45-PM.jpg"
+                        alt="Night Stadium Event"
+                        class="w-full h-64 md:h-[400px] object-cover rounded-2xl md:rounded-3xl shadow-xl">
+                </div>
+                <div class="lg:w-1/2 text-center md:text-left">
+                    <h2 class="text-2xl md:text-3xl font-black text-secondary mb-4">The Entertainment Hub of Colombo
+                    </h2>
+                    <div class="h-1 w-16 bg-primary mx-auto md:mx-0 mb-6"></div>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-6 text-justify">
+                        In 2023, a major milestone was achieved with the installation of cutting-edge floodlights at our
+                        grounds at Longdon Place. Since then, all CR & FC home rugby matches are played under the
+                        lights, creating a captivating, carnival-like evening atmosphere.
+                    </p>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-4 text-justify">Beyond sports, CR &
+                        FC has evolved into the most secure and vibrant venue hub in Colombo City. We proudly host:</p>
+
+                    <ul class="space-y-3 mt-4 text-left inline-block md:block">
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">mic_external_on</span>
+                            <span class="font-bold text-secondary text-xs md:text-sm">International musical shows &
+                                acts</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">school</span>
+                            <span class="font-bold text-secondary text-xs md:text-sm">High-profile school matches</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">celebration</span>
+                            <span class="font-bold text-secondary text-xs md:text-sm">Corporate events and private
+                                functions</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-20 px-4 max-w-6xl mx-auto border-b border-gray-200">
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-8 md:gap-12">
+                <div class="lg:w-1/2 relative w-full">
+                    <div
+                        class="absolute -inset-4 border-2 border-dashed border-primary/20 rounded-3xl -z-10 hidden lg:block">
+                    </div>
+
+                    <img src="https://epress.lk/wp-content/uploads/2024/02/CR-and-FC-grounds-1.jpg"
+                        alt="The Future of CR & FC"
+                        class="w-full h-64 md:h-[400px] object-cover rounded-2xl md:rounded-3xl shadow-xl hover:scale-[1.02] transition-transform duration-500">
+                </div>
+                <div class="lg:w-1/2 text-center md:text-left">
+                    <span
+                        class="text-primary font-bold uppercase tracking-[0.2em] text-[10px] md:text-[12px] mb-2 block">The
+                        Future</span>
+                    <h2 class="text-2xl md:text-3xl font-black text-secondary mb-4">Looking Ahead</h2>
+                    <div class="h-1 w-16 bg-primary mx-auto md:mx-0 mb-6"></div>
+
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-6 text-justify">
+                        With a century of achievements behind us and a vibrant future ahead, the ensuing years will see
+                        CR & FC continue to thrive as Colombo’s most popular rendezvous for rugby, entertainment, and
+                        relaxation. We are committed to continuous development, adding many more successful chapters to
+                        our story as the years roll on.
+                    </p>
+
+                    <div
+                        class="bg-secondary p-6 rounded-2xl shadow-lg border-l-4 border-primary text-left inline-block w-full transition-transform hover:-translate-y-1 duration-300">
+                        <h3 class="text-lg md:text-xl font-black uppercase tracking-widest text-white mb-1">
+                            Come be a part of the legacy.
+                        </h3>
+                        <span class="text-primary font-bold text-sm md:text-base drop-shadow-sm">Experience the Red
+                            Shirts!</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+       <section class="bg-white py-16 md:py-20 px-4 border-t border-gray-200 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h2 class="text-3xl md:text-4xl font-black text-[#0B132B] mb-2">Office Bearers</h2>
+            <p class="text-sm text-gray-500 max-w-md mx-auto">
+                Governed by excellence and a commitment to preserving our legacy.
+            </p>
+        </div>
+
+        <!-- Top Featured Cards (Horizontal Scroll) -->
+        <div class="relative w-full mb-10">
+            <div class="flex overflow-x-auto gap-4 md:gap-6 pb-6 hide-scroll snap-x snap-mandatory" id="office-bearers-grid">
+                <!-- Injected via JS -->
+            </div>
+            <div class="absolute top-0 right-0 bottom-6 w-12 bg-gradient-to-l from-white to-transparent pointer-events-none hidden md:block"></div>
+        </div>
+
+        <!-- Governance Sections Accordion / Grid Box -->
+        <div class="bg-[#F8FAFC] rounded-3xl p-6 md:p-8 border border-gray-200/80 shadow-sm space-y-6">
+
+            <!-- 1. TRUSTEES SECTION -->
+            <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm transition-all duration-300">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[#0B132B]">
+                            <span class="material-symbols-outlined text-sm">verified</span>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-[#0B132B] uppercase tracking-wider">Trustees</h3>
+                            <p class="text-[11px] text-gray-400">Board of Trustees</p>
+                        </div>
+                    </div>
+                    <button data-target="trustees-container" class="toggle-btn px-4 py-1.5 rounded-full border border-gray-200 hover:border-[#0B132B] text-[#0B132B] font-bold transition-all text-xs flex items-center gap-1.5 bg-gray-50 hover:bg-[#0B132B] hover:text-white">
+                        <span>View All</span>
+                        <span class="material-symbols-outlined text-[16px] transition-transform duration-300">expand_more</span>
+                    </button>
+                </div>
+                <div id="trustees-container" class="hidden transition-all duration-500 ease-in-out mt-5 pt-4 border-t border-gray-100">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="trustees-grid">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. GENERAL COMMITTEE SECTION -->
+            <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm transition-all duration-300">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[#0B132B]">
+                            <span class="material-symbols-outlined text-sm">groups</span>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-[#0B132B] uppercase tracking-wider">General Committee</h3>
+                            <p class="text-[11px] text-gray-400">Executive & General Members</p>
+                        </div>
+                    </div>
+                    <button data-target="committee-container" class="toggle-btn px-4 py-1.5 rounded-full border border-gray-200 hover:border-[#0B132B] text-[#0B132B] font-bold transition-all text-xs flex items-center gap-1.5 bg-gray-50 hover:bg-[#0B132B] hover:text-white">
+                        <span>View All</span>
+                        <span class="material-symbols-outlined text-[16px] transition-transform duration-300">expand_more</span>
+                    </button>
+                </div>
+                <div id="committee-container" class="hidden transition-all duration-500 ease-in-out mt-5 pt-4 border-t border-gray-100">
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3" id="extended-committee-grid">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. SUB COMMITTEES SECTION -->
+            <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm transition-all duration-300">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[#0B132B]">
+                            <span class="material-symbols-outlined text-sm">account_tree</span>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-[#0B132B] uppercase tracking-wider">Sub Committees</h3>
+                            <p class="text-[11px] text-gray-400">Section Heads & Leads</p>
+                        </div>
+                    </div>
+                    <button data-target="subcommittee-container" class="toggle-btn px-4 py-1.5 rounded-full border border-gray-200 hover:border-[#0B132B] text-[#0B132B] font-bold transition-all text-xs flex items-center gap-1.5 bg-gray-50 hover:bg-[#0B132B] hover:text-white">
+                        <span>View All</span>
+                        <span class="material-symbols-outlined text-[16px] transition-transform duration-300">expand_more</span>
+                    </button>
+                </div>
+                <div id="subcommittee-container" class="hidden transition-all duration-500 ease-in-out mt-5 pt-4 border-t border-gray-100">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="sub-committees-grid">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. OFFICE STAFF SECTION -->
+            <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm transition-all duration-300">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[#0B132B]">
+                            <span class="material-symbols-outlined text-sm">support_agent</span>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-[#0B132B] uppercase tracking-wider">Office Staff</h3>
+                            <p class="text-[11px] text-gray-400">Management & Operations</p>
+                        </div>
+                    </div>
+                    <button data-target="staff-container" class="toggle-btn px-4 py-1.5 rounded-full border border-gray-200 hover:border-[#0B132B] text-[#0B132B] font-bold transition-all text-xs flex items-center gap-1.5 bg-gray-50 hover:bg-[#0B132B] hover:text-white">
+                        <span>View All</span>
+                        <span class="material-symbols-outlined text-[16px] transition-transform duration-300">expand_more</span>
+                    </button>
+                </div>
+                <div id="staff-container" class="hidden transition-all duration-500 ease-in-out mt-5 pt-4 border-t border-gray-100">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3" id="staff-grid">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+        <section class="bg-white py-16 md:py-20 px-4 border-t-[6px] border-primary">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-black text-secondary">Historical Archives</h2>
+                    <p class="text-xs md:text-sm text-gray-600 mt-2">Explore our 100-year legacy. Select a category
+                        below or search directly.</p>
+                </div>
+
+                <div class="relative w-full max-w-lg mx-auto mb-10" id="search-container">
+                    <input type="text" id="global-search" placeholder="Search name or year (Auto-scrolls)..."
+                        class="w-full text-sm bg-gray-50 border border-gray-200 text-secondary placeholder-gray-500 shadow-inner rounded-full py-3 pl-12 pr-4 focus:ring-primary focus:bg-white focus:text-secondary focus:placeholder-gray-400 transition-all">
+                    <span class="material-symbols-outlined absolute left-4 top-3 text-gray-500">search</span>
+
+                    <div id="search-suggestions"
+                        class="absolute z-50 w-full bg-white border border-gray-200 rounded-lg mt-2 shadow-2xl hidden overflow-y-auto">
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 md:gap-3 mb-8 justify-center border-b border-gray-200 pb-8"
+                    id="archive-tabs">
+                    <button onclick="switchArchiveTab('captains')" id="tab-btn-captains"
+                        class="archive-btn active px-4 py-2 md:px-6 md:py-2.5 rounded-full bg-primary text-white text-xs md:text-sm font-bold shadow-md transition-all border border-primary">Past
+                        Captains</button>
+                    <button onclick="switchArchiveTab('secretaries')" id="tab-btn-secretaries"
+                        class="archive-btn px-4 py-2 md:px-6 md:py-2.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 border border-transparent text-xs md:text-sm font-bold transition-all">Secretaries</button>
+                    <button onclick="switchArchiveTab('treasurers')" id="tab-btn-treasurers"
+                        class="archive-btn px-4 py-2 md:px-6 md:py-2.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 border border-transparent text-xs md:text-sm font-bold transition-all">Treasurers</button>
+                    <button onclick="switchArchiveTab('honorary')" id="tab-btn-honorary"
+                        class="archive-btn px-4 py-2 md:px-6 md:py-2.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 border border-transparent text-xs md:text-sm font-bold transition-all flex items-center gap-1 md:gap-2">
+                        Honorary <span
+                            class="material-symbols-outlined text-[14px] md:text-[16px] text-yellow-500">workspace_premium</span>
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+                    <div id="view-captains" class="archive-view block fade-in">
+                        <div class="bg-gray-50 px-6 py-4 flex items-center gap-2 border-b border-gray-200">
+                            <span class="material-symbols-outlined text-primary">sports_rugby</span>
+                            <h3 class="text-sm font-black text-secondary uppercase tracking-widest">Past Captains</h3>
+                        </div>
+                        <div class="overflow-x-auto table-scroll max-h-[400px]">
+                            <table class="w-full text-left text-sm whitespace-nowrap">
+                                <thead class="bg-secondary text-white sticky top-0 z-10 border-b-2 border-primary">
+                                    <tr>
+                                        <th class="py-3 px-6 font-bold uppercase tracking-wider w-1/3 text-[11px]">Year
+                                        </th>
+                                        <th class="py-3 px-6 font-bold uppercase tracking-wider text-[11px]">Captain
+                                            Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100" id="table-captains"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="view-secretaries" class="archive-view hidden fade-in">
+                        <div class="bg-gray-50 px-6 py-4 flex items-center gap-2 border-b border-gray-200">
+                            <span class="material-symbols-outlined text-primary">edit_document</span>
+                            <h3 class="text-sm font-black text-secondary uppercase tracking-widest">Gen. Secretaries
+                            </h3>
+                        </div>
+                        <div class="overflow-x-auto table-scroll max-h-[400px]">
+                            <table class="w-full text-left text-sm whitespace-nowrap">
+                                <thead class="bg-secondary text-white sticky top-0 z-10 border-b-2 border-primary">
+                                    <tr>
+                                        <th class="py-3 px-6 font-bold uppercase tracking-wider w-1/3 text-[11px]">Year
+                                        </th>
+                                        <th class="py-3 px-6 font-bold uppercase tracking-wider text-[11px]">Secretary
+                                            Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100" id="table-secretaries"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="view-treasurers" class="archive-view hidden fade-in">
+                        <div class="bg-gray-50 px-6 py-4 flex items-center gap-2 border-b border-gray-200">
+                            <span class="material-symbols-outlined text-primary">account_balance</span>
+                            <h3 class="text-sm font-black text-secondary uppercase tracking-widest">Treasurers</h3>
+                        </div>
+                        <div class="overflow-x-auto table-scroll max-h-[400px]">
+                            <table class="w-full text-left text-sm whitespace-nowrap">
+                                <thead class="bg-secondary text-white sticky top-0 z-10 border-b-2 border-primary">
+                                    <tr>
+                                        <th class="py-3 px-6 font-bold uppercase tracking-wider w-1/3 text-[11px]">Year
+                                        </th>
+                                        <th class="py-3 px-6 font-bold uppercase tracking-wider text-[11px]">Treasurer
+                                            Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100" id="table-treasurers"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="view-honorary" class="archive-view hidden fade-in">
+                        <div class="bg-gray-50 px-6 py-4 flex items-center justify-between border-b border-gray-200">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-yellow-500">workspace_premium</span>
+                                <h3 class="text-sm font-black text-secondary uppercase tracking-widest">Honorary Members
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto table-scroll max-h-[400px]">
+                            <table class="w-full text-left text-sm whitespace-nowrap">
+                                <thead class="bg-secondary text-white sticky top-0 z-10 border-b-2 border-primary">
+                                    <tr>
+                                        <th class="py-3 px-6 font-bold uppercase tracking-wider w-1/3 text-[11px]">Year
+                                        </th>
+                                        <th class="py-3 px-6 font-bold uppercase tracking-wider text-[11px]">Member Name
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100" id="table-honorary"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-secondary text-gray-300 py-16 border-t-[6px] border-primary">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+            <div class="flex flex-col items-center md:items-start gap-4">
+                <div class="bg-white p-2 rounded-lg inline-block">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcPBKXe31SnHz45mJj62GkpEoD-62YNV9dlQ&s"
+                        alt="CR & FC Logo" class="h-16 w-auto object-contain" />
+                </div>
+                <h2 class="text-xl font-extrabold tracking-tight text-white">Ceylonese Rugby & Football Club</h2>
+                <p class="text-xs uppercase tracking-[0.2em] text-primary font-bold">Est. 1922</p>
+            </div>
+
+            <div class="space-y-4">
+                <h4
+                    class="text-sm font-bold uppercase tracking-wider text-white border-b-2 border-primary pb-2 inline-block">
+                    Quick Links</h4>
+                <nav class="flex flex-col gap-3 text-sm">
+                    <a class="hover:text-primary transition-colors flex items-center gap-2 justify-center md:justify-start"
+                        href="history.html"><span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        About Heritage</a>
+                    <a class="hover:text-primary transition-colors flex items-center gap-2 justify-center md:justify-start"
+                        href="squads.html"><span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        Squads</a>
+                    <a class="hover:text-primary transition-colors flex items-center gap-2 justify-center md:justify-start"
+                        href="fixtures.html"><span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        Fixtures</a>
+                    <a class="hover:text-primary transition-colors flex items-center gap-2 justify-center md:justify-start"
+                        href="reservation.html"><span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        Facilities</a>
+                </nav>
+            </div>
+
+            <div class="space-y-4">
+                <h4
+                    class="text-sm font-bold uppercase tracking-wider text-white border-b-2 border-primary pb-2 inline-block">
+                    Contact Info</h4>
+                <p class="text-sm leading-relaxed flex items-start gap-2 justify-center md:justify-start">
+                    <span class="material-symbols-outlined text-primary text-[18px] mt-0.5">location_on</span>
+                    Longdon Place,<br>Colombo 07, Sri Lanka.
+                </p>
+                <div class="flex items-center justify-center md:justify-start gap-4 mt-6">
+                    <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-primary transition-colors text-white"><span
+                            class="material-symbols-outlined text-[20px]">call</span></a>
+                    <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-primary transition-colors text-white"><span
+                            class="material-symbols-outlined text-[20px]">mail</span></a>
+                    <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-primary transition-colors text-white"><span
+                            class="material-symbols-outlined text-[20px]">language</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 text-center mt-12 border-t border-white/10 pt-8">
+            <p class="text-xs text-gray-400">© 2026 Ceylonese Rugby & Football Club. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+ <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    // ==========================================
+    // MOBILE MENU
+    // ==========================================
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+
+            const icon = menuBtn.querySelector('span');
+            if (icon) {
+                icon.textContent =
+                    mobileMenu.classList.contains('open') ? 'close' : 'menu';
+            }
+        });
+    }
+
+
+    // ==========================================
+    // OFFICE BEARERS - CR & FC 2026/27
+    // ==========================================
+    fetchOfficeBearers();
+
+
+    // ==========================================
+    // COMMITTEE / TRUSTEES / STAFF
+    // ==========================================
+    fetchCommitteeAndStaff();
+
+
+    // ==========================================
+    // HISTORICAL ARCHIVES
+    // ==========================================
+    fetchHistoricalArchives();
+
+
+    // ==========================================
+    // SEARCH
+    // ==========================================
+    setupSearchLogic();
+
+
+    // ==========================================
+    // ACCORDION BUTTONS
+    // ==========================================
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+
+        btn.addEventListener('click', () => {
+
+            const target =
+                document.getElementById(btn.dataset.target);
+
+            const icon =
+                btn.querySelector('.material-symbols-outlined');
+
+            if (!target) return;
+
+            const isHidden =
+                target.classList.contains('hidden');
+
+            target.classList.toggle('hidden');
+
+            if (icon) {
+                icon.style.transform =
+                    isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+        });
+
+    });
+
+});
+
+
+// ======================================================
+// OFFICE BEARERS
+// ======================================================
+
+function fetchOfficeBearers() {
+
+    const obGrid =
+        document.getElementById('office-bearers-grid');
+
+    if (!obGrid) return;
+
+
+    const officeBearers = [
+
+        {
+            name: "Dinuk De S. Wijeratne",
+            role: "President",
+            image_url: "https://crandfc.lk/wp-content/uploads/2026/06/1.png",
+            description:
+                "President of the Ceylonese Rugby & Football Club for the 2026/2027 season, elected at the club's 97th Annual General Meeting."
+        },
+
+        {
+            name: "Chirantha de Zoysa",
+            role: "Deputy President",
+            image_url: "https://crandfc.lk/wp-content/uploads/2026/06/2.png",
+            description:
+                "Deputy President of CR & FC, contributing to the club's leadership and continued development."
+        },
+
+       
+
+        {
+            name: "Jakque Diasz",
+            role: "Honorary General Secretary",
+            image_url: "1.jpeg",
+            description:
+                "Honorary General Secretary responsible for supporting the administration and governance of the club."
+        },
+
+        {
+            name: "Nuwan de Silva",
+            role: "Honorary Treasurer",
+            image_url: "https://crandfc.lk/wp-content/uploads/2026/06/3-1.png",
+            description:
+                "Honorary Treasurer responsible for supporting the financial administration of CR & FC."
+        }
+
+    ];
+
+
+    obGrid.innerHTML = '';
+
+
+    officeBearers.forEach(c => {
+
+        const profileImage = c.image_url
+
+            ? `
+                <img
+                    src="${c.image_url}"
+                    class="w-full h-full object-cover object-top absolute inset-0 transition-transform duration-500 group-hover:scale-110"
+                    alt="${c.name}"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+
+                <div
+                    class="w-full h-full bg-secondary text-white items-center justify-center text-5xl font-black absolute inset-0 hidden">
+                    ${c.name.split(' ').map(x => x[0]).join('').substring(0, 2)}
+                </div>
+              `
+
+            : `
+                <div
+                    class="w-full h-full bg-secondary text-white flex items-center justify-center text-5xl font-black absolute inset-0">
+                    ${c.name.split(' ').map(x => x[0]).join('').substring(0, 2)}
+                </div>
+              `;
+
+
+        obGrid.innerHTML += `
+
+            <div
+                class="group relative min-w-[260px] md:min-w-[280px] h-[360px]
+                bg-gray-200 rounded-3xl overflow-hidden shadow-sm
+                hover:shadow-2xl transition-all duration-300
+                cursor-pointer snap-center shrink-0">
+
+                ${profileImage}
+
+                <div
+                    class="absolute inset-0 bg-gradient-to-t
+                    from-secondary/90 via-secondary/10 to-transparent
+                    opacity-90">
+                </div>
+
+
+                <div
+                    class="absolute bottom-0 left-0 w-full p-5
+                    transition-transform duration-500
+                    group-hover:-translate-y-4 z-10 text-left">
+
+                    <h4
+                        class="text-xl font-black text-white
+                        drop-shadow-md leading-tight">
+                        ${c.name}
+                    </h4>
+
+                    <p
+                        class="text-[10px] font-bold text-primary
+                        uppercase tracking-widest mt-1
+                        drop-shadow-md">
+                        ${c.role}
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="absolute inset-0 bg-secondary/95
+                    backdrop-blur-sm p-6 flex flex-col
+                    justify-center items-center text-center
+                    opacity-0 group-hover:opacity-100
+                    transition-opacity duration-500 z-20">
+
+                    <span
+                        class="material-symbols-outlined text-4xl
+                        text-primary mb-4 opacity-80">
+                        format_quote
+                    </span>
+
+                    <p
+                        class="text-xs md:text-sm text-gray-300
+                        leading-relaxed font-medium">
+                        ${c.description}
+                    </p>
+
+                </div>
+
+            </div>
+        `;
+    });
+}
+
+
+
+// ======================================================
+// COMMITTEE / TRUSTEES / SUB COMMITTEES / STAFF
+// ======================================================
+
+function fetchCommitteeAndStaff() {
+
+    const committeeData = [
+
+        // -------------------------------
+        // TRUSTEES
+        // -------------------------------
+
+        {
+            target_table: "trustees",
+            name: "Mr. Indrajith Coomaraswamy",
+            role: "Trustee"
+        },
+
+        {
+            target_table: "trustees",
+            name: "Mr. Raji De Sylva",
+            role: "Trustee"
+        },
+
+        {
+            target_table: "trustees",
+            name: "Mr. Hemaka Amarasuriya",
+            role: "Trustee"
+        },
+
+
+        // -------------------------------
+        // GENERAL COMMITTEE
+        // -------------------------------
+
+        {
+            target_table: "general_committee",
+            name: "Dinuk De S. Wijeratne",
+            role: "President"
+        },
+
+        {
+            target_table: "general_committee",
+            name: "Chirantha de Zoysa",
+            role: "Deputy President"
+        },
+
+        {
+            target_table: "general_committee",
+            name: "Charya de Saram",
+            role: "Vice President"
+        },
+
+        {
+            target_table: "general_committee",
+            name: "Hamza Hassanally",
+            role: "Vice President"
+        },
+
+        {
+            target_table: "general_committee",
+            name: "Jacque Diaz",
+            role: "Honorary General Secretary"
+        },
+
+        {
+            target_table: "general_committee",
+            name: "Nuwan de Silva",
+            role: "Honorary Treasurer"
+        },
+
+        {
+            target_table: "general_committee",
+            name: "Ashean Karthelis",
+            role: "Honorary Ground Secretary"
+        },
+
+        {
+            target_table: "general_committee",
+            name: "Sean Dwight",
+            role: "Chairman - Rugby Board"
+        },
+
+        {
+            target_table: "general_committee",
+            name: "Ted Muttiah",
+            role: "Immediate Past President"
+        },
+
+        {
+            target_table: "general_committee",
+            name: "Prasantha Waidyaratne",
+            role: "Honorary Bar Secretary"
+        },
+
+
+        // -------------------------------
+        // SUB COMMITTEES
+        // -------------------------------
+
+        {
+            target_table: "sub_committees",
+            name: "Sean Dwight",
+            role: "Chairman",
+            category: "Rugby Board"
+        },
+
+        {
+            target_table: "sub_committees",
+            name: "Savantha de Saram",
+            role: "Board Member",
+            category: "Rugby Board"
+        },
+
+        {
+            target_table: "sub_committees",
+            name: "Ishan Noor",
+            role: "Board Member",
+            category: "Rugby Board"
+        },
+
+        {
+            target_table: "sub_committees",
+            name: "Sriyan Cooray",
+            role: "Board Member",
+            category: "Rugby Board"
+        },
+
+
+        // -------------------------------
+        // OFFICE STAFF
+        // -------------------------------
+
+        {
+            target_table: "management_staff",
+            name: "Dasun Welhena",
+            role: "General Manager"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Nayana Pujith",
+            role: "Operations Manager"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Harshana Premakeerthi",
+            role: "Finance Controller"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Sugirdha Subharathnam",
+            role: "Administration & Guest Relations Officer"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Ashoka Chandanathilaka",
+            role: "Manager F&B"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Lesly Marcus",
+            role: "Assistant Manager F&B"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Randika Jayamanne",
+            role: "Assistant Accountant"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Kavishka De Silva",
+            role: "Purchasing Executive"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Sangeeth Wickramarachchi",
+            role: "IT Executive"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Chinthaka Weerasinghe",
+            role: "Cost Controller"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Supun Wijayantha",
+            role: "Account Assistant"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Susantha Madiwaka",
+            role: "Head of Ground & Maintenance"
+        },
+
+        {
+            target_table: "management_staff",
+            name: "Priyantha Pushpakumara",
+            role: "Assistant Manager - Ground & Maintenance"
+        }
+
+    ];
+
+
+    // ==========================================
+    // GENERAL COMMITTEE
+    // ==========================================
+
+    const extendedCommittee =
+        committeeData.filter(
+            d => d.target_table === 'general_committee'
+        );
+
+    const extGrid =
+        document.getElementById('extended-committee-grid');
+
+    if (extGrid) {
+
+        extGrid.innerHTML = '';
+
+        extendedCommittee.forEach(c => {
+
+            extGrid.innerHTML += `
+
+                <div
+                    class="bg-gray-50/50 px-3 py-2 md:py-3
+                    rounded-lg border border-gray-100
+                    flex flex-col text-left
+                    hover:bg-red-50 hover:border-red-100
+                    transition-colors">
+
+                    <h4
+                        class="text-[11px] md:text-[13px]
+                        font-black text-secondary">
+                        ${c.name}
+                    </h4>
+
+                    <p
+                        class="text-[8px] md:text-[9px]
+                        font-bold text-gray-500
+                        uppercase tracking-widest mt-0.5">
+                        ${c.role}
+                    </p>
+
+                </div>
+            `;
+        });
+    }
+
+
+    // ==========================================
+    // TRUSTEES
+    // ==========================================
+
+    const trusteesData =
+        committeeData.filter(
+            d => d.target_table === 'trustees'
+        );
+
+    const trusteesGrid =
+        document.getElementById('trustees-grid');
+
+    if (trusteesGrid) {
+
+        trusteesGrid.innerHTML = '';
+
+        trusteesData.forEach(t => {
+
+            trusteesGrid.innerHTML += `
+
+                <div
+                    class="bg-gray-50/50 px-3 py-2 md:py-3
+                    rounded-lg border border-gray-100
+                    flex flex-col text-left
+                    hover:bg-red-50 hover:border-red-100
+                    transition-colors">
+
+                    <h4
+                        class="text-[11px] md:text-[13px]
+                        font-black text-secondary">
+                        ${t.name}
+                    </h4>
+
+                    <p
+                        class="text-[8px] md:text-[9px]
+                        font-bold text-gray-500
+                        uppercase tracking-widest mt-0.5">
+                        ${t.role}
+                    </p>
+
+                </div>
+            `;
+        });
+    }
+
+
+    // ==========================================
+    // SUB COMMITTEES
+    // ==========================================
+
+    const subCommitteesData =
+        committeeData.filter(
+            d => d.target_table === 'sub_committees'
+        );
+
+    const subGrid =
+        document.getElementById('sub-committees-grid');
+
+    if (subGrid) {
+
+        subGrid.innerHTML = '';
+
+        subCommitteesData.forEach(s => {
+
+            subGrid.innerHTML += `
+
+                <div
+                    class="bg-gray-50/50 px-3 py-2 md:py-3
+                    rounded-lg border border-gray-100
+                    flex flex-col text-left
+                    hover:bg-red-50 hover:border-red-100
+                    transition-colors">
+
+                    <h4
+                        class="text-[11px] md:text-[13px]
+                        font-black text-secondary">
+                        ${s.name}
+                    </h4>
+
+                    <p
+                        class="text-[8px] md:text-[9px]
+                        font-bold text-gray-500
+                        uppercase tracking-widest mt-0.5">
+
+                        ${s.role}
+                        ${s.category ? ` &middot; ${s.category}` : ''}
+
+                    </p>
+
+                </div>
+            `;
+        });
+    }
+
+
+    // ==========================================
+    // OFFICE STAFF
+    // ==========================================
+
+    const staffData =
+        committeeData.filter(
+            d => d.target_table === 'management_staff'
+        );
+
+    const staffGrid =
+        document.getElementById('staff-grid');
+
+    if (staffGrid) {
+
+        staffGrid.innerHTML = '';
+
+        staffData.forEach(s => {
+
+            staffGrid.innerHTML += `
+
+                <div
+                    class="flex flex-col py-2
+                    border-b border-gray-50 last:border-0">
+
+                    <span
+                        class="text-[11px] md:text-[12px]
+                        font-bold text-secondary">
+                        ${s.name}
+                    </span>
+
+                    <span
+                        class="text-[9px] text-gray-400
+                        font-medium">
+                        ${s.role}
+                    </span>
+
+                </div>
+            `;
+        });
+    }
+}
+
+
+
+// ======================================================
+// HISTORICAL ARCHIVES
+// ======================================================
+
+let allHistory = [];
+
+
+function fetchHistoricalArchives() {
+
+    const captains = [
+
+        { year: "1922", name: "E.H. Joseph" },
+        { year: "1930", name: "H.K. De Kretser" },
+        { year: "1940", name: "H.N.C.V. Kelaart" },
+        { year: "1950", name: "V.C. Kelaart" },
+        { year: "1960", name: "W.D. Ratnavale" },
+        { year: "1970", name: "G.C. Weinman" },
+        { year: "1980", name: "Lalith De Silva" },
+        { year: "1990", name: "S.R.P. Samarasekera" },
+        { year: "2000", name: "E.M.S. Matthysz" },
+        { year: "2003", name: "Chula Dharmadasa" },
+        { year: "2009", name: "Jehan CanagaRetna" },
+        { year: "2011", name: "Rienzie Fernando" },
+        { year: "2013", name: "Christo Jordashe" }
+
+    ];
+
+
+    const secretaries = [
+
+        { year: "1971", name: "C.H. Seneviratne" },
+        { year: "1972", name: "N.H. Omar" },
+        { year: "1973", name: "T.C.M. Omar" },
+        { year: "1974", name: "M.A. Carder" },
+        { year: "1977", name: "K. Padmaperuma" },
+        { year: "1984", name: "Cecil L. Perera" },
+        { year: "1991", name: "D.M. Balasuriya" },
+        { year: "1996", name: "J. CanagaRetna" },
+        { year: "2000", name: "Mahendra Balasuriya" },
+        { year: "2002", name: "V.L.A. Ratnayake" },
+        { year: "2013", name: "Ransiri Sahabandu" },
+        { year: "2016", name: "Hamza Hassanally" },
+        { year: "2019", name: "Jakque Diasz" },
+        { year: "2023", name: "Jakque Diasz" }
+
+    ];
+
+
+    const treasurers = [
+
+        { year: "1971", name: "N.H. Omar" },
+        { year: "1972", name: "S. Samaravikrama" },
+        { year: "1974", name: "Nesan Asiriwathan" },
+        { year: "1979", name: "P.C.H. Fernando" },
+        { year: "1983", name: "E.R. Abeydeera" },
+        { year: "1991", name: "S.J.W. Jayarathnam" },
+        { year: "1995", name: "C.F. Fernando" },
+        { year: "1998", name: "Sunil Karunanayake" },
+        { year: "2000", name: "Uddaka Thennakoon" },
+        { year: "2013", name: "I.V.A. Gunathilaka" },
+        { year: "2016", name: "Aashiq Lafir" },
+        { year: "2020", name: "Ravi Edirisinghe" }
+
+    ];
+
+
+    const honorary = [
+
+        { year: "1928", name: "Roy Wells" },
+        { year: "1932", name: "Basil Drieberg" },
+        { year: "1934", name: "F.J.D. Saram" },
+        { year: "1936", name: "Col. E.H. Joseph" },
+        { year: "1949", name: "Dr. L.O. Weinman" },
+        { year: "1952", name: "Dr. Noel Kelaat" },
+        { year: "1956", name: "G. De Zoysa" },
+        { year: "1960", name: "Dr. W.D. Ratnavale" },
+        { year: "1967", name: "Col. Stanley Fernando" },
+        { year: "1972", name: "Dr. K.B. Sangakkara" },
+        { year: "1980", name: "Dr. Percy De Zilva" },
+        { year: "1988", name: "Fred Kellar" },
+        { year: "1990", name: "Devaka Rodrigo" },
+        { year: "1999", name: "R.T. De Sylva" },
+        { year: "2001", name: "I. Coomaraswamy" },
+        { year: "2008", name: "R.T. Molligoda" },
+        { year: "2011", name: "Ajith Abeyrathne" },
+        { year: "2018", name: "Hemaka Amarasuriya" },
+        { year: "2021", name: "Dr. Maiya Gunasekera" },
+        { year: "2022", name: "Rienzie Fernando" },
+        { year: "2024", name: "Sriyan Cooray" },
+        { year: "2024", name: "Ted Hiran Muttiah" }
+
+    ];
+
+
+    allHistory = [
+
+        ...captains.map(x => ({
+            ...x,
+            type: "Captain",
+            targetTab: "captains",
+            prefix: "cap"
+        })),
+
+        ...secretaries.map(x => ({
+            ...x,
+            type: "Secretary",
+            targetTab: "secretaries",
+            prefix: "sec"
+        })),
+
+        ...treasurers.map(x => ({
+            ...x,
+            type: "Treasurer",
+            targetTab: "treasurers",
+            prefix: "tre"
+        })),
+
+        ...honorary.map(x => ({
+            ...x,
+            type: "Hon. Member",
+            targetTab: "honorary",
+            prefix: "hon"
+        }))
+
+    ];
+
+
+    const buildTable = (tableData, elementId, prefix) => {
+
+        const tbody =
+            document.getElementById(elementId);
+
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+
+
+        [...tableData].reverse().forEach((item, i) => {
+
+            const rowId =
+                `row-${prefix}-${item.year}-${i}`;
+
+            tbody.innerHTML += `
+
+                <tr
+                    id="${rowId}"
+                    class="hover:bg-gray-100
+                    transition-colors
+                    border-b border-gray-50">
+
+                    <td
+                        class="py-3 px-6 font-black text-primary
+                        text-[12px] border-r border-gray-50
+                        w-1/4">
+                        ${item.year}
+                    </td>
+
+                    <td
+                        class="py-3 px-6 font-bold
+                        text-gray-700 text-[13px]">
+                        ${item.name}
+                    </td>
+
+                </tr>
+            `;
+
+
+            const ref =
+                allHistory.find(x =>
+                    x.prefix === prefix &&
+                    x.year === item.year &&
+                    x.name === item.name
+                );
+
+            if (ref) {
+                ref.exactId = rowId;
+            }
+
+        });
+
+    };
+
+
+    buildTable(
+        captains,
+        'table-captains',
+        'cap'
+    );
+
+    buildTable(
+        secretaries,
+        'table-secretaries',
+        'sec'
+    );
+
+    buildTable(
+        treasurers,
+        'table-treasurers',
+        'tre'
+    );
+
+    buildTable(
+        honorary,
+        'table-honorary',
+        'hon'
+    );
+}
+
+
+
+// ======================================================
+// SEARCH
+// ======================================================
+
+function setupSearchLogic() {
+
+    const searchInput =
+        document.getElementById('global-search');
+
+    const suggestionsPanel =
+        document.getElementById('search-suggestions');
+
+    if (!searchInput || !suggestionsPanel) return;
+
+
+    searchInput.addEventListener('input', () => {
+
+        const val =
+            searchInput.value.toLowerCase();
+
+        suggestionsPanel.innerHTML = '';
+
+
+        if (!val) {
+
+            suggestionsPanel.classList.add('hidden');
+
+            return;
+        }
+
+
+        const filtered =
+            allHistory.filter(c =>
+                c.name.toLowerCase().includes(val) ||
+                String(c.year).includes(val)
+            );
+
+
+        if (filtered.length > 0) {
+
+            suggestionsPanel.classList.remove('hidden');
+
+
+            filtered.forEach(item => {
+
+                const div =
+                    document.createElement('div');
+
+                div.className =
+                    "px-4 py-3 text-secondary hover:bg-gray-50 cursor-pointer text-sm border-b border-gray-100 flex justify-between items-center transition-colors";
+
+
+                div.innerHTML = `
+
+                    <div>
+
+                        <span
+                            class="font-bold text-primary mr-1">
+                            ${item.year}
+                        </span>
+
+                        -
+
+                        <span class="font-bold ml-1">
+                            ${item.name}
+                        </span>
+
+                    </div>
+
+                    <span
+                        class="text-[9px] bg-secondary
+                        text-white font-bold px-2 py-1
+                        rounded uppercase shadow-sm">
+                        ${item.type}
+                    </span>
+
+                `;
+
+
+                div.onclick = () => {
+
+                    searchInput.value =
+                        item.name;
+
+                    suggestionsPanel.classList.add('hidden');
+
+
+                    if (window.switchArchiveTab) {
+                        window.switchArchiveTab(
+                            item.targetTab
+                        );
+                    }
+
+
+                    setTimeout(() => {
+
+                        const targetRow =
+                            document.getElementById(
+                                item.exactId
+                            );
+
+                        if (targetRow) {
+
+                            targetRow.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+
+                            targetRow.classList.add(
+                                'highlight-row'
+                            );
+
+
+                            setTimeout(() => {
+
+                                targetRow.classList.remove(
+                                    'highlight-row'
+                                );
+
+                            }, 2000);
+
+                        }
+
+                    }, 50);
+
+                };
+
+
+                suggestionsPanel.appendChild(div);
+
+            });
+
+        } else {
+
+            suggestionsPanel.classList.add('hidden');
+
+        }
+
+    });
+
+
+    document.addEventListener('click', (e) => {
+
+        const container =
+            document.getElementById('search-container');
+
+        if (
+            container &&
+            !container.contains(e.target)
+        ) {
+            suggestionsPanel.classList.add('hidden');
+        }
+
+    });
+
+}
+
+
+
+// ======================================================
+// TAB SWITCHING
+// ======================================================
+
+window.switchArchiveTab = function(tabId) {
+
+    document.querySelectorAll('.archive-view')
+        .forEach(el => {
+
+            el.classList.remove('block');
+
+            el.classList.add('hidden');
+
+        });
+
+
+    document.querySelectorAll('.archive-btn')
+        .forEach(btn => {
+
+            btn.classList.remove(
+                'bg-primary',
+                'text-white',
+                'shadow-md',
+                'border-primary'
+            );
+
+            btn.classList.add(
+                'bg-gray-100',
+                'text-gray-600',
+                'border-transparent',
+                'hover:bg-gray-200'
+            );
+
+        });
+
+
+    const targetView =
+        document.getElementById(
+            'view-' + tabId
+        );
+
+    if (targetView) {
+
+        targetView.classList.remove('hidden');
+
+        targetView.classList.add('block');
+
+    }
+
+
+    const activeBtn =
+        document.getElementById(
+            'tab-btn-' + tabId
+        );
+
+    if (activeBtn) {
+
+        activeBtn.classList.remove(
+            'bg-gray-100',
+            'text-gray-600',
+            'border-transparent',
+            'hover:bg-gray-200'
+        );
+
+        activeBtn.classList.add(
+            'bg-primary',
+            'text-white',
+            'shadow-md',
+            'border-primary'
+        );
+
+    }
+
+};
+</script>
+</body>
+
+</html>

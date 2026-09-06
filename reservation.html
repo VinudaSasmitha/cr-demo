@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Facilities | CR & FC</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d33131",
+                        "secondary": "#1a2a44",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#201212",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        /* Slide up animation for contact panels */
+        .contact-panel {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hide scrollbar in panels */
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="text-secondary selection:bg-primary selection:text-white pb-16 md:pb-0">
+
+<!-- Header Placement Container -->
+<div id="header-container"></div>
+
+<!-- External Header Component JS Script -->
+<script src="header.js"></script>
+    <main class="pb-24 sm:pb-32">
+
+        <section class="bg-secondary py-16 sm:py-24 px-4 text-center relative overflow-hidden">
+            <div
+                class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1543165243-d92e591a457c?q=80&w=1920')] bg-cover bg-center">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-secondary/90"></div>
+            <div class="relative z-10 max-w-4xl mx-auto">
+                <span
+                    class="bg-primary/20 border border-primary text-primary px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-6 inline-block">Experience
+                    Excellence</span>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4 sm:mb-6 tracking-tight">OUR <span
+                        class="text-primary">Facilities</span></h1>
+                <p class="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                    Discover the premium amenities available to members and guests at the historic Longdon Place. From
+                    professional sports grounds to relaxing clubhouses.
+                </p>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 -mt-8 sm:-mt-10 relative z-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
+                <div
+                    class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col relative h-full group">
+                    <div class="h-48 sm:h-56 relative overflow-hidden">
+                        <img src="https://www.swimholdings.lk/images/projects/thumbs/5.jpg"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-sm">
+                        <div
+                            class="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5 flex flex-col items-center justify-center text-center z-10">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-2">format_quote</span>
+                            <p class="text-white text-xs sm:text-sm font-medium leading-relaxed">Swim America at CR & FC
+                                offers premier, ASCA-licensed "Learn-to-Swim" programs for all ages, focusing on
+                                world-class technique and water safety in a professional environment.</p>
+                        </div>
+                        <div
+                            class="absolute top-3 right-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow-md z-0">
+                            Swim America</div>
+                    </div>
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow bg-white z-10 relative">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary text-xl">pool</span>
+                            <h3 class="text-lg sm:text-xl font-black text-secondary">Swimming Pool</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs sm:text-sm mb-5 leading-relaxed">Premier ASCA-licensed
+                            Learn-to-Swim programs.</p>
+                        <button onclick="toggleContact('contact-pool')"
+                            class="mt-auto w-full bg-gray-50 hover:bg-primary text-secondary hover:text-white border border-gray-200 hover:border-primary text-sm font-bold py-3 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+                            <span class="material-symbols-outlined text-[18px]">call</span> Contact / Book
+                        </button>
+                    </div>
+                    <div id="contact-pool"
+                        class="contact-panel absolute inset-0 bg-white/95 backdrop-blur-sm p-6 flex flex-col justify-center transform translate-y-full z-20 rounded-2xl shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
+                        <button onclick="toggleContact('contact-pool')"
+                            class="absolute top-4 right-4 text-gray-400 hover:text-primary bg-gray-100 rounded-full p-1"><span
+                                class="material-symbols-outlined">close</span></button>
+                        <h4 class="text-xl font-black text-secondary mb-1">Swim America</h4>
+                        <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-6">Direct Contacts
+                        </p>
+                        <div class="space-y-3 w-full hide-scroll overflow-y-auto">
+                            <a href="tel:+94112055529"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-sm">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">call</span></div> +94
+                                11 205 5529
+                            </a>
+                            <a href="tel:+94114320138"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-sm">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">call</span></div> +94
+                                11 432 0138
+                            </a>
+                            <a href="mailto:info@swimamerica.lk"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-xs">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">mail</span></div>
+                                info@swimamerica.lk
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col relative h-full group">
+                    <div class="h-48 sm:h-56 relative overflow-hidden">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/045/740/014/small_2x/balls-near-the-net-of-a-blue-padel-tennis-court-photo.jpg"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-sm">
+                        <div
+                            class="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5 flex flex-col items-center justify-center text-center z-10">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-2">format_quote</span>
+                            <p class="text-white text-xs sm:text-sm font-medium leading-relaxed">Padel House at CR & FC
+                                features Sri Lanka’s first international-standard padel tennis courts, offering a
+                                fast-paced, social, and easy-to-learn sporting experience for all skill levels.</p>
+                        </div>
+                        <div
+                            class="absolute top-3 right-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow-md z-0">
+                            Padel House</div>
+                    </div>
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow bg-white z-10 relative">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary text-xl">sports_tennis</span>
+                            <h3 class="text-lg sm:text-xl font-black text-secondary">Padel Tennis</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs sm:text-sm mb-5 leading-relaxed">Sri Lanka’s first
+                            international-standard padel courts.</p>
+                        <button onclick="toggleContact('contact-padel')"
+                            class="mt-auto w-full bg-gray-50 hover:bg-primary text-secondary hover:text-white border border-gray-200 hover:border-primary text-sm font-bold py-3 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+                            <span class="material-symbols-outlined text-[18px]">download</span> Get the App
+                        </button>
+                    </div>
+                    <div id="contact-padel"
+                        class="contact-panel absolute inset-0 bg-white/95 backdrop-blur-sm p-6 flex flex-col justify-center transform translate-y-full z-20 rounded-2xl shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
+                        <button onclick="toggleContact('contact-padel')"
+                            class="absolute top-4 right-4 text-gray-400 hover:text-primary bg-gray-100 rounded-full p-1"><span
+                                class="material-symbols-outlined">close</span></button>
+                        <h4 class="text-xl font-black text-secondary mb-1">Download App</h4>
+                        <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-6">Book Courts via
+                            Padel House</p>
+                        <div class="space-y-3 w-full">
+                            <a href="https://apps.apple.com/lk/app/padel-house-sl/id6478009178" target="_blank"
+                                class="flex items-center gap-3 bg-black hover:bg-gray-800 text-white w-full p-3.5 rounded-xl font-bold transition shadow-md text-sm">
+                                <span class="material-symbols-outlined text-white">apple</span> Apple App Store
+                            </a>
+                            <a href="https://play.google.com/store/apps/details?id=com.webappclouds.padelhouse"
+                                target="_blank"
+                                class="flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white w-full p-3.5 rounded-xl font-bold transition shadow-md text-sm">
+                                <span class="material-symbols-outlined text-white">shop</span> Google Play Store
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col relative h-full group">
+                    <div class="h-48 sm:h-56 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1552318965-6e6be7484ada?q=80&w=800"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-sm">
+                        <div
+                            class="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5 flex flex-col items-center justify-center text-center z-10">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-2">format_quote</span>
+                            <p class="text-white text-xs sm:text-sm font-medium leading-relaxed">The CR & FC Futsal
+                                Arena offers a premier, high-performance turf designed for fast-paced action, making it
+                                the ultimate destination for social matches and tournaments.</p>
+                        </div>
+                        <div
+                            class="absolute top-3 right-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow-md z-0">
+                            Arena</div>
+                    </div>
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow bg-white z-10 relative">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary text-xl">sports_soccer</span>
+                            <h3 class="text-lg sm:text-xl font-black text-secondary">Futsal Arena</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs sm:text-sm mb-5 leading-relaxed">High-performance turf for
+                            fast-paced action.</p>
+                        <button onclick="toggleContact('contact-futsal')"
+                            class="mt-auto w-full bg-gray-50 hover:bg-primary text-secondary hover:text-white border border-gray-200 hover:border-primary text-sm font-bold py-3 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+                            <span class="material-symbols-outlined text-[18px]">call</span> Contact / Book
+                        </button>
+                    </div>
+                    <div id="contact-futsal"
+                        class="contact-panel absolute inset-0 bg-white/95 backdrop-blur-sm p-6 flex flex-col justify-center transform translate-y-full z-20 rounded-2xl shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
+                        <button onclick="toggleContact('contact-futsal')"
+                            class="absolute top-4 right-4 text-gray-400 hover:text-primary bg-gray-100 rounded-full p-1"><span
+                                class="material-symbols-outlined">close</span></button>
+                        <h4 class="text-xl font-black text-secondary mb-1">Futsal Arena</h4>
+                        <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-6">Direct Contacts
+                        </p>
+                        <div class="space-y-3 w-full">
+                            <a href="tel:+94773053432"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-sm">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">call</span></div> +94
+                                077 305 3432
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col relative h-full group">
+                    <div class="h-48 sm:h-56 relative overflow-hidden bg-gray-100">
+                        <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=800"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-sm">
+                        <div
+                            class="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5 flex flex-col items-center justify-center text-center z-10">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-2">format_quote</span>
+                            <p class="text-white text-xs sm:text-sm font-medium leading-relaxed">Mercantile Badminton
+                                Trust offers world-class training and premium court rentals for both competitive players
+                                and enthusiasts in a state-of-the-art facility.</p>
+                        </div>
+                        <div
+                            class="absolute top-3 right-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow-md z-0">
+                            Mercantile Trust</div>
+                    </div>
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow bg-white z-10 relative">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary text-xl">sports_gymnastics</span>
+                            <h3 class="text-lg sm:text-xl font-black text-secondary">Badminton Courts</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs sm:text-sm mb-5 leading-relaxed">World-class training & premium
+                            court rentals.</p>
+                        <button onclick="toggleContact('contact-badminton')"
+                            class="mt-auto w-full bg-gray-50 hover:bg-primary text-secondary hover:text-white border border-gray-200 hover:border-primary text-sm font-bold py-3 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+                            <span class="material-symbols-outlined text-[18px]">call</span> Contact / Book
+                        </button>
+                    </div>
+                    <div id="contact-badminton"
+                        class="contact-panel absolute inset-0 bg-white/95 backdrop-blur-sm p-6 flex flex-col justify-center transform translate-y-full z-20 rounded-2xl shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
+                        <button onclick="toggleContact('contact-badminton')"
+                            class="absolute top-4 right-4 text-gray-400 hover:text-primary bg-gray-100 rounded-full p-1"><span
+                                class="material-symbols-outlined">close</span></button>
+                        <h4 class="text-xl font-black text-secondary mb-1">Mr. Lalith Perera</h4>
+                        <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-6">Badminton Contact
+                        </p>
+                        <div class="space-y-3 w-full">
+                            <a href="tel:+94778156167"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-sm">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">call</span></div> +94
+                                77 815 6167
+                            </a>
+                            <p class="text-xs text-gray-500 text-center font-bold mt-4">Open 6:00 AM - 10:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col relative h-full group">
+                    <div class="h-48 sm:h-56 relative overflow-hidden">
+                        <img src="https://levelsprotein.com/cdn/shop/articles/Sandbag-exercises.jpg?v=1604343144&width=2048"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-sm">
+                        <div
+                            class="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5 flex flex-col items-center justify-center text-center z-10">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-2">format_quote</span>
+                            <p class="text-white text-xs sm:text-sm font-medium leading-relaxed">The Endurance Lab .lk
+                                at CR & FC is a premier high-performance fitness center specializing in strength,
+                                conditioning, and specialized endurance training.</p>
+                        </div>
+                        <div
+                            class="absolute top-3 right-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow-md z-0">
+                            The Endurance Lab</div>
+                    </div>
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow bg-white z-10 relative">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary text-xl">monitor_heart</span>
+                            <h3 class="text-lg sm:text-xl font-black text-secondary">Endurance Fitness</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs sm:text-sm mb-5 leading-relaxed">Specializing in strength &
+                            conditioning.</p>
+                        <button onclick="toggleContact('contact-endurance')"
+                            class="mt-auto w-full bg-gray-50 hover:bg-primary text-secondary hover:text-white border border-gray-200 hover:border-primary text-sm font-bold py-3 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+                            <span class="material-symbols-outlined text-[18px]">call</span> Contact / Book
+                        </button>
+                    </div>
+                    <div id="contact-endurance"
+                        class="contact-panel absolute inset-0 bg-white/95 backdrop-blur-sm p-6 flex flex-col justify-center transform translate-y-full z-20 rounded-2xl shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
+                        <button onclick="toggleContact('contact-endurance')"
+                            class="absolute top-4 right-4 text-gray-400 hover:text-primary bg-gray-100 rounded-full p-1"><span
+                                class="material-symbols-outlined">close</span></button>
+                        <h4 class="text-xl font-black text-secondary mb-1">Mr. Mithun Liyanage</h4>
+                        <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-6">The Endurance Lab
+                            .lk</p>
+                        <div class="space-y-3 w-full">
+                            <a href="tel:+940761556306"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-sm">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">call</span></div> +94
+                                076 155 6306
+                            </a>
+                            <a href="mailto:mithun.elab@gmail.com"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-xs">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">mail</span></div>
+                                mithun.elab@gmail.com
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col relative h-full group">
+                    <div class="h-48 sm:h-56 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-sm">
+                        <div
+                            class="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5 flex flex-col items-center justify-center text-center z-10">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-2">format_quote</span>
+                            <p class="text-white text-xs sm:text-sm font-medium leading-relaxed">Power World Gym at CR &
+                                FC provides an excellent fitness experience with state-of-the-art equipment and expert
+                                trainers dedicated to wellness.</p>
+                        </div>
+                        <div
+                            class="absolute top-3 right-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow-md z-0">
+                            Power World Gym</div>
+                    </div>
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow bg-white z-10 relative">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary text-xl">fitness_center</span>
+                            <h3 class="text-lg sm:text-xl font-black text-secondary">Fully-Equipped Gym</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs sm:text-sm mb-5 leading-relaxed">State-of-the-art equipment &
+                            expert trainers.</p>
+                        <button onclick="toggleContact('contact-gym')"
+                            class="mt-auto w-full bg-gray-50 hover:bg-primary text-secondary hover:text-white border border-gray-200 hover:border-primary text-sm font-bold py-3 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+                            <span class="material-symbols-outlined text-[18px]">call</span> Contact / Book
+                        </button>
+                    </div>
+                    <div id="contact-gym"
+                        class="contact-panel absolute inset-0 bg-white/95 backdrop-blur-sm p-6 flex flex-col justify-center transform translate-y-full z-20 rounded-2xl shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
+                        <button onclick="toggleContact('contact-gym')"
+                            class="absolute top-4 right-4 text-gray-400 hover:text-primary bg-gray-100 rounded-full p-1"><span
+                                class="material-symbols-outlined">close</span></button>
+                        <h4 class="text-xl font-black text-secondary mb-1">Power World Gym</h4>
+                        <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-6">Contact
+                            Information</p>
+                        <div class="space-y-3 w-full">
+                            <a href="tel:+94114954633"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-sm">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">call</span></div> +94
+                                11 495 4633
+                            </a>
+                            <p class="text-xs text-gray-500 text-center font-bold mt-4">Mon to Sat: 5:00 AM - 10:00 PM
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col relative h-full group">
+                    <div class="h-48 sm:h-56 relative overflow-hidden">
+                        <img src="https://crandfc.lk/wp-content/uploads/2023/10/Tennis-min-scaled.jpg"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-sm">
+                        <div
+                            class="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5 flex flex-col items-center justify-center text-center z-10">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-2">format_quote</span>
+                            <p class="text-white text-xs sm:text-sm font-medium leading-relaxed">Synergy Tennis Academy
+                                provides elite-level coaching for all ages, combining technical expertise with a passion
+                                for the game.</p>
+                        </div>
+                        <div
+                            class="absolute top-3 right-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow-md z-0">
+                            Synergy Academy</div>
+                    </div>
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow bg-white z-10 relative">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary text-xl">sports_tennis</span>
+                            <h3 class="text-lg sm:text-xl font-black text-secondary">Tennis Courts</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs sm:text-sm mb-5 leading-relaxed">Elite-level coaching & premier
+                            floodlit courts.</p>
+                        <button onclick="toggleContact('contact-tennis')"
+                            class="mt-auto w-full bg-gray-50 hover:bg-primary text-secondary hover:text-white border border-gray-200 hover:border-primary text-sm font-bold py-3 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+                            <span class="material-symbols-outlined text-[18px]">call</span> Contact / Book
+                        </button>
+                    </div>
+                    <div id="contact-tennis"
+                        class="contact-panel absolute inset-0 bg-white/95 backdrop-blur-sm p-6 flex flex-col justify-center transform translate-y-full z-20 rounded-2xl shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
+                        <button onclick="toggleContact('contact-tennis')"
+                            class="absolute top-4 right-4 text-gray-400 hover:text-primary bg-gray-100 rounded-full p-1"><span
+                                class="material-symbols-outlined">close</span></button>
+                        <h4 class="text-xl font-black text-secondary mb-1">Synergy Academy</h4>
+                        <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-6">Contact
+                            Information</p>
+                        <div class="space-y-3 w-full">
+                            <a href="tel:+94779954481"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-sm">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">call</span></div> +94
+                                77 995 4481
+                            </a>
+                            <a href="tel:+94719954481"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-sm">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">call</span></div> +94
+                                71 995 4481
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col relative h-full group">
+                    <div class="h-48 sm:h-56 relative overflow-hidden bg-gray-200">
+                        <img src="https://www.essex.ac.uk/-/media/header-images/2018/05/squash-courts-header-image.jpg?h=512&w=512&la=en&hash=E0A59F76A2CC258445F03EC597E1D5B6"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-sm">
+                        <div
+                            class="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5 flex flex-col items-center justify-center text-center z-10">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-2">format_quote</span>
+                            <p class="text-white text-xs sm:text-sm font-medium leading-relaxed">CR & FC offers premium
+                                squash courts available for members and guests. Book your court or inquire about marker
+                                services today.</p>
+                        </div>
+                        <div
+                            class="absolute top-3 right-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow-md z-0">
+                            Members & Guests</div>
+                    </div>
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow bg-white z-10 relative">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-primary text-xl">sports_score</span>
+                            <h3 class="text-lg sm:text-xl font-black text-secondary">Squash Courts</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs sm:text-sm mb-5 leading-relaxed">Enclosed premium glass-back
+                            courts.</p>
+                        <button onclick="toggleContact('contact-squash')"
+                            class="mt-auto w-full bg-gray-50 hover:bg-primary text-secondary hover:text-white border border-gray-200 hover:border-primary text-sm font-bold py-3 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+                            <span class="material-symbols-outlined text-[18px]">call</span> Contact / Book
+                        </button>
+                    </div>
+                    <div id="contact-squash"
+                        class="contact-panel absolute inset-0 bg-white/95 backdrop-blur-sm p-6 flex flex-col justify-center transform translate-y-full z-20 rounded-2xl shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
+                        <button onclick="toggleContact('contact-squash')"
+                            class="absolute top-4 right-4 text-gray-400 hover:text-primary bg-gray-100 rounded-full p-1"><span
+                                class="material-symbols-outlined">close</span></button>
+                        <h4 class="text-xl font-black text-secondary mb-1">Squash Bookings</h4>
+                        <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-6">Contact
+                            Information</p>
+                        <div class="space-y-3 w-full">
+                            <a href="tel:+94779765310"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-xs sm:text-sm">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">person</span></div>
+                                Mr. Nayana E. (+94 77 976 5310)
+                            </a>
+                            <a href="tel:+94117586834"
+                                class="flex items-center gap-3 bg-white border border-gray-200 shadow-sm p-3.5 rounded-xl text-secondary hover:border-primary hover:text-primary transition-all font-bold text-xs sm:text-sm">
+                                <div class="bg-primary/10 p-1.5 rounded-lg"><span
+                                        class="material-symbols-outlined text-primary text-[18px]">domain</span></div>
+                                Club Office (+94 11 758 6834)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+        </section>
+
+    </main>
+
+    <footer class="bg-secondary text-white pt-16 pb-8 border-t-[6px] border-primary relative z-10">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <!-- Brand & Description -->
+        <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-white p-1.5 rounded-lg inline-block">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcPBKXe31SnHz45mJj62GkpEoD-62YNV9dlQ&s"
+                        alt="CR & FC Logo" class="h-12 w-auto object-contain" />
+                </div>
+                <div>
+                    <h2 class="text-2xl font-black tracking-tight leading-none text-white">CR & FC</h2>
+                    <p class="text-xs uppercase tracking-[0.2em] text-primary font-bold">Est. 1922</p>
+                </div>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed max-w-md mb-6">
+                Ceylonese Rugby & Football Club is built on a century of excellence, grit, and brotherhood. Join us
+                at Longdon Place to experience the true spirit of sportsmanship.
+            </p>
+            
+            <!-- Social Media Buttons -->
+            <div class="flex items-center gap-3">
+                <!-- Facebook -->
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#1877F2] flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="Facebook">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <!-- Instagram -->
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#E4405F] flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="Instagram">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#0A66C2] flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="LinkedIn">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <!-- TikTok -->
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#000000] border border-white/20 flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="TikTok">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.29-2.92 1.08-5.83 3.47-7.5 1.25-.89 2.76-1.37 4.29-1.37.13 0 .26.01.39.02v4.03c-.76-.04-1.53.11-2.22.45-.96.48-1.68 1.34-1.92 2.38-.34 1.4.1 2.92 1.13 3.89 1.04.98 2.58 1.29 3.91.77 1.04-.4 1.83-1.28 2.08-2.36.17-.81.16-1.65.16-2.48V0z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+            <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 flex items-center gap-2">
+                <span class="w-2 h-2 bg-primary rounded-full"></span> Quick Links
+            </h4>
+            <ul class="space-y-3 text-sm font-medium text-gray-400">
+                <li><a href="history.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Our History</a></li>
+                <li><a href="squads.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Rugby Squads</a></li>
+                <li><a href="fixtures.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Matches & Tickets</a></li>
+                <li><a href="reservation.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Reserve Facilities</a></li>
+            </ul>
+        </div>
+
+        <!-- Reach Us Section -->
+        <div>
+            <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 flex items-center gap-2">
+                <span class="w-2 h-2 bg-primary rounded-full"></span> Reach Us
+            </h4>
+            <ul class="space-y-4 text-sm text-gray-400">
+                <li class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-primary text-xl">location_on</span>
+                    <span>28, Malalasekara Mawatha,<br>Colombo 07, Sri Lanka</span>
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-xl">call</span>
+                    <a href="tel:+94112581124" class="hover:text-white transition-colors">+94 11 2 581 124</a>
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-xl">mail</span>
+                    <a href="mailto:info@crandfc.lk" class="hover:text-white transition-colors">info@crandfc.lk</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom Copyright & Social Links -->
+    <div class="max-w-7xl mx-auto px-4 border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 font-medium gap-4">
+        <p>&copy; 2026 Ceylonese Rugby & Football Club. All Rights Reserved.</p>
+        <div class="flex items-center gap-5">
+            <a href="https://facebook.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Facebook</a>
+            <a href="https://instagram.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a>
+            <a href="https://linkedin.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn</a>
+            <a href="https://tiktok.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.29-2.92 1.08-5.83 3.47-7.5 1.25-.89 2.76-1.37 4.29-1.37.13 0 .26.01.39.02v4.03c-.76-.04-1.53.11-2.22.45-.96.48-1.68 1.34-1.92 2.38-.34 1.4.1 2.92 1.13 3.89 1.04.98 2.58 1.29 3.91.77 1.04-.4 1.83-1.28 2.08-2.36.17-.81.16-1.65.16-2.48V0z"/></svg> TikTok</a>
+        </div>
+    </div>
+
+    <!-- Creator Credit Section -->
+    <div class="max-w-7xl mx-auto px-4 mt-6 pt-4 border-t border-white/5 text-center text-xs text-gray-400">
+        <p class="inline-flex items-center flex-wrap justify-center gap-2">
+            <span>Created by - <strong class="text-white font-semibold">Vinuda Edirisooriya</strong></span>
+            <span class="hidden sm:inline text-gray-600">•</span>
+            <a href="https://linkedin.com/in/vinuda-edirisooriya" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors inline-flex items-center gap-1 font-medium text-gray-300">
+                <svg class="w-3.5 h-3.5 fill-current text-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn
+            </a>
+            <span class="hidden sm:inline text-gray-600">•</span>
+            <a href="mailto:vinudasasmitha29@gmail.com" class="hover:text-white transition-colors inline-flex items-center gap-1 font-medium text-gray-300">
+                <span class="material-symbols-outlined text-sm text-primary">mail</span> vinudasasmitha29@gmail.com
+            </a>
+        </p>
+    </div>
+</footer><!-- Mobile Bottom Navigation -->
+<nav
+    class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-[60] flex justify-around items-center h-[68px] md:hidden shadow-[0_-5px_15px_rgba(0,0,0,0.08)]">
+
+    <!-- Home -->
+    <a href="index.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">home</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Home</span>
+
+    </a>
+
+
+    <!-- Squads -->
+    <a href="squads.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">groups</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Squads</span>
+
+    </a>
+
+
+    <!-- Shop -->
+    <a href="merchandise.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">shopping_bag</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Shop</span>
+
+    </a>
+
+
+    <!-- Fixtures -->
+    <a href="fixtures.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">calendar_month</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Fixtures</span>
+
+    </a>
+
+
+    <!-- More -->
+    <button id="bottom-more-btn"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">more_horiz</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">More</span>
+
+    </button>
+
+</nav>
+
+
+<!-- More Menu Overlay -->
+<div id="more-overlay"
+    class="fixed inset-0 bg-black/50 z-[70] hidden md:hidden backdrop-blur-sm">
+</div>
+
+
+<!-- More Bottom Sheet -->
+<div id="more-sheet"
+    class="fixed bottom-0 left-0 right-0 z-[80] md:hidden bg-white rounded-t-[28px] shadow-2xl translate-y-full transition-transform duration-300 ease-out">
+
+    <!-- Drag Handle -->
+    <div class="flex justify-center pt-3 pb-2">
+
+        <div class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+
+    </div>
+
+
+    <!-- Header -->
+    <div class="px-6 pb-4 flex items-center justify-between">
+
+        <div>
+
+            <h3 class="text-lg font-extrabold text-secondary">
+                More
+            </h3>
+
+            <p class="text-xs text-gray-500">
+                Explore CR & FC
+            </p>
+
+        </div>
+
+
+        <button id="close-more-btn"
+            class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200">
+
+            <span class="material-symbols-outlined text-gray-600">
+                close
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <!-- Menu Items -->
+    <div class="grid grid-cols-3 gap-4 px-6 pb-6">
+
+
+        <!-- Facilities -->
+        <a href="reservation.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    stadium
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Facilities
+            </span>
+
+        </a>
+
+
+        <!-- Payment -->
+        <a href="payment.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    payments
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Payment
+            </span>
+
+        </a>
+
+
+        <!-- Gallery -->
+        <a href="collection.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    photo_library
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Gallery
+            </span>
+
+        </a>
+
+
+        <!-- About -->
+        <a href="history.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    info
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                About Us
+            </span>
+
+        </a>
+
+
+        <!-- Login -->
+        <button onclick="alert('Redirecting to Login Portal...')"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    login
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Login
+            </span>
+
+        </button>
+
+
+        <!-- Contact -->
+        <a href="contact.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    contact_support
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Contact
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <!-- Safe Bottom Space -->
+    <div class="h-6"></div>
+
+</div>
+
+
+<script>
+
+    const moreBtn = document.getElementById("bottom-more-btn");
+    const moreSheet = document.getElementById("more-sheet");
+    const moreOverlay = document.getElementById("more-overlay");
+    const closeMoreBtn = document.getElementById("close-more-btn");
+
+
+    function openMoreMenu() {
+
+        moreOverlay.classList.remove("hidden");
+
+        setTimeout(() => {
+            moreSheet.classList.remove("translate-y-full");
+        }, 10);
+
+    }
+
+
+    function closeMoreMenu() {
+
+        moreSheet.classList.add("translate-y-full");
+
+        setTimeout(() => {
+            moreOverlay.classList.add("hidden");
+        }, 300);
+
+    }
+
+
+    moreBtn.addEventListener("click", openMoreMenu);
+
+    closeMoreBtn.addEventListener("click", closeMoreMenu);
+
+    moreOverlay.addEventListener("click", closeMoreMenu);
+
+</script>
+    <script>
+        // Mobile Menu Toggle
+        document.addEventListener("DOMContentLoaded", () => {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (menuBtn) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('open');
+                    menuBtn.querySelector('span').textContent = mobileMenu.classList.contains('open') ? 'close' : 'menu';
+                });
+            }
+        });
+
+        // Contact Panel Slide-Up Logic
+        function toggleContact(panelId) {
+            const panel = document.getElementById(panelId);
+            if (panel.classList.contains('translate-y-full')) {
+                // Open panel
+                panel.classList.remove('translate-y-full');
+            } else {
+                // Close panel
+                panel.classList.add('translate-y-full');
+            }
+        }
+    </script>
+</body>
+
+</html>

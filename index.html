@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Ceylonese Rugby & Football Club (CR & FC)</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d33131",
+                        "secondary": "#1a2a44",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#201212",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .ticker-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 30s linear infinite;
+        }
+
+        .ticker-wrap:hover .ticker-content {
+            animation-play-state: paused;
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        #signature-pad {
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.75rem;
+            cursor: crosshair;
+            background-color: white;
+            touch-action: none;
+            transition: border-color 0.3s;
+        }
+
+        #signature-pad:hover {
+            border-color: #d33131;
+        }
+
+        /* ---------------------------------------------------
+           SPONSOR REEL — clearer panel, bigger logos, visible
+           divider and a soft "shelf" so logos don't float on
+           bare white.
+           --------------------------------------------------- */
+        .sponsor-marquee {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            background: #fafafa;
+            border-radius: 1.5rem;
+        }
+
+        .sponsor-marquee::before,
+        .sponsor-marquee::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 120px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .sponsor-marquee::before {
+            left: 0;
+            background: linear-gradient(to right, #fafafa, transparent);
+        }
+
+        .sponsor-marquee::after {
+            right: 0;
+            background: linear-gradient(to left, #fafafa, transparent);
+        }
+
+        .track {
+            display: flex;
+            width: max-content;
+            animation: scroll 28s linear infinite;
+        }
+
+        .logos {
+            display: flex;
+            align-items: center;
+            gap: 3.5rem;
+            padding: 0 3.5rem;
+        }
+
+        .logos .logo-card {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 88px;
+            width: 160px;
+            background: white;
+            border-radius: 1rem;
+            border: 1px solid #eceef1;
+            box-shadow: 0 2px 8px rgba(26, 42, 68, 0.05);
+            padding: 1rem 1.5rem;
+            transition: all 0.35s ease;
+        }
+
+        .logos .logo-card img {
+            height: 44px;
+            width: 100%;
+            object-fit: contain;
+            filter: grayscale(45%);
+            opacity: 0.85;
+            transition: all 0.35s ease;
+        }
+
+        .logos .logo-card:hover {
+            transform: translateY(-4px);
+            border-color: #d33131;
+            box-shadow: 0 10px 20px -8px rgba(211, 49, 49, 0.25);
+        }
+
+        .logos .logo-card:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .sponsor-marquee:hover .track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.75rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+        }
+
+        input[type="radio"]:checked+div {
+            border-color: #d33131;
+            background-color: rgba(211, 49, 49, 0.05);
+        }
+
+        input[type="radio"]:checked+div .icon-container {
+            background-color: #d33131;
+            color: white;
+        }
+
+        input[type="radio"]:checked+div .text-content {
+            color: #d33131;
+        }
+
+        .date-disabled {
+            color: #d1d5db;
+            background-color: #f9fafb;
+            cursor: not-allowed;
+        }
+
+        .locked-field {
+            background-color: #e5e7eb !important;
+            color: #6b7280 !important;
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translate(-50%, -100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOutUp {
+            from {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translate(-50%, -100%);
+                opacity: 0;
+            }
+        }
+
+        .toast-enter {
+            animation: slideInDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .toast-leave {
+            animation: fadeOutUp 0.3s ease-in forwards;
+        }
+
+        /* Hides scrollbar for horizontal scroll but keeps functionality */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .event-card-skeleton {
+            animation: pulse 1.6s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 0.9;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-secondary pb-16 md:pb-0">
+<!-- Header Placement Container -->
+<div id="header-container"></div>
+
+<!-- External Header Component JS Script -->
+<script src="header.js"></script>
+
+
+<!-- Mobile Menu Script -->
+<script>
+
+    const mobileMenuBtn =
+        document.getElementById('mobile-menu-btn');
+
+    const mobileMenu =
+        document.getElementById('mobile-menu');
+
+    const menuIcon =
+        document.getElementById('menu-icon');
+
+
+    mobileMenuBtn.addEventListener('click', () => {
+
+        mobileMenu.classList.toggle('hidden');
+
+
+        // Change menu icon
+        if (mobileMenu.classList.contains('hidden')) {
+
+            menuIcon.textContent = 'menu';
+
+        } else {
+
+            menuIcon.textContent = 'close';
+
+        }
+
+    });
+
+</script>
+    <!-- Mobile Menu Toggle Script -->
+
+    <!-- News Ticker -->
+    <div class="bg-primary text-white py-2 overflow-hidden border-y border-red-800">
+        <div class="ticker-wrap flex items-center cursor-pointer" title="Hover to pause">
+            <div
+                class="flex-shrink-0 bg-secondary px-4 py-1 z-10 font-bold text-xs uppercase tracking-widest flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">campaign</span> Be in the Know
+            </div>
+            <div class="ticker-content flex gap-12 text-sm font-medium italic">
+                <span>CR & FC vs Kandy SC: Match Tickets on Sale now! • Longdon Place Grounds maintenance update • New
+                    training jerseys available at the club shop • Annual General Meeting scheduled for next month</span>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="relative h-[450px] md:h-[650px] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/30 z-10"></div>
+                <img alt="Rugby Match Action" class="w-full h-full object-cover"
+                    src="https://crandfc.lk/wp-content/uploads/2023/10/IMG-20231018-WA0004-1024x683.jpg"
+                    onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXNwlz4IcoLmAvPQOOIRjl-qTqWLNW09S9zgPB1CBK-MCsC3gOSkqZsU9n&s=10'" />
+            </div>
+            <div class="relative z-20 max-w-7xl mx-auto px-4 text-white w-full">
+                <div class="max-w-2xl mt-10 md:mt-0">
+                    <h2 class="text-primary font-black uppercase tracking-widest mb-4 text-sm flex items-center gap-2">
+                        <span class="w-8 h-0.5 bg-primary"></span> Longdon Place Legacy
+                    </h2>
+                    <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">Heritage. Passion. <br /><span
+                            class="text-primary">Rugby.</span></h1>
+                    <p class="text-sm md:text-xl text-gray-200 mb-8 max-w-lg leading-relaxed font-light">Experience the
+                        legacy of Ceylonese Rugby & Football Club. Join a community built on a century of excellence,
+                        grit, and brotherhood.</p>
+
+                    <div class="flex flex-wrap items-center gap-4 mt-8">
+                        <a href="#become-member"
+                            class="bg-primary hover:bg-red-700 text-white px-8 py-3.5 rounded-xl font-black uppercase tracking-wide text-sm transition-all shadow-[0_8px_20px_-6px_rgba(211,49,49,0.5)] active:scale-95 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">verified</span> Become a Member
+                        </a>
+                        <a href="#reservation-section"
+                            class="bg-white/10 hover:bg-white/20 border border-white/30 text-white px-8 py-3.5 rounded-xl font-black uppercase tracking-wide text-sm transition-all backdrop-blur-md active:scale-95 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">stadium</span> Reserve Facilities
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 -mt-12 relative z-30 hidden md:block">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div
+                    class="bg-white dark:bg-secondary rounded-2xl shadow-xl p-6 border-b-4 border-primary flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-primary/10 p-3 rounded-full text-primary" id="weather-icon-container">
+                            <span class="material-symbols-outlined text-3xl" id="weather-icon">sync</span>
+                        </div>
+                        <div>
+                            <p class="text-xs uppercase font-bold text-gray-500 tracking-wider">Malalasekara Mawatha,
+                                Col 07</p>
+                            <p class="text-2xl font-black text-secondary dark:text-white" id="weather-temp">--°C</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider" id="weather-desc">
+                            Loading...</p>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-secondary text-white rounded-2xl shadow-xl p-6 border-b-4 border-primary flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-white/10 p-3 rounded-full text-white">
+                            <span class="material-symbols-outlined text-3xl">timer</span>
+                        </div>
+                        <div>
+                            <p class="text-xs uppercase font-bold text-primary tracking-wider">Next Match</p>
+                            <p class="text-sm font-bold" id="home-nm-opponent">vs —</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 text-center">
+                        <div>
+                            <p class="text-xl font-black w-8" id="cd-days">00</p>
+                            <p class="text-[8px] uppercase font-bold text-gray-400">Days</p>
+                        </div>
+                        <div class="text-primary font-black text-xl">:</div>
+                        <div>
+                            <p class="text-xl font-black w-8" id="cd-hours">00</p>
+                            <p class="text-[8px] uppercase font-bold text-gray-400">Hrs</p>
+                        </div>
+                        <div class="text-primary font-black text-xl">:</div>
+                        <div>
+                            <p class="text-xl font-black w-8" id="cd-mins">00</p>
+                            <p class="text-[8px] uppercase font-bold text-gray-400">Min</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-primary text-white rounded-2xl shadow-xl p-6 border-b-4 border-secondary flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-secondary/20 p-3 rounded-full text-white">
+                            <span class="material-symbols-outlined text-3xl">confirmation_number</span>
+                        </div>
+                        <div>
+                            <p class="text-xs uppercase font-bold text-white/80 tracking-wider">Tickets</p>
+                            <p class="text-xl font-black">Buy Tickets</p>
+                        </div>
+                    </div>
+                    <button onclick="window.location.href='fixtures.html'"
+                        class="bg-white text-primary px-4 py-2 rounded-lg font-black text-sm uppercase tracking-tight hover:bg-gray-100 transition-colors shadow-sm active:scale-95">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-secondary py-20 border-t border-white/5 mt-10 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="mb-10 flex justify-between items-end">
+                    <div>
+                        <div class="flex items-center gap-4 mb-2">
+                            <div class="h-[2px] w-6 bg-primary"></div>
+                            <h2 class="text-primary font-bold uppercase tracking-[0.2em] text-[10px]">WHAT'S ON</h2>
+                        </div>
+                        <h3 class="text-4xl md:text-5xl font-black text-white lowercase tracking-tight">upcoming events
+                        </h3>
+                    </div>
+                    <div class="hidden md:flex gap-2">
+                        <button id="events-prev"
+                            class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-primary transition-colors"><span
+                                class="material-symbols-outlined">chevron_left</span></button>
+                        <button id="events-next"
+                            class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-primary transition-colors"><span
+                                class="material-symbols-outlined">chevron_right</span></button>
+                    </div>
+                </div>
+
+                <div id="events-container"
+                    class="flex overflow-x-auto gap-6 pb-8 pt-2 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+                    <!-- Cards are injected here by loadUpcomingEvents(), sourced live from
+                         event-admin.html (/api/events). Nothing is hardcoded anymore, so any
+                         event added/removed in the admin panel appears here automatically. -->
+                    <div class="flex-none w-[85%] md:w-[350px] event-card-skeleton bg-[#24344d] rounded-2xl h-96"></div>
+                    <div class="flex-none w-[85%] md:w-[350px] event-card-skeleton bg-[#24344d] rounded-2xl h-96 hidden md:block"></div>
+                    <div class="flex-none w-[85%] md:w-[350px] event-card-skeleton bg-[#24344d] rounded-2xl h-96 hidden md:block"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white py-14 border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 mb-8 text-center">
+                <h2 class="text-primary font-bold uppercase tracking-[0.2em] text-xs mb-1">Official Partners</h2>
+                <p class="text-secondary font-black text-2xl md:text-3xl lowercase">proud to be backed by</p>
+            </div>
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="sponsor-marquee py-8 border border-gray-100 shadow-sm">
+                    <div class="track">
+                        <div class="logos">
+                            <div class="logo-card"><img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIyqZFzuE9oKmAsHpsluir3zm8cco6EXQV0w&s"
+                                    alt="Sponsor 1"></div>
+                            <div class="logo-card"><img src="https://crandfc.lk/wp-content/uploads/2026/02/2.png"
+                                    alt="Sponsor 2"></div>
+                            <div class="logo-card"><img src="https://crandfc.lk/wp-content/uploads/2026/02/3.png"
+                                    alt="Sponsor 3"></div>
+                            <div class="logo-card"><img src="https://crandfc.lk/wp-content/uploads/2026/02/4.png"
+                                    alt="Sponsor 4"></div>
+                            <div class="logo-card"><img src="https://crandfc.lk/wp-content/uploads/2026/02/5.png"
+                                    alt="Sponsor 5"></div>
+                        </div>
+                        <div class="logos">
+                            <div class="logo-card"><img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIyqZFzuE9oKmAsHpsluir3zm8cco6EXQV0w&s"
+                                    alt="Sponsor 1"></div>
+                            <div class="logo-card"><img src="https://crandfc.lk/wp-content/uploads/2026/02/2.png"
+                                    alt="Sponsor 2"></div>
+                            <div class="logo-card"><img src="https://crandfc.lk/wp-content/uploads/2026/02/3.png"
+                                    alt="Sponsor 3"></div>
+                            <div class="logo-card"><img src="https://crandfc.lk/wp-content/uploads/2026/02/4.png"
+                                    alt="Sponsor 4"></div>
+                            <div class="logo-card"><img src="https://crandfc.lk/wp-content/uploads/2026/02/5.png"
+                                    alt="Sponsor 5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 py-12 md:py-20" id="reservation-section">
+    <div class="mb-8 md:mb-12 text-center md:text-left">
+        <h2
+            class="text-primary font-black tracking-widest text-xs md:text-sm mb-2 flex items-center justify-center md:justify-start gap-2">
+            <span class="material-symbols-outlined text-sm">stadium</span> longdon place
+        </h2>
+        <h3
+            class="text-3xl md:text-5xl font-black text-secondary dark:text-white mb-3 tracking-tight">
+            Reserve the arena.</h3>
+        <p class="text-gray-600 dark:text-gray-400 text-sm md:text-lg">Grounds, event spaces, or the bar — all
+            in one place.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+        <div
+            class="lg:col-span-7 bg-white dark:bg-background-dark shadow-2xl rounded-3xl p-5 md:p-8 lg:p-10 border border-gray-100 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-secondary"></div>
+
+            <form id="booking-form" class="space-y-6 mt-2" enctype="multipart/form-data">
+                <input type="text" name="_honey" id="honeypot" style="display:none">
+
+                <div class="space-y-4">
+                    <h4
+                        class="text-xs md:text-sm font-bold text-gray-400 tracking-widest border-b border-gray-100 pb-2 mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-base">badge</span> Personal
+                        Details
+                    </h4>
+
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <label class="cursor-pointer group">
+                            <input type="radio" name="user_type" value="non-member" class="peer sr-only"
+                                checked>
+                            <div
+                                class="p-3 rounded-2xl border-2 border-gray-200 transition-all hover:border-gray-300 flex flex-col items-center text-center gap-1">
+                                <div
+                                    class="icon-container w-8 h-8 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center transition-colors">
+                                    <span class="material-symbols-outlined text-lg">person</span>
+                                </div>
+                                <h5 class="text-content font-bold text-gray-700 text-xs md:text-sm">Non-Member
+                                </h5>
+                            </div>
+                        </label>
+
+                        <label class="cursor-pointer group">
+                            <input type="radio" name="user_type" value="member" class="peer sr-only">
+                            <div
+                                class="p-3 rounded-2xl border-2 border-gray-200 transition-all hover:border-gray-300 flex flex-col items-center text-center gap-1">
+                                <div
+                                    class="icon-container w-8 h-8 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center transition-colors">
+                                    <span class="material-symbols-outlined text-lg">verified</span>
+                                </div>
+                                <h5 class="text-content font-bold text-gray-700 text-xs md:text-sm">Club Member
+                                </h5>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div id="member-id-container"
+                        class="hidden bg-gray-50 p-4 rounded-xl border border-gray-200 mb-4 transition-all">
+                        <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">Member ID</label>
+                        <div class="relative">
+                            <div
+                                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                                <span class="material-symbols-outlined text-[18px]">id_card</span>
+                            </div>
+                            <input type="text" id="member-id" placeholder="Enter Member ID"
+                                class="w-full bg-white border border-gray-300 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block pl-10 p-2.5 transition-all outline-none">
+                            <div id="member-success"
+                                class="absolute inset-y-0 right-0 flex items-center pr-3 text-green-500 hidden">
+                                <span class="material-symbols-outlined">check_circle</span>
+                            </div>
+                        </div>
+                        <p id="member-position"
+                            class="mt-2 text-xs font-bold text-primary hidden tracking-wide flex items-center gap-1">
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">Full Name</label>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                                    <span class="material-symbols-outlined text-[18px]">person</span>
+                                </div>
+                                <input type="text" id="full-name" required placeholder="John Doe"
+                                    class="w-full bg-white border border-gray-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block pl-10 p-2.5 transition-all outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">Email
+                                Address</label>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                                    <span class="material-symbols-outlined text-[18px]">mail</span>
+                                </div>
+                                <input type="email" id="email" required placeholder="john@example.com"
+                                    class="w-full bg-white border border-gray-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block pl-10 p-2.5 transition-all outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">Phone
+                                Number</label>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                                    <span class="material-symbols-outlined text-[18px]">call</span>
+                                </div>
+                                <input type="tel" id="phone" required placeholder="+94 7X XXX XXXX"
+                                    class="w-full bg-white border border-gray-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block pl-10 p-2.5 transition-all outline-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4 pt-4 border-t border-gray-100">
+                    <h4
+                        class="text-xs md:text-sm font-bold text-gray-400 tracking-widest border-b border-gray-100 pb-2 mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-base">book_online</span> Venue
+                        & Details
+                    </h4>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">Location</label>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                                    <span class="material-symbols-outlined text-[18px]">location_on</span>
+                                </div>
+                                <select id="main-location" required
+                                    class="w-full bg-white border border-gray-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block pl-10 p-2.5 outline-none">
+                                    <option value="" disabled selected>Select Location</option>
+                                    <option value="Ground">Ground</option>
+                                    <option value="Event Hall">Event Hall</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="sub-location-container" class="hidden">
+                            <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">Specific
+                                Area</label>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                                    <span class="material-symbols-outlined text-[18px]">meeting_room</span>
+                                </div>
+                                <select id="sub-location"
+                                    class="w-full bg-white border border-gray-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block pl-10 p-2.5 outline-none">
+                                    <option value="" disabled selected>Select Area</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">Booking
+                                Type</label>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                                    <span class="material-symbols-outlined text-[18px]">category</span>
+                                </div>
+                                <select id="booking-type"
+                                    class="w-full bg-white border border-gray-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block pl-10 p-2.5 outline-none">
+                                    <option value="normal">Normal</option>
+                                    <option value="event">Event</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="pax-container" class="hidden">
+                            <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">Number of
+                                Pax</label>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                                    <span class="material-symbols-outlined text-[18px]">groups</span>
+                                </div>
+                                <input type="number" id="pax" placeholder="E.g., 5"
+                                    class="w-full bg-white border border-gray-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block pl-10 p-2.5 outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="event-container"
+                        class="hidden space-y-4 bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                        <div>
+                            <label class="block text-[11px] font-bold text-blue-800 mb-1 ml-1">Event
+                                Name</label>
+                            <input type="text" id="event-name" placeholder="E.g., Annual Gathering"
+                                class="w-full bg-white border border-blue-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-blue-500 block p-2.5 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-blue-800 mb-1 ml-1">Expected
+                                Guests</label>
+                            <input type="number" id="event-guests" placeholder="E.g., 150"
+                                class="w-full bg-white border border-blue-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-blue-500 block p-2.5 outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4 pt-4 border-t border-gray-100">
+                    <h4
+                        class="text-xs md:text-sm font-bold text-gray-400 tracking-widest border-b border-gray-100 pb-2 mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-base">calendar_month</span>
+                        Date & Time
+                    </h4>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">Date</label>
+                        <input type="date" id="booking-date" required
+                            class="w-full bg-white border border-gray-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block p-2.5 outline-none cursor-pointer">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">Start
+                                Time</label>
+                            <input type="time" id="start-time" required
+                                class="w-full bg-white border border-gray-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block p-2.5 outline-none cursor-pointer">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">End Time</label>
+                            <input type="time" id="end-time" required
+                                class="w-full bg-white border border-gray-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block p-2.5 outline-none cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4 pt-4 border-t border-gray-100">
+                    <h4
+                        class="text-xs md:text-sm font-bold text-gray-400 tracking-widest border-b border-gray-100 pb-2 mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-base">attachment</span> Extras
+                        & Signature
+                    </h4>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1">Requirements</label>
+                        <textarea id="requirements" rows="2"
+                            class="w-full bg-white border border-gray-200 text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-primary block p-2.5 outline-none"
+                            placeholder="Any special arrangements?"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-600 mb-1 ml-1 flex justify-between">
+                            Signature
+                            <button type="button" id="clear-signature"
+                                class="text-primary hover:underline font-bold">Clear</button>
+                        </label>
+                        <canvas id="signature-pad"
+                            class="w-full h-24 border border-gray-300 rounded-xl bg-gray-50"></canvas>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-gray-100">
+                    <button id="submit-btn" type="submit"
+                        class="w-full bg-primary hover:bg-red-700 text-white p-3.5 rounded-xl font-black tracking-wide text-sm md:text-base shadow-[0_8px_20px_-6px_rgba(211,49,49,0.5)] transition-all active:scale-95 flex items-center justify-center gap-2 group">
+                        <span>Submit Request</span>
+                        <span
+                            class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">send</span>
+                    </button>
+                    <p
+                        class="text-center text-[10px] text-gray-400 mt-3 flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined text-[12px]">lock</span> Details securely
+                        processed.
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <div class="lg:col-span-5">
+            <div class="bg-gray-50 rounded-2xl p-5 border border-gray-200 h-fit sticky top-28 shadow-sm">
+                <div class="flex items-center gap-2 justify-center mb-4">
+                    <span class="material-symbols-outlined text-secondary">event_available</span>
+                    <h4 class="font-black text-lg text-secondary">Availability Tracker</h4>
+                </div>
+
+                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <button id="prev-month"
+                            class="w-8 h-8 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <span class="font-bold text-gray-800 text-sm" id="cal-month-year">...</span>
+                        <button id="next-month"
+                            class="w-8 h-8 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                    </div>
+
+                    <div
+                        class="grid grid-cols-7 gap-1 text-center text-[10px] font-black tracking-wider text-gray-400 mb-2">
+                        <div>Su</div>
+                        <div>Mo</div>
+                        <div>Tu</div>
+                        <div>We</div>
+                        <div>Th</div>
+                        <div>Fr</div>
+                        <div>Sa</div>
+                    </div>
+                    <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-center text-xs font-medium">
+                    </div>
+                </div>
+
+                <div
+                    class="flex justify-center gap-4 text-[10px] font-bold text-gray-500 bg-white py-2.5 rounded-lg border border-gray-100 shadow-sm">
+                    <div class="flex items-center gap-1.5">
+                        <div class="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.4)]">
+                        </div> Available
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <div
+                            class="w-2.5 h-2.5 rounded-full bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.4)]">
+                        </div> Partial
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <div class="w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.4)]">
+                        </div> Booked
+                    </div>
+                </div>
+
+                <div id="date-status-panel"
+                    class="mt-4 p-4 bg-white rounded-xl border border-primary/20 shadow-[0_4px_15px_-3px_rgba(211,49,49,0.1)] hidden transition-all">
+                    <h5 class="font-black text-primary border-b border-gray-100 pb-2 mb-2 flex items-center gap-2 text-sm"
+                        id="status-date-title">
+                        <span class="material-symbols-outlined text-sm">schedule</span> Details
+                    </h5>
+                    <ul id="status-time-list" class="text-xs font-medium text-gray-600 space-y-1.5"></ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+    </main>
+<footer class="bg-secondary text-white pt-16 pb-8 border-t-[6px] border-primary relative z-10">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <!-- Brand & Description -->
+        <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-white p-1.5 rounded-lg inline-block">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcPBKXe31SnHz45mJj62GkpEoD-62YNV9dlQ&s"
+                        alt="CR & FC Logo" class="h-12 w-auto object-contain" />
+                </div>
+                <div>
+                    <h2 class="text-2xl font-black tracking-tight leading-none text-white">CR & FC</h2>
+                    <p class="text-xs uppercase tracking-[0.2em] text-primary font-bold">Est. 1922</p>
+                </div>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed max-w-md mb-6">
+                Ceylonese Rugby & Football Club is built on a century of excellence, grit, and brotherhood. Join us
+                at Longdon Place to experience the true spirit of sportsmanship.
+            </p>
+            
+            <!-- Social Media Buttons -->
+            <div class="flex items-center gap-3">
+                <!-- Facebook -->
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#1877F2] flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="Facebook">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <!-- Instagram -->
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#E4405F] flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="Instagram">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#0A66C2] flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="LinkedIn">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <!-- TikTok -->
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#000000] border border-white/20 flex items-center justify-center transition-all duration-300 text-white hover:scale-110" title="TikTok">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.29-2.92 1.08-5.83 3.47-7.5 1.25-.89 2.76-1.37 4.29-1.37.13 0 .26.01.39.02v4.03c-.76-.04-1.53.11-2.22.45-.96.48-1.68 1.34-1.92 2.38-.34 1.4.1 2.92 1.13 3.89 1.04.98 2.58 1.29 3.91.77 1.04-.4 1.83-1.28 2.08-2.36.17-.81.16-1.65.16-2.48V0z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+            <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 flex items-center gap-2">
+                <span class="w-2 h-2 bg-primary rounded-full"></span> Quick Links
+            </h4>
+            <ul class="space-y-3 text-sm font-medium text-gray-400">
+                <li><a href="history.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Our History</a></li>
+                <li><a href="squads.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Rugby Squads</a></li>
+                <li><a href="fixtures.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Matches & Tickets</a></li>
+                <li><a href="reservation.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">arrow_right_alt</span> Reserve Facilities</a></li>
+            </ul>
+        </div>
+
+        <!-- Reach Us Section -->
+        <div>
+            <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 flex items-center gap-2">
+                <span class="w-2 h-2 bg-primary rounded-full"></span> Reach Us
+            </h4>
+            <ul class="space-y-4 text-sm text-gray-400">
+                <li class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-primary text-xl">location_on</span>
+                    <span>28, Malalasekara Mawatha,<br>Colombo 07, Sri Lanka</span>
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-xl">call</span>
+                    <a href="tel:+94112581124" class="hover:text-white transition-colors">+94 11 2 581 124</a>
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-xl">mail</span>
+                    <a href="mailto:info@crandfc.lk" class="hover:text-white transition-colors">info@crandfc.lk</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom Copyright & Social Links -->
+    <div class="max-w-7xl mx-auto px-4 border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 font-medium gap-4">
+        <p>&copy; 2026 Ceylonese Rugby & Football Club. All Rights Reserved.</p>
+        <div class="flex items-center gap-5">
+            <a href="https://facebook.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Facebook</a>
+            <a href="https://instagram.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a>
+            <a href="https://linkedin.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn</a>
+            <a href="https://tiktok.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.29-2.92 1.08-5.83 3.47-7.5 1.25-.89 2.76-1.37 4.29-1.37.13 0 .26.01.39.02v4.03c-.76-.04-1.53.11-2.22.45-.96.48-1.68 1.34-1.92 2.38-.34 1.4.1 2.92 1.13 3.89 1.04.98 2.58 1.29 3.91.77 1.04-.4 1.83-1.28 2.08-2.36.17-.81.16-1.65.16-2.48V0z"/></svg> TikTok</a>
+        </div>
+    </div>
+
+    <!-- Creator Credit Section -->
+    <div class="max-w-7xl mx-auto px-4 mt-6 pt-4 border-t border-white/5 text-center text-xs text-gray-400">
+        <p class="inline-flex items-center flex-wrap justify-center gap-2">
+            <span>Created by - <strong class="text-white font-semibold">Vinuda Edirisooriya</strong></span>
+            <span class="hidden sm:inline text-gray-600">•</span>
+            <a href="https://linkedin.com/in/vinuda-edirisooriya" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors inline-flex items-center gap-1 font-medium text-gray-300">
+                <svg class="w-3.5 h-3.5 fill-current text-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn
+            </a>
+            <span class="hidden sm:inline text-gray-600">•</span>
+            <a href="mailto:vinudasasmitha29@gmail.com" class="hover:text-white transition-colors inline-flex items-center gap-1 font-medium text-gray-300">
+                <span class="material-symbols-outlined text-sm text-primary">mail</span> vinudasasmitha29@gmail.com
+            </a>
+        </p>
+    </div>
+</footer>
+    <!-- Mobile Bottom Navigation -->
+<!-- Mobile Bottom Navigation -->
+<nav
+    class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-[60] flex justify-around items-center h-[68px] md:hidden shadow-[0_-5px_15px_rgba(0,0,0,0.08)]">
+
+    <!-- Home -->
+    <a href="index.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">home</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Home</span>
+
+    </a>
+
+
+    <!-- Squads -->
+    <a href="squads.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">groups</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Squads</span>
+
+    </a>
+
+
+    <!-- Shop -->
+    <a href="merchandise.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">shopping_bag</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Shop</span>
+
+    </a>
+
+
+    <!-- Fixtures -->
+    <a href="fixtures.html"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">calendar_month</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">Fixtures</span>
+
+    </a>
+
+
+    <!-- More -->
+    <button id="bottom-more-btn"
+        class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+        <span class="material-symbols-outlined text-[24px]">more_horiz</span>
+        <span class="text-[10px] font-bold mt-1 tracking-wide">More</span>
+
+    </button>
+
+</nav>
+
+
+<!-- More Menu Overlay -->
+<div id="more-overlay"
+    class="fixed inset-0 bg-black/50 z-[70] hidden md:hidden backdrop-blur-sm">
+</div>
+
+
+<!-- More Bottom Sheet -->
+<div id="more-sheet"
+    class="fixed bottom-0 left-0 right-0 z-[80] md:hidden bg-white rounded-t-[28px] shadow-2xl translate-y-full transition-transform duration-300 ease-out">
+
+    <!-- Drag Handle -->
+    <div class="flex justify-center pt-3 pb-2">
+
+        <div class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+
+    </div>
+
+
+    <!-- Header -->
+    <div class="px-6 pb-4 flex items-center justify-between">
+
+        <div>
+
+            <h3 class="text-lg font-extrabold text-secondary">
+                More
+            </h3>
+
+            <p class="text-xs text-gray-500">
+                Explore CR & FC
+            </p>
+
+        </div>
+
+
+        <button id="close-more-btn"
+            class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200">
+
+            <span class="material-symbols-outlined text-gray-600">
+                close
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <!-- Menu Items -->
+    <div class="grid grid-cols-3 gap-4 px-6 pb-6">
+
+
+        <!-- Facilities -->
+        <a href="reservation.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    stadium
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Facilities
+            </span>
+
+        </a>
+
+
+        <!-- Payment -->
+        <a href="payment.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    payments
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Payment
+            </span>
+
+        </a>
+
+
+        <!-- Gallery -->
+        <a href="collection.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    photo_library
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Gallery
+            </span>
+
+        </a>
+
+
+        <!-- About -->
+        <a href="history.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    info
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                About Us
+            </span>
+
+        </a>
+
+
+        <!-- Login -->
+        <button onclick="alert('Redirecting to Login Portal...')"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    login
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Login
+            </span>
+
+        </button>
+
+
+        <!-- Contact -->
+        <a href="contact.html"
+            class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+            <div
+                class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                <span class="material-symbols-outlined text-primary">
+                    contact_support
+                </span>
+
+            </div>
+
+            <span class="text-xs font-bold">
+                Contact
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <!-- Safe Bottom Space -->
+    <div class="h-6"></div>
+
+</div>
+
+
+<script>
+
+    const moreBtn = document.getElementById("bottom-more-btn");
+    const moreSheet = document.getElementById("more-sheet");
+    const moreOverlay = document.getElementById("more-overlay");
+    const closeMoreBtn = document.getElementById("close-more-btn");
+
+
+    function openMoreMenu() {
+
+        moreOverlay.classList.remove("hidden");
+
+        setTimeout(() => {
+            moreSheet.classList.remove("translate-y-full");
+        }, 10);
+
+    }
+
+
+    function closeMoreMenu() {
+
+        moreSheet.classList.add("translate-y-full");
+
+        setTimeout(() => {
+            moreOverlay.classList.add("hidden");
+        }, 300);
+
+    }
+
+
+    moreBtn.addEventListener("click", openMoreMenu);
+
+    closeMoreBtn.addEventListener("click", closeMoreMenu);
+
+    moreOverlay.addEventListener("click", closeMoreMenu);
+
+</script>
+    <script>
+        // 🔔 TOAST FUNCTION
+        let toastTimeout;
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            const msg = document.getElementById('toast-msg');
+
+            toast.classList.remove('hidden', 'toast-leave', 'bg-green-600', 'bg-red-600');
+            clearTimeout(toastTimeout);
+
+            if (type === 'success') {
+                toast.classList.add('bg-green-600');
+                icon.textContent = 'check_circle';
+            } else {
+                toast.classList.add('bg-red-600');
+                icon.textContent = 'error';
+            }
+
+            msg.textContent = message;
+            toast.classList.add('toast-enter');
+            toast.style.display = 'flex';
+
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('toast-leave');
+                setTimeout(() => { toast.style.display = 'none'; }, 300);
+            }, 5000);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // 🌤️ 1. WEATHER LOGIC — pinned to the club at 28 Malalasekara Mawatha, Colombo 07
+            async function fetchWeather() {
+                try {
+                    const CLUB_LAT = 6.9005;
+                    const CLUB_LNG = 79.8716;
+                    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${CLUB_LAT}&longitude=${CLUB_LNG}&current_weather=true&timezone=Asia%2FColombo`);
+                    const data = await res.json();
+                    if (data && data.current_weather) {
+                        const temp = Math.round(data.current_weather.temperature);
+                        const weathercode = data.current_weather.weathercode;
+                        document.getElementById('weather-temp').innerText = `${temp}°C`;
+
+                        let desc = "Clear"; let icon = "light_mode";
+                        if (weathercode >= 1 && weathercode <= 3) { desc = "Partly Cloudy"; icon = "partly_cloudy_day"; }
+                        else if (weathercode >= 45 && weathercode <= 48) { desc = "Foggy"; icon = "foggy"; }
+                        else if (weathercode >= 51 && weathercode <= 67) { desc = "Rainy"; icon = "rainy"; }
+                        else if (weathercode >= 71 && weathercode <= 77) { desc = "Snowy"; icon = "ac_unit"; }
+                        else if (weathercode >= 80 && weathercode <= 82) { desc = "Showers"; icon = "rainy"; }
+                        else if (weathercode >= 95) { desc = "Thunderstorm"; icon = "thunderstorm"; }
+
+                        document.getElementById('weather-desc').innerText = desc;
+                        document.getElementById('weather-icon').innerText = icon;
+                    }
+                } catch (error) {
+                    document.getElementById('weather-desc').innerText = "Data Unavailable";
+                }
+            }
+            fetchWeather();
+            setInterval(fetchWeather, 10 * 60 * 1000); // refresh every 10 min so it stays accurate
+
+            // 🏉 1b. HOME HERO — pull the real next match countdown from the same
+            //         matches API fixtures.html uses, instead of a static label.
+            async function loadHomeNextMatch() {
+
+    // DEMO NEXT MATCH
+    const demoMatch = {
+        opponent: "Kandy SC",
+        date: "2026-09-19T16:00:00"
+    };
+
+    document.getElementById('home-nm-opponent').innerText =
+        `vs ${demoMatch.opponent}`;
+
+    const target = new Date(demoMatch.date).getTime();
+
+    function updateCountdown() {
+        const distance = target - Date.now();
+
+        const d = document.getElementById('cd-days');
+        const h = document.getElementById('cd-hours');
+        const m = document.getElementById('cd-mins');
+
+        if (distance <= 0) {
+            d.innerText = '00';
+            h.innerText = '00';
+            m.innerText = '00';
+            return;
+        }
+
+        d.innerText = String(
+            Math.floor(distance / 86400000)
+        ).padStart(2, '0');
+
+        h.innerText = String(
+            Math.floor((distance % 86400000) / 3600000)
+        ).padStart(2, '0');
+
+        m.innerText = String(
+            Math.floor((distance % 3600000) / 60000)
+        ).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
+
+loadHomeNextMatch();
+
+            // 🎉 1c. UPCOMING EVENTS — loaded live from event-admin.html's data (/api/events)
+            const eventsContainer = document.getElementById('events-container');
+            const FALLBACK_IMG = 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=600&auto=format&fit=crop';
+
+            function eventCardHtml(ev) {
+    const d = new Date(ev.event_date);
+    const dateStr = isNaN(d) ? '' : d.toLocaleDateString();
+
+    return `
+        <div class="flex-none w-[85%] md:w-[350px] bg-[#24344d] rounded-2xl overflow-hidden snap-start flex flex-col justify-between border border-white/10">
+            <!-- Full Image Container (No Crop) -->
+            <div class="w-full h-56 bg-black/40 flex items-center justify-center p-2 overflow-hidden">
+                <img 
+                    src="${ev.image_url || 'https://via.placeholder.com/350x200'}" 
+                    alt="${ev.title}" 
+                    loading="lazy"
+                    class="w-full h-full object-contain rounded-xl" 
+                />
+            </div>
+
+            <!-- Content -->
+            <div class="p-5 flex flex-col justify-between flex-1">
+                <div>
+                    <span class="text-xs font-semibold text-primary uppercase">${ev.category || 'Event'}</span>
+                    <h4 class="text-xl font-bold text-white mt-1 mb-2">${ev.title}</h4>
+                    <p class="text-gray-300 text-sm line-clamp-2">${ev.description || ''}</p>
+                </div>
+                
+                <div class="mt-4 pt-4 border-t border-white/10 flex justify-between items-center text-xs text-gray-400">
+                    <span>${dateStr}</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+            async function loadUpcomingEvents() {
+
+    // DEMO EVENTS DATA
+    const demoEvents = [
+        {
+            title: "CR & FC Rugby Championship",
+            category: "Rugby",
+            description: "Join us at Longdon Place for an exciting rugby championship match.",
+            event_date: "2026-09-12",
+            image_url: "https://crandfc.lk/wp-content/uploads/2023/10/IMG-20231018-WA0004-1024x683.jpg"
+        },
+        {
+            title: "Annual Club Dinner",
+            category: "Club Event",
+            description: "An exclusive evening celebrating the CR & FC family, players and supporters.",
+            event_date: "2026-09-18",
+            image_url: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=800&auto=format&fit=crop"
+        },
+        {
+            title: "CR & FC vs Kandy SC",
+            category: "Match Day",
+            description: "Experience the passion and intensity of one of Sri Lanka's biggest rugby clashes.",
+            event_date: "2026-09-19",
+            image_url: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=800&auto=format&fit=crop"
+        },
+        {
+            title: "Junior Rugby Development Camp",
+            category: "Academy",
+            description: "A development session for young rugby players focused on skills, fitness and teamwork.",
+            event_date: "2026-09-26",
+            image_url: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=800&auto=format&fit=crop"
+        },
+        {
+            title: "Longdon Place Community Day",
+            category: "Community",
+            description: "A special community gathering featuring sports, entertainment and family activities.",
+            event_date: "2026-10-03",
+            image_url: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=800&auto=format&fit=crop"
+        }
+    ];
+
+    eventsContainer.innerHTML =
+        demoEvents.map(eventCardHtml).join('');
+}
+
+loadUpcomingEvents();
+
+            document.getElementById('events-prev').addEventListener('click', () => eventsContainer.scrollBy({ left: -370, behavior: 'smooth' }));
+            document.getElementById('events-next').addEventListener('click', () => eventsContainer.scrollBy({ left: 370, behavior: 'smooth' }));
+
+            // 📋 2. FORM ELEMENTS & LOGIC
+            const userTypeRadios = document.querySelectorAll('input[name="user_type"]');
+            const memberIdBox = document.getElementById("member-id-container");
+            const memberIdInput = document.getElementById("member-id");
+            const nameInput = document.getElementById("full-name");
+            const emailInput = document.getElementById("email");
+            const phoneInput = document.getElementById("phone");
+            const memberSuccess = document.getElementById("member-success");
+            const posBadge = document.getElementById("member-position");
+
+            const mainLocSelect = document.getElementById("main-location");
+            const subLocContainer = document.getElementById("sub-location-container");
+            const subLocSelect = document.getElementById("sub-location");
+            const paxContainer = document.getElementById("pax-container");
+            const bookingType = document.getElementById("booking-type");
+            const eventBox = document.getElementById("event-container");
+            const submitBtn = document.getElementById("submit-btn");
+            const dateInput = document.getElementById("booking-date");
+
+            dateInput.setAttribute("min", new Date().toISOString().split("T")[0]);
+
+            function setFieldsLocked(isLocked) {
+                nameInput.readOnly = isLocked; emailInput.readOnly = isLocked; phoneInput.readOnly = isLocked;
+                if (isLocked) {
+                    nameInput.classList.add("locked-field"); emailInput.classList.add("locked-field"); phoneInput.classList.add("locked-field");
+                } else {
+                    nameInput.classList.remove("locked-field"); emailInput.classList.remove("locked-field"); phoneInput.classList.remove("locked-field");
+                }
+            }
+
+            function handleUserTypeChange() {
+                const selectedType = document.querySelector('input[name="user_type"]:checked').value;
+                const barOptionExists = document.getElementById("bar-opt");
+
+                if (selectedType === "member") {
+                    memberIdBox.classList.remove("hidden");
+                    if (!barOptionExists) mainLocSelect.insertAdjacentHTML('beforeend', `<option value="Ground Bar Restaurant" id="bar-opt">Bar / Restaurant</option>`);
+                } else {
+                    memberIdBox.classList.add("hidden");
+                    memberIdInput.value = "";
+                    memberSuccess.classList.add("hidden");
+                    posBadge.classList.add("hidden");
+                    if (barOptionExists) barOptionExists.remove();
+
+                    nameInput.value = ""; emailInput.value = ""; phoneInput.value = "";
+                    setFieldsLocked(false);
+
+                    if (mainLocSelect.value === "Ground Bar Restaurant") {
+                        mainLocSelect.value = "";
+                        subLocContainer.classList.add("hidden");
+                        paxContainer.classList.add("hidden");
+                    }
+                }
+            }
+
+            userTypeRadios.forEach(radio => radio.addEventListener("change", handleUserTypeChange));
+            handleUserTypeChange();
+
+            // MEMBER ID AUTO-FILL LOGIC
+            memberIdInput.addEventListener("blur", async (e) => {
+                const id = e.target.value.trim();
+                if (!id) {
+                    nameInput.value = ""; emailInput.value = ""; phoneInput.value = "";
+                    memberSuccess.classList.add("hidden"); posBadge.classList.add("hidden");
+                    setFieldsLocked(false); return;
+                }
+                try {
+                    const res = await fetch(`http://localhost:5000/api/members/${id}`);
+                    if (!res.ok) {
+                        nameInput.value = ""; emailInput.value = ""; phoneInput.value = "";
+                        memberSuccess.classList.add("hidden"); posBadge.classList.add("hidden");
+                        setFieldsLocked(false);
+                        return showToast("Invalid Member ID. Please check and try again.", "error");
+                    }
+                    const data = await res.json();
+                    nameInput.value = data.name || ""; emailInput.value = data.email || ""; phoneInput.value = data.phone || "";
+                    if (data.position) {
+                        posBadge.innerHTML = `<span class="material-symbols-outlined text-[14px]">stars</span> <span>${data.position}</span>`;
+                        posBadge.classList.remove("hidden");
+                    } else { posBadge.classList.add("hidden"); }
+                    memberSuccess.classList.remove("hidden");
+                    setFieldsLocked(true);
+                    showToast("Member Details Auto-Filled!", "success");
+                } catch (error) { console.error("API Error"); }
+            });
+
+            mainLocSelect.addEventListener("change", () => {
+                subLocSelect.innerHTML = '<option value="" disabled selected>Select Area</option>';
+                const val = mainLocSelect.value;
+
+                if (val === "Ground") {
+                    subLocContainer.classList.remove("hidden");
+                    subLocSelect.innerHTML += '<option value="Main Field">Main Field</option><option value="Side Net">Side Net</option>';
+                } else if (val === "Event Hall") {
+                    subLocContainer.classList.remove("hidden");
+                    subLocSelect.innerHTML += '<option value="Grand Ballroom">Grand Ballroom</option><option value="Mini Hall">Mini Hall</option>';
+                } else if (val === "Ground Bar Restaurant") {
+                    subLocContainer.classList.remove("hidden");
+                    const areas = ["Open Lobby", "AC Bar", "Grubber", "Sinbin", "VIP Room", "Front Lawn", "Scrum Down", "Blind Side"];
+                    areas.forEach(area => subLocSelect.innerHTML += `<option value="${area}">${area}</option>`);
+                } else {
+                    subLocContainer.classList.add("hidden");
+                }
+                paxContainer.classList.remove("hidden");
+            });
+
+            bookingType.addEventListener("change", () => {
+                eventBox.classList.toggle("hidden", bookingType.value !== "event");
+            });
+
+            // ✍️ 3. SIGNATURE PAD LOGIC
+            const canvas = document.getElementById('signature-pad');
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false; let hasDrawn = false;
+
+            function resizeCanvas() {
+                const ratio = window.devicePixelRatio || 1;
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                ctx.scale(ratio, ratio);
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const getPos = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            };
+
+            const startDrawing = (e) => { isDrawing = true; hasDrawn = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); };
+            const draw = (e) => { if (!isDrawing) return; ctx.lineWidth = 2; ctx.lineCap = "round"; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(p.x, p.y); };
+            const stopDrawing = () => { isDrawing = false; ctx.beginPath(); };
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            canvas.addEventListener('touchstart', (e) => { startDrawing(e); e.preventDefault(); }, { passive: false });
+            canvas.addEventListener('touchmove', (e) => { draw(e); e.preventDefault(); }, { passive: false });
+            canvas.addEventListener('touchend', stopDrawing);
+
+            document.getElementById('clear-signature').addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                hasDrawn = false;
+            });
+
+            // 📅 4. CALENDAR VIEW
+            let navDate = new Date();
+            let reservationsData = [];
+
+            async function fetchReservations() {
+                try {
+                    const response = await fetch('http://localhost:5000/api/reservations');
+                    if (response.ok) { reservationsData = await response.json(); }
+                } catch (e) { console.log("Backend not connected."); }
+                renderCalendar();
+            }
+
+            function renderCalendar() {
+                const year = navDate.getFullYear();
+                const month = navDate.getMonth();
+                const grid = document.getElementById('calendar-grid');
+                const monthYearLabel = document.getElementById('cal-month-year');
+
+                grid.innerHTML = '';
+                const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                monthYearLabel.textContent = `${monthNames[month]} ${year}`;
+
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                for (let i = 0; i < firstDay; i++) { grid.innerHTML += `<div></div>`; }
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const cellDate = new Date(year, month, day);
+                    const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+                    const dayReservations = reservationsData.filter(res => res.start_time && res.start_time.startsWith(dateString) && res.status === 'approved');
+
+                    let statusClass = 'hover:bg-gray-100 text-gray-700 cursor-pointer';
+
+                    if (cellDate < today) {
+                        statusClass = 'date-disabled';
+                    } else if (dayReservations.length > 0) {
+                        if (dayReservations.length >= 2) {
+                            statusClass = 'bg-red-100 text-red-700 font-bold hover:bg-red-200 cursor-pointer';
+                        } else {
+                            statusClass = 'bg-yellow-100 text-yellow-700 font-bold hover:bg-yellow-200 cursor-pointer';
+                        }
+                    }
+
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = `w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center mx-auto rounded-full transition-colors ${statusClass}`;
+                    dayDiv.textContent = day;
+
+                    if (cellDate >= today) {
+                        dayDiv.addEventListener('click', () => showDateDetails(dateString, dayReservations));
+                    }
+
+                    grid.appendChild(dayDiv);
+                }
+            }
+
+            function showDateDetails(dateStr, reservations) {
+                const panel = document.getElementById('date-status-panel');
+                const title = document.getElementById('status-date-title');
+                const list = document.getElementById('status-time-list');
+
+                title.innerHTML = `<span class="material-symbols-outlined text-sm">schedule</span> Details for ${dateStr}`;
+                list.innerHTML = '';
+
+                if (reservations.length === 0) {
+                    list.innerHTML = '<li class="text-green-600 font-bold">✓ Fully Available</li>';
+                } else {
+                    reservations.forEach(res => {
+                        const start = res.start_time.split('T')[1] || res.start_time.split(' ')[1] || res.start_time;
+                        const end = res.end_time.split('T')[1] || res.end_time.split(' ')[1] || res.end_time;
+                        const locName = res.location || "Reserved";
+
+                        list.innerHTML += `<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span> ${start.slice(0, 5)} to ${end.slice(0, 5)} <span class="text-[10px] text-gray-400">(${locName})</span></li>`;
+
+                        // 2 Hour Cleaning buffer for 'Ground' specifically
+                        if (locName === "Ground") {
+                            let d = new Date(`2000-01-01T${end.length === 5 ? end + ':00' : end}`);
+                            d.setHours(d.getHours() + 2);
+                            let cleaningEnd = d.toTimeString().slice(0, 5);
+                            list.innerHTML += `<li class="flex items-center gap-2 text-yellow-600 ml-4"><span class="material-symbols-outlined text-[12px]">cleaning_services</span> ${end.slice(0, 5)} to ${cleaningEnd} <span class="text-[10px] text-gray-400">(Cleaning Time)</span></li>`;
+                        }
+                    });
+                }
+                panel.classList.remove('hidden');
+            }
+
+            document.getElementById('prev-month').addEventListener('click', () => { navDate.setMonth(navDate.getMonth() - 1); renderCalendar(); });
+            document.getElementById('next-month').addEventListener('click', () => { navDate.setMonth(navDate.getMonth() + 1); renderCalendar(); });
+
+            fetchReservations();
+
+            // 🚀 5. SUBMIT FORM LOGIC (DB + Email)
+            document.getElementById("booking-form").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                if (document.getElementById("honeypot").value !== "") return;
+
+                const isMember = document.querySelector('input[name="user_type"]:checked').value === "member";
+                const userTypeValue = document.querySelector('input[name="user_type"]:checked').value;
+                const memberId = isMember ? (document.getElementById("member-id").value || "N/A") : "N/A";
+                const finalSignatureData = hasDrawn ? canvas.toDataURL() : null;
+
+                let evGuests = 0;
+                const evGuestsInput = document.getElementById("event-guests");
+                if (evGuestsInput) evGuests = evGuestsInput.value || 0;
+
+                const requestData = {
+                    user_type: userTypeValue,
+                    member_id: memberId !== "N/A" ? memberId : null,
+                    full_name: nameInput.value,
+                    email: emailInput.value,
+                    phone: phoneInput.value,
+                    location: mainLocSelect.value,
+                    sub_location: subLocSelect.value || null,
+                    booking_type: bookingType.value,
+                    pax: document.getElementById("pax").value || null,
+                    event_name: document.getElementById("event-name").value || null,
+                    event_guests: evGuests,
+                    booking_date: document.getElementById("booking-date").value,
+                    start_time: `${document.getElementById("booking-date").value} ${document.getElementById("start-time").value}:00`,
+                    end_time: `${document.getElementById("booking-date").value} ${document.getElementById("end-time").value}:00`,
+                    requirements: document.getElementById("requirements").value || null,
+                    signature: finalSignatureData
+                };
+
+                if (isMember && requestData.member_id === null) {
+                    return showToast("Please enter your Member ID.", "error");
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Processing...';
+
+                try {
+                    const response = await fetch("http://localhost:5000/api/reservations/full", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(requestData)
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        if (response.status === 409) {
+                            showToast(errorData.message || "This slot is already booked!", "error");
+                        } else {
+                            showToast("Reservation failed. Please check your details.", "error");
+                        }
+                        return;
+                    }
+
+                    fetch("https://formsubmit.co/ajax/vinudasasmitha29@gmail.com", {
+                        method: "POST",
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify({
+                            "email": requestData.email,
+                            "_replyto": requestData.email,
+                            "Subject": "New CR & FC Reservation Request",
+                            "User Type": requestData.user_type,
+                            "Member ID": requestData.member_id || "N/A",
+                            "Name": requestData.full_name,
+                            "Phone": requestData.phone,
+                            "Main Location": requestData.location,
+                            "Specific Area": requestData.sub_location || "N/A",
+                            "Number of Pax": requestData.pax || "N/A",
+                            "Requirements": requestData.requirements || "None",
+                            "Booking Type": requestData.booking_type,
+                            "Event Name": requestData.event_name || "N/A",
+                            "Date & Time": `${requestData.booking_date} from ${document.getElementById("start-time").value} to ${document.getElementById("end-time").value}`,
+                            "Signature Attached": finalSignatureData ? "Yes" : "No"
+                        })
+                    });
+
+                    showToast("Reservation placed successfully! Please wait for admin approval.", "success");
+                    e.target.reset();
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    hasDrawn = false;
+                    handleUserTypeChange();
+                    fetchReservations();
+                } catch (error) {
+                    showToast("Reservation failed. Is backend running?", "error");
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span>Submit Request</span><span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">send</span>';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

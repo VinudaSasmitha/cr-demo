@@ -1,0 +1,2350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Club Shop - CR & FC</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d33131",
+                        "primary-dark": "#b02525",
+                        "secondary": "#1a2a44",
+                        "secondary-dark": "#111c2e",
+                        "background-light": "#f8fafc"
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .modal-enter {
+            opacity: 0;
+            transform: scale(.95);
+        }
+
+        .modal-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+        }
+
+        .loader {
+            border-top-color: #d33131;
+            animation: spinner 1s linear infinite;
+        }
+
+        @keyframes spinner {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+
+    <script src="config.js"></script>
+
+</head>
+
+
+<body class="bg-background-light text-secondary antialiased min-h-screen flex flex-col">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <div id="header-container"></div>
+
+    <script src="header.js"></script>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="flex-grow pb-20 md:pb-0">
+
+
+        <!-- HERO -->
+
+        <section class="relative bg-secondary-dark text-white py-14 overflow-hidden border-b-4 border-primary">
+
+            <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+
+                <span
+                    class="inline-block bg-primary/20 text-primary border border-primary/30 px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-3">
+
+                    Official Store
+
+                </span>
+
+                <h1 class="text-4xl sm:text-5xl font-black uppercase tracking-tight text-white mb-3">
+
+                    CR & FC Club Shop
+
+                </h1>
+
+                <p class="text-gray-400 max-w-xl mx-auto text-sm sm:text-base">
+
+                    Order official merchandise, fan gear, and delicious clubhouse meals delivered straight to you.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CATEGORY BUTTONS ================= -->
+
+        <section class="relative -mt-0 py-8">
+
+            <div
+                class="bg-white p-2 rounded-2xl shadow-xl border border-gray-100 flex overflow-x-auto justify-center gap-2 max-w-md mx-auto no-scrollbar px-3">
+
+
+                <!-- Merchandise -->
+
+                <button onclick="setCategory('Merchandise')" id="btn-Merchandise"
+                    class="cat-btn flex-1 py-3 px-6 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 whitespace-nowrap bg-primary text-white shadow-md">
+
+                    <span class="material-symbols-outlined text-lg">
+
+                        checkroom
+
+                    </span>
+
+                    Merchandise
+
+                </button>
+
+
+                <!-- Dining -->
+
+                <button onclick="setCategory('Food & Beverage')" id="btn-Food_Beverage"
+                    class="cat-btn flex-1 py-3 px-6 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 whitespace-nowrap bg-gray-50 text-gray-600 hover:bg-gray-100">
+
+                    <span class="material-symbols-outlined text-lg">
+
+                        restaurant
+
+                    </span>
+
+                    Dining & Drinks
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PRODUCTS ================= -->
+
+        <section class="max-w-7xl mx-auto px-4 pb-12">
+
+
+            <!-- Loading -->
+
+            <div id="loading-spinner" class="flex flex-col items-center justify-center py-20">
+
+                <div class="loader ease-linear rounded-full border-4 border-gray-200 h-12 w-12 mb-4"></div>
+
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">
+
+                    Fetching Products...
+
+                </p>
+
+            </div>
+
+
+            <!-- Product Grid -->
+
+            <div id="products-container"
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 hidden">
+
+            </div>
+
+
+            <!-- Empty State -->
+
+            <div id="empty-state"
+                class="hidden text-center py-20 bg-white rounded-3xl border border-dashed border-gray-200 max-w-lg mx-auto">
+
+                <span class="material-symbols-outlined text-6xl text-gray-300 mb-2 block">
+
+                    inventory_2
+
+                </span>
+
+                <h3 class="text-lg font-bold text-gray-500">
+
+                    No items available in this category right now.
+
+                </h3>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div id="toast"
+        class="fixed bottom-24 md:bottom-6 right-6 z-[100] bg-secondary text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-32 opacity-0 transition-all duration-300 border border-white/10">
+
+        <span class="material-symbols-outlined text-green-400">
+
+            check_circle
+
+        </span>
+
+        <span id="toast-message" class="text-sm font-semibold">
+
+            Item added to cart!
+
+        </span>
+
+    </div>
+
+
+    <!-- ================= PANEL OVERLAY ================= -->
+
+    <div id="panel-overlay"
+        class="fixed inset-0 bg-black/60 z-[90] hidden transition-opacity backdrop-blur-sm">
+
+    </div>
+
+
+    <!-- ================= CART PANEL ================= -->
+
+    <div id="cart-panel"
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md flex flex-col max-h-[85vh] overflow-hidden modal-enter"
+            id="cart-content">
+
+
+            <!-- Cart Header -->
+
+            <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-white z-10">
+
+                <h3 class="text-lg font-black text-secondary flex items-center gap-2">
+
+                    <span class="material-symbols-outlined text-primary">
+
+                        shopping_bag
+
+                    </span>
+
+                    Your Order Basket
+
+                </h3>
+
+
+                <button onclick="closePanels()"
+                    class="bg-gray-100 hover:bg-gray-200 text-gray-500 p-2 rounded-full transition-colors">
+
+                    <span class="material-symbols-outlined text-xl block">
+
+                        close
+
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- Cart Items -->
+
+            <div id="cart-items-container"
+                class="flex-grow overflow-y-auto p-6 space-y-4 bg-gray-50/50">
+
+            </div>
+
+
+            <!-- Cart Footer -->
+
+            <div class="p-6 border-t border-gray-100 bg-white z-10">
+
+                <div class="flex justify-between items-center mb-5">
+
+                    <span class="text-gray-400 font-bold uppercase tracking-wider text-xs">
+
+                        Total Amount
+
+                    </span>
+
+                    <span id="cart-total" class="text-2xl font-black text-secondary">
+
+                        LKR 0
+
+                    </span>
+
+                </div>
+
+
+                <button id="proceed-checkout-btn"
+                    class="w-full bg-primary hover:bg-primary-dark text-white font-black uppercase tracking-widest py-4 rounded-2xl shadow-lg shadow-red-500/20 transition-all active:scale-95">
+
+                    Proceed To Checkout
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= CHECKOUT PANEL ================= -->
+
+    <div id="checkout-panel"
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg flex flex-col max-h-[90vh] overflow-hidden modal-enter"
+            id="checkout-content">
+
+
+            <!-- Checkout Header -->
+
+            <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-white z-10">
+
+                <h3 class="text-lg font-black text-secondary flex items-center gap-2">
+
+                    <span class="material-symbols-outlined text-primary">
+
+                        credit_card
+
+                    </span>
+
+                    Checkout Details
+
+                </h3>
+
+
+                <button onclick="openPanel('cart')"
+                    class="bg-gray-100 hover:bg-gray-200 text-gray-500 p-2 rounded-full transition-colors">
+
+                    <span class="material-symbols-outlined text-xl block">
+
+                        arrow_back
+
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- Checkout Form -->
+
+            <div class="flex-grow overflow-y-auto p-6 bg-gray-50/50">
+
+                <form id="checkoutForm" class="space-y-5">
+
+
+                    <!-- Contact Information -->
+
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+
+                        <h4 class="text-xs font-black uppercase text-gray-400 tracking-wider mb-3">
+
+                            Contact Information
+
+                        </h4>
+
+
+                        <div class="space-y-3">
+
+                            <input type="text" id="custName" placeholder="Full Name" required
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none">
+
+
+                            <input type="email" id="custEmail" placeholder="Email Address" required
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none">
+
+
+                            <input type="tel" id="custPhone" placeholder="Phone Number" required
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Delivery -->
+
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+
+                        <h4 class="text-xs font-black uppercase text-gray-400 tracking-wider mb-3">
+
+                            Fulfillment Option
+
+                        </h4>
+
+
+                        <div class="grid grid-cols-2 gap-3">
+
+
+                            <!-- Pickup -->
+
+                            <label class="cursor-pointer">
+
+                                <input type="radio" name="deliveryMethod" value="Pickup at CR FC"
+                                    class="peer hidden" checked onchange="toggleAddress(false)">
+
+                                <div
+                                    class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-primary peer-checked:bg-red-50/50 transition-all">
+
+                                    <span
+                                        class="material-symbols-outlined mb-1 block text-gray-400 peer-checked:text-primary">
+
+                                        storefront
+
+                                    </span>
+
+                                    <span class="text-xs font-bold text-gray-700">
+
+                                        Self Pickup
+
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+
+                            <!-- Delivery -->
+
+                            <label class="cursor-pointer">
+
+                                <input type="radio" name="deliveryMethod" value="PickMe Delivery"
+                                    class="peer hidden" onchange="toggleAddress(true)">
+
+                                <div
+                                    class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-primary peer-checked:bg-red-50/50 transition-all">
+
+                                    <span
+                                        class="material-symbols-outlined mb-1 block text-gray-400 peer-checked:text-primary">
+
+                                        moped
+
+                                    </span>
+
+                                    <span class="text-xs font-bold text-gray-700">
+
+                                        Delivery
+
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+
+                        </div>
+
+
+                        <!-- Address -->
+
+                        <div id="addressField" class="mt-3 hidden">
+
+                            <textarea id="deliveryAddress" rows="2"
+                                placeholder="Enter Full Delivery Address..."
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none"></textarea>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- Checkout Footer -->
+
+            <div class="p-6 border-t border-gray-100 bg-white z-10">
+
+                <div class="flex justify-between items-center mb-4">
+
+                    <span class="text-gray-400 font-bold uppercase text-xs">
+
+                        Grand Total
+
+                    </span>
+
+                    <span id="checkout-total" class="text-2xl font-black text-primary">
+
+                        LKR 0
+
+                    </span>
+
+                </div>
+
+
+                <button onclick="submitOrder(event)"
+                    class="w-full bg-secondary hover:bg-black text-white font-black uppercase tracking-widest py-4 rounded-2xl shadow-lg transition-all active:scale-95 flex justify-center items-center gap-2">
+
+                    <span class="material-symbols-outlined">
+
+                        check_circle
+
+                    </span>
+
+                    Place Order Now
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="bg-secondary text-white pt-16 pb-8 border-t-[6px] border-primary relative z-10">
+
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+
+
+            <!-- Brand -->
+
+            <div class="col-span-1 md:col-span-2">
+
+                <div class="flex items-center gap-3 mb-6">
+
+                    <div class="bg-white p-1.5 rounded-lg inline-block">
+
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcPBKXe31SnHz45mJj62GkpEoD-62YNV9dlQ&s"
+                            alt="CR & FC Logo" class="h-12 w-auto object-contain" />
+
+                    </div>
+
+
+                    <div>
+
+                        <h2 class="text-2xl font-black tracking-tight leading-none text-white">
+
+                            CR & FC
+
+                        </h2>
+
+                        <p class="text-xs uppercase tracking-[0.2em] text-primary font-bold">
+
+                            Est. 1922
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <p class="text-gray-400 text-sm leading-relaxed max-w-md mb-6">
+
+                    Ceylonese Rugby & Football Club is built on a century of excellence,
+                    grit, and brotherhood. Join us at Longdon Place to experience the
+                    true spirit of sportsmanship.
+
+                </p>
+
+
+                <!-- Social -->
+
+                <div class="flex items-center gap-3">
+
+                    <a href="https://facebook.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-blue-600 flex items-center justify-center transition-all hover:scale-110">
+
+                        <span class="font-bold text-xs">f</span>
+
+                    </a>
+
+
+                    <a href="https://instagram.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-600 flex items-center justify-center transition-all hover:scale-110">
+
+                        <span class="material-symbols-outlined text-sm">
+
+                            photo_camera
+
+                        </span>
+
+                    </a>
+
+
+                    <a href="https://linkedin.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-blue-700 flex items-center justify-center transition-all hover:scale-110">
+
+                        <span class="font-bold text-xs">in</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Quick Links -->
+
+            <div>
+
+                <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6">
+
+                    Quick Links
+
+                </h4>
+
+
+                <ul class="space-y-3 text-sm font-medium text-gray-400">
+
+                    <li>
+
+                        <a href="history.html" class="hover:text-primary transition-colors">
+
+                            Our History
+
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="squads.html" class="hover:text-primary transition-colors">
+
+                            Rugby Squads
+
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="fixtures.html" class="hover:text-primary transition-colors">
+
+                            Matches & Tickets
+
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="reservation.html" class="hover:text-primary transition-colors">
+
+                            Reserve Facilities
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- Contact -->
+
+            <div>
+
+                <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6">
+
+                    Reach Us
+
+                </h4>
+
+
+                <ul class="space-y-4 text-sm text-gray-400">
+
+
+                    <li class="flex items-start gap-3">
+
+                        <span class="material-symbols-outlined text-primary">
+
+                            location_on
+
+                        </span>
+
+                        <span>
+
+                            28, Malalasekara Mawatha,
+                            <br>
+                            Colombo 07, Sri Lanka
+
+                        </span>
+
+                    </li>
+
+
+                    <li class="flex items-center gap-3">
+
+                        <span class="material-symbols-outlined text-primary">
+
+                            call
+
+                        </span>
+
+                        +94 11 2 581 124
+
+                    </li>
+
+
+                    <li class="flex items-center gap-3">
+
+                        <span class="material-symbols-outlined text-primary">
+
+                            mail
+
+                        </span>
+
+                        info@crandfc.lk
+
+                    </li>
+
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- Copyright -->
+
+        <div
+            class="max-w-7xl mx-auto px-4 border-t border-white/10 pt-6 text-center text-xs text-gray-400 font-medium">
+
+            <p>
+
+                © 2026 Ceylonese Rugby & Football Club. All Rights Reserved.
+
+            </p>
+
+            <p class="mt-3 text-gray-500">
+
+                Created by -
+                <span class="text-white font-semibold">
+
+                    Vinuda Edirisooriya
+
+                </span>
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- ================= MOBILE BOTTOM NAV ================= -->
+
+    <nav
+        class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-[60] flex justify-around items-center h-[68px] md:hidden shadow-[0_-5px_15px_rgba(0,0,0,0.08)]">
+
+
+        <!-- Home -->
+
+        <a href="index.html"
+            class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+            <span class="material-symbols-outlined text-[24px]">
+
+                home
+
+            </span>
+
+            <span class="text-[10px] font-bold mt-1">
+
+                Home
+
+            </span>
+
+        </a>
+
+
+        <!-- Squads -->
+
+        <a href="squads.html"
+            class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+            <span class="material-symbols-outlined text-[24px]">
+
+                groups
+
+            </span>
+
+            <span class="text-[10px] font-bold mt-1">
+
+                Squads
+
+            </span>
+
+        </a>
+
+
+        <!-- Shop Active -->
+
+        <a href="merchandise.html"
+            class="flex flex-col items-center justify-center w-full h-full text-primary">
+
+            <span class="material-symbols-outlined text-[24px]">
+
+                shopping_bag
+
+            </span>
+
+            <span class="text-[10px] font-bold mt-1">
+
+                Shop
+
+            </span>
+
+        </a>
+
+
+        <!-- Fixtures -->
+
+        <a href="fixtures.html"
+            class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+            <span class="material-symbols-outlined text-[24px]">
+
+                calendar_month
+
+            </span>
+
+            <span class="text-[10px] font-bold mt-1">
+
+                Fixtures
+
+            </span>
+
+        </a>
+
+
+        <!-- More -->
+
+        <button id="bottom-more-btn"
+            class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-primary transition-colors">
+
+            <span class="material-symbols-outlined text-[24px]">
+
+                more_horiz
+
+            </span>
+
+            <span class="text-[10px] font-bold mt-1">
+
+                More
+
+            </span>
+
+        </button>
+
+
+    </nav>
+
+
+    <!-- ================= MORE OVERLAY ================= -->
+
+    <div id="more-overlay"
+        class="fixed inset-0 bg-black/50 z-[70] hidden md:hidden backdrop-blur-sm">
+
+    </div>
+
+
+    <!-- ================= MORE SHEET ================= -->
+
+    <div id="more-sheet"
+        class="fixed bottom-0 left-0 right-0 z-[80] md:hidden bg-white rounded-t-[28px] shadow-2xl translate-y-full transition-transform duration-300 ease-out">
+
+
+        <!-- Handle -->
+
+        <div class="flex justify-center pt-3 pb-2">
+
+            <div class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+
+        </div>
+
+
+        <!-- Header -->
+
+        <div class="px-6 pb-4 flex items-center justify-between">
+
+            <div>
+
+                <h3 class="text-lg font-extrabold text-secondary">
+
+                    More
+
+                </h3>
+
+                <p class="text-xs text-gray-500">
+
+                    Explore CR & FC
+
+                </p>
+
+            </div>
+
+
+            <button id="close-more-btn"
+                class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200">
+
+                <span class="material-symbols-outlined text-gray-600">
+
+                    close
+
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- Menu -->
+
+        <div class="grid grid-cols-3 gap-4 px-6 pb-6">
+
+
+            <a href="reservation.html"
+                class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+                <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                    <span class="material-symbols-outlined text-primary">
+
+                        stadium
+
+                    </span>
+
+                </div>
+
+                <span class="text-xs font-bold">
+
+                    Facilities
+
+                </span>
+
+            </a>
+
+
+            <a href="payment.html"
+                class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+                <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                    <span class="material-symbols-outlined text-primary">
+
+                        payments
+
+                    </span>
+
+                </div>
+
+                <span class="text-xs font-bold">
+
+                    Payment
+
+                </span>
+
+            </a>
+
+
+            <a href="collection.html"
+                class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+                <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                    <span class="material-symbols-outlined text-primary">
+
+                        photo_library
+
+                    </span>
+
+                </div>
+
+                <span class="text-xs font-bold">
+
+                    Gallery
+
+                </span>
+
+            </a>
+
+
+            <a href="history.html"
+                class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+                <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                    <span class="material-symbols-outlined text-primary">
+
+                        info
+
+                    </span>
+
+                </div>
+
+                <span class="text-xs font-bold">
+
+                    About Us
+
+                </span>
+
+            </a>
+
+
+            <button onclick="alert('Redirecting to Login Portal...')"
+                class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+                <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                    <span class="material-symbols-outlined text-primary">
+
+                        login
+
+                    </span>
+
+                </div>
+
+                <span class="text-xs font-bold">
+
+                    Login
+
+                </span>
+
+            </button>
+
+
+            <a href="contact.html"
+                class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-red-50 hover:text-primary transition-all">
+
+                <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-2">
+
+                    <span class="material-symbols-outlined text-primary">
+
+                        contact_support
+
+                    </span>
+
+                </div>
+
+                <span class="text-xs font-bold">
+
+                    Contact
+
+                </span>
+
+            </a>
+
+
+        </div>
+
+        <div class="h-6"></div>
+
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        const API_BASE = window.CRFC_API_BASE || 'http://localhost:5000';
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+
+            let products = [];
+
+
+            let cart = JSON.parse(
+                localStorage.getItem('crfc_cart')
+            ) || [];
+
+
+            // FIXED DEFAULT CATEGORY
+
+            let currentCategory = 'Merchandise';
+
+
+            const productsContainer =
+                document.getElementById("products-container");
+
+
+            const loadingSpinner =
+                document.getElementById("loading-spinner");
+
+
+            const emptyState =
+                document.getElementById("empty-state");
+
+
+            const cartItemsContainer =
+                document.getElementById("cart-items-container");
+
+
+            const panelOverlay =
+                document.getElementById("panel-overlay");
+
+
+            const cartPanel =
+                document.getElementById("cart-panel");
+
+
+            const checkoutPanel =
+                document.getElementById("checkout-panel");
+
+
+            const cartContent =
+                document.getElementById("cart-content");
+
+
+            const checkoutContent =
+                document.getElementById("checkout-content");
+
+
+            /* ===============================
+               MOBILE HEADER SAFE CHECK
+            =============================== */
+
+            const mobileMenuBtn =
+                document.getElementById("mobile-menu-btn");
+
+
+            const mobileMenu =
+                document.getElementById("mobile-menu");
+
+
+            if (mobileMenuBtn && mobileMenu) {
+
+                mobileMenuBtn.addEventListener("click", () => {
+
+                    mobileMenu.classList.toggle("hidden");
+
+                });
+
+            }
+
+
+            /* ===============================
+               TOAST
+            =============================== */
+
+            function showToast(msg) {
+
+                const toast =
+                    document.getElementById("toast");
+
+
+                document.getElementById(
+                    "toast-message"
+                ).innerText = msg;
+
+
+                toast.classList.remove(
+                    "translate-y-32",
+                    "opacity-0"
+                );
+
+
+                setTimeout(() => {
+
+                    toast.classList.add(
+                        "translate-y-32",
+                        "opacity-0"
+                    );
+
+                }, 2500);
+
+            }
+
+
+            /* ===============================
+               PRODUCTS
+            =============================== */
+
+            async function fetchProducts() {
+
+
+                products = [
+
+
+                    /* =====================
+                       MERCHANDISE
+                    ===================== */
+
+                    {
+                        id: 1,
+                        name: "CR & FC Official Rugby Jersey",
+                        price: 8500,
+                        category_name: "Merchandise",
+                        image_url: "https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=800&q=80"
+                    },
+
+
+                    {
+                        id: 2,
+                        name: "CR & FC Supporters T-Shirt",
+                        price: 4500,
+                        category_name: "Merchandise",
+                        image_url: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=800&q=80"
+                    },
+
+
+                    {
+                        id: 3,
+                        name: "Official Club Cap",
+                        price: 3200,
+                        category_name: "Merchandise",
+                        image_url: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=800&q=80"
+                    },
+
+
+                    {
+                        id: 4,
+                        name: "CR & FC Training Rugby Ball",
+                        price: 5500,
+                        category_name: "Merchandise",
+                        image_url: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=800&q=80"
+                    },
+
+
+                    /* =====================
+                       FOOD & BEVERAGE
+                    ===================== */
+
+                    {
+                        id: 5,
+                        name: "Clubhouse Chicken Burger",
+                        price: 1850,
+                        category_name: "Food & Beverage",
+                        image_url: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80"
+                    },
+
+
+                    {
+                        id: 6,
+                        name: "Classic Fish & Chips",
+                        price: 2200,
+                        category_name: "Food & Beverage",
+                        image_url: "https://images.unsplash.com/photo-1579208575657-c595a05383b7?auto=format&fit=crop&w=800&q=80"
+                    },
+
+
+                    {
+                        id: 7,
+                        name: "Club Special Fried Rice",
+                        price: 1600,
+                        category_name: "Food & Beverage",
+                        image_url: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80"
+                    },
+
+
+                    {
+                        id: 8,
+                        name: "Fresh Lime Juice",
+                        price: 650,
+                        category_name: "Food & Beverage",
+                        image_url: "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=800&q=80"
+                    }
+
+                ];
+
+
+                loadingSpinner.classList.add("hidden");
+
+
+                renderProducts();
+
+            }
+
+
+            /* ===============================
+               CATEGORY
+            =============================== */
+
+            window.setCategory = (categoryName) => {
+
+
+                currentCategory = categoryName;
+
+
+                document
+                    .querySelectorAll('.cat-btn')
+                    .forEach(btn => {
+
+
+                        btn.classList.remove(
+                            'bg-primary',
+                            'text-white',
+                            'shadow-md'
+                        );
+
+
+                        btn.classList.add(
+                            'bg-gray-50',
+                            'text-gray-600'
+                        );
+
+                    });
+
+
+                const activeBtn =
+                    document.getElementById(
+
+                        categoryName === 'Food & Beverage'
+                            ? 'btn-Food_Beverage'
+                            : 'btn-Merchandise'
+
+                    );
+
+
+                activeBtn.classList.remove(
+                    'bg-gray-50',
+                    'text-gray-600'
+                );
+
+
+                activeBtn.classList.add(
+                    'bg-primary',
+                    'text-white',
+                    'shadow-md'
+                );
+
+
+                renderProducts();
+
+            };
+
+
+            /* ===============================
+               RENDER PRODUCTS
+            =============================== */
+
+            function renderProducts() {
+
+
+                productsContainer.innerHTML = "";
+
+
+                const filteredProducts =
+                    products.filter(
+
+                        p =>
+                            p.category_name ===
+                            currentCategory
+
+                    );
+
+
+                if (filteredProducts.length === 0) {
+
+
+                    productsContainer.classList.add("hidden");
+
+
+                    emptyState.classList.remove("hidden");
+
+
+                    return;
+
+                }
+
+
+                emptyState.classList.add("hidden");
+
+
+                productsContainer.classList.remove("hidden");
+
+
+                filteredProducts.forEach(p => {
+
+
+                    productsContainer.innerHTML += `
+
+                    <div
+                    class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-300 group flex flex-col">
+
+
+                        <div class="h-48 overflow-hidden relative bg-gray-50">
+
+
+                            <img
+                            src="${p.image_url}"
+                            alt="${p.name}"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+
+
+                            <span
+                            class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black uppercase text-secondary shadow-sm">
+
+                                ${p.category_name}
+
+                            </span>
+
+
+                        </div>
+
+
+                        <div class="p-5 flex flex-col flex-grow">
+
+
+                            <h3 class="font-bold text-secondary text-base leading-tight mb-2">
+
+                                ${p.name}
+
+                            </h3>
+
+
+                            <div class="mt-auto pt-3 flex items-center justify-between border-t border-gray-50">
+
+
+                                <span class="text-primary font-black text-lg">
+
+                                    LKR ${Number(
+                                        p.price
+                                    ).toLocaleString()}
+
+                                </span>
+
+
+                                <button
+                                onclick="addToCart('${p.id}')"
+                                class="bg-gray-100 hover:bg-primary hover:text-white text-secondary w-10 h-10 rounded-xl flex items-center justify-center transition-all active:scale-90 shadow-sm">
+
+
+                                    <span class="material-symbols-outlined text-[20px]">
+
+                                        add_shopping_cart
+
+                                    </span>
+
+
+                                </button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                    `;
+
+                });
+
+            }
+
+
+            /* ===============================
+               ADD TO CART
+            =============================== */
+
+            window.addToCart = (productId) => {
+
+
+                const product =
+                    products.find(
+                        p => p.id == productId
+                    );
+
+
+                const existing =
+                    cart.find(
+                        item => item.id == productId
+                    );
+
+
+                if (existing) {
+
+
+                    existing.qty += 1;
+
+
+                } else {
+
+
+                    cart.push({
+                        ...product,
+                        qty: 1
+                    });
+
+                }
+
+
+                localStorage.setItem(
+                    'crfc_cart',
+                    JSON.stringify(cart)
+                );
+
+
+                updateCartUI();
+
+
+                showToast(
+                    `Added ${product.name} to cart!`
+                );
+
+            };
+
+
+            /* ===============================
+               UPDATE CART
+            =============================== */
+
+            function updateCartUI() {
+
+
+                cartItemsContainer.innerHTML = "";
+
+
+                let total = 0;
+
+
+                let totalItems = 0;
+
+
+                if (cart.length === 0) {
+
+
+                    cartItemsContainer.innerHTML = `
+
+                    <div class="text-center text-gray-400 py-12 flex flex-col items-center">
+
+                        <span class="material-symbols-outlined text-5xl mb-2 opacity-40">
+
+                            shopping_bag
+
+                        </span>
+
+                        <p class="text-sm font-semibold">
+
+                            Your basket is currently empty
+
+                        </p>
+
+                    </div>
+
+                    `;
+
+
+                } else {
+
+
+                    cart.forEach((item, index) => {
+
+
+                        total +=
+                            item.price *
+                            item.qty;
+
+
+                        totalItems +=
+                            item.qty;
+
+
+                        cartItemsContainer.innerHTML += `
+
+                        <div class="flex gap-4 bg-white p-3 rounded-2xl border border-gray-100 shadow-sm relative group items-center">
+
+
+                            <img
+                            src="${item.image_url}"
+                            class="w-16 h-16 object-cover rounded-xl bg-gray-50">
+
+
+                            <div class="flex-grow">
+
+
+                                <h4 class="font-bold text-xs text-secondary pr-6 leading-snug">
+
+                                    ${item.name}
+
+                                </h4>
+
+
+                                <p class="text-primary font-black text-xs mt-1">
+
+                                    LKR ${(
+                                        item.price *
+                                        item.qty
+                                    ).toLocaleString()}
+
+                                </p>
+
+
+                                <div class="flex items-center gap-3 mt-2">
+
+
+                                    <button
+                                    onclick="changeQty(${index}, -1)"
+                                    class="w-6 h-6 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center hover:bg-gray-200">
+
+                                        <span class="material-symbols-outlined text-[12px]">
+
+                                            remove
+
+                                        </span>
+
+                                    </button>
+
+
+                                    <span class="text-xs font-bold">
+
+                                        ${item.qty}
+
+                                    </span>
+
+
+                                    <button
+                                    onclick="changeQty(${index}, 1)"
+                                    class="w-6 h-6 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center hover:bg-gray-200">
+
+                                        <span class="material-symbols-outlined text-[12px]">
+
+                                            add
+
+                                        </span>
+
+                                    </button>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                            <button
+                            onclick="removeFromCart(${index})"
+                            class="text-red-400 hover:text-red-600 p-2">
+
+
+                                <span class="material-symbols-outlined text-lg">
+
+                                    delete
+
+                                </span>
+
+
+                            </button>
+
+
+                        </div>
+
+                        `;
+
+                    });
+
+                }
+
+
+                /* SAFE CART BADGE */
+
+                const cartBadge =
+                    document.getElementById("cart-badge");
+
+
+                if (cartBadge) {
+
+
+                    cartBadge.innerText =
+                        totalItems;
+
+
+                    cartBadge.classList.toggle(
+                        "hidden",
+                        totalItems === 0
+                    );
+
+                }
+
+
+                document.getElementById(
+                    "cart-total"
+                ).innerText =
+                    `LKR ${total.toLocaleString()}`;
+
+
+                document.getElementById(
+                    "checkout-total"
+                ).innerText =
+                    `LKR ${total.toLocaleString()}`;
+
+            }
+
+
+            /* ===============================
+               CHANGE QUANTITY
+            =============================== */
+
+            window.changeQty =
+                (index, delta) => {
+
+
+                    if (
+                        cart[index].qty +
+                        delta > 0
+                    ) {
+
+
+                        cart[index].qty +=
+                            delta;
+
+
+                    } else {
+
+
+                        cart.splice(
+                            index,
+                            1
+                        );
+
+                    }
+
+
+                    localStorage.setItem(
+                        'crfc_cart',
+                        JSON.stringify(cart)
+                    );
+
+
+                    updateCartUI();
+
+                };
+
+
+            /* ===============================
+               REMOVE CART
+            =============================== */
+
+            window.removeFromCart =
+                (index) => {
+
+
+                    cart.splice(
+                        index,
+                        1
+                    );
+
+
+                    localStorage.setItem(
+                        'crfc_cart',
+                        JSON.stringify(cart)
+                    );
+
+
+                    updateCartUI();
+
+                };
+
+
+            /* ===============================
+               OPEN PANEL
+            =============================== */
+
+            window.openPanel =
+                (panelType) => {
+
+
+                    panelOverlay.classList.remove(
+                        "hidden"
+                    );
+
+
+                    cartPanel.classList.add(
+                        "hidden"
+                    );
+
+
+                    checkoutPanel.classList.add(
+                        "hidden"
+                    );
+
+
+                    if (
+                        panelType === 'cart'
+                    ) {
+
+
+                        cartPanel.classList.remove(
+                            "hidden"
+                        );
+
+
+                        setTimeout(() => {
+
+
+                            cartContent.classList.add(
+                                "modal-active"
+                            );
+
+
+                        }, 10);
+
+
+                    } else if (
+                        panelType === 'checkout'
+                    ) {
+
+
+                        checkoutPanel.classList.remove(
+                            "hidden"
+                        );
+
+
+                        setTimeout(() => {
+
+
+                            checkoutContent.classList.add(
+                                "modal-active"
+                            );
+
+
+                        }, 10);
+
+                    }
+
+                };
+
+
+            /* ===============================
+               CLOSE PANELS
+            =============================== */
+
+            window.closePanels =
+                () => {
+
+
+                    cartContent.classList.remove(
+                        "modal-active"
+                    );
+
+
+                    checkoutContent.classList.remove(
+                        "modal-active"
+                    );
+
+
+                    setTimeout(() => {
+
+
+                        cartPanel.classList.add(
+                            "hidden"
+                        );
+
+
+                        checkoutPanel.classList.add(
+                            "hidden"
+                        );
+
+
+                        panelOverlay.classList.add(
+                            "hidden"
+                        );
+
+
+                    }, 200);
+
+                };
+
+
+            /* ===============================
+               DELIVERY ADDRESS
+            =============================== */
+
+            window.toggleAddress =
+                (show) => {
+
+
+                    const box =
+                        document.getElementById(
+                            'addressField'
+                        );
+
+
+                    const input =
+                        document.getElementById(
+                            'deliveryAddress'
+                        );
+
+
+                    box.classList.toggle(
+                        'hidden',
+                        !show
+                    );
+
+
+                    input.required =
+                        show;
+
+                };
+
+
+            /* ===============================
+               SUBMIT ORDER
+            =============================== */
+
+            window.submitOrder =
+                async (e) => {
+
+
+                    e.preventDefault();
+
+
+                    const form =
+                        document.getElementById(
+                            'checkoutForm'
+                        );
+
+
+                    if (
+                        !form.checkValidity()
+                    ) {
+
+
+                        form.reportValidity();
+
+
+                        return;
+
+                    }
+
+
+                    if (
+                        cart.length === 0
+                    ) {
+
+
+                        alert(
+                            "Your cart is empty!"
+                        );
+
+
+                        return;
+
+                    }
+
+
+                    const orderData = {
+
+
+                        name:
+                            document.getElementById(
+                                'custName'
+                            ).value,
+
+
+                        email:
+                            document.getElementById(
+                                'custEmail'
+                            ).value,
+
+
+                        phone:
+                            document.getElementById(
+                                'custPhone'
+                            ).value,
+
+
+                        deliveryMethod:
+                            document.querySelector(
+                                'input[name="deliveryMethod"]:checked'
+                            ).value,
+
+
+                        address:
+                            document.getElementById(
+                                'deliveryAddress'
+                            ).value,
+
+
+                        cart:
+                            cart,
+
+
+                        totalAmount:
+                            cart.reduce(
+                                (sum, item) =>
+
+                                    sum +
+                                    (
+                                        item.price *
+                                        item.qty
+                                    ),
+
+                                0
+                            )
+
+                    };
+
+
+                    const btn =
+                        document.querySelector(
+                            'button[onclick="submitOrder(event)"]'
+                        );
+
+
+                    const originalContent =
+                        btn.innerHTML;
+
+
+                    btn.innerHTML = `
+
+                    <span class="material-symbols-outlined animate-spin">
+
+                        progress_activity
+
+                    </span>
+
+                    Processing...
+
+                    `;
+
+
+                    btn.disabled = true;
+
+
+                    try {
+
+
+                        const response =
+                            await fetch(
+
+                                `${API_BASE}/api/orders/checkout`,
+
+                                {
+                                    method: 'POST',
+
+                                    headers: {
+                                        'Content-Type':
+                                            'application/json'
+                                    },
+
+                                    body:
+                                        JSON.stringify(
+                                            orderData
+                                        )
+                                }
+
+                            );
+
+
+                        const result =
+                            await response.json();
+
+
+                        if (
+                            result.success
+                        ) {
+
+
+                            alert(
+                                "🎉 Order placed successfully! A receipt has been sent to your email."
+                            );
+
+
+                            cart = [];
+
+
+                            localStorage.removeItem(
+                                'crfc_cart'
+                            );
+
+
+                            updateCartUI();
+
+
+                            closePanels();
+
+
+                        } else {
+
+
+                            alert(
+                                result.message ||
+                                "Order submission failed."
+                            );
+
+                        }
+
+
+                    } catch (error) {
+
+
+                        console.error(error);
+
+
+                        alert(
+                            "Could not reach the server — please check your connection."
+                        );
+
+                    }
+
+
+                    finally {
+
+
+                        btn.innerHTML =
+                            originalContent;
+
+
+                        btn.disabled =
+                            false;
+
+                    }
+
+                };
+
+
+            /* ===============================
+               CART BUTTON
+            =============================== */
+
+            const cartToggleBtn =
+                document.getElementById(
+                    "cart-toggle-btn"
+                );
+
+
+            if (cartToggleBtn) {
+
+
+                cartToggleBtn.addEventListener(
+                    "click",
+                    () =>
+                        openPanel('cart')
+                );
+
+            }
+
+
+            /* ===============================
+               CHECKOUT BUTTON
+            =============================== */
+
+            document
+                .getElementById(
+                    "proceed-checkout-btn"
+                )
+                .addEventListener(
+                    "click",
+                    () => {
+
+
+                        if (
+                            cart.length > 0
+                        ) {
+
+
+                            openPanel(
+                                'checkout'
+                            );
+
+
+                        } else {
+
+
+                            alert(
+                                "Your cart is empty!"
+                            );
+
+                        }
+
+                    }
+                );
+
+
+            /* ===============================
+               OVERLAY CLOSE
+            =============================== */
+
+            panelOverlay.addEventListener(
+                "click",
+                closePanels
+            );
+
+
+            /* ===============================
+               MORE MENU
+            =============================== */
+
+            const moreBtn =
+                document.getElementById(
+                    "bottom-more-btn"
+                );
+
+
+            const moreSheet =
+                document.getElementById(
+                    "more-sheet"
+                );
+
+
+            const moreOverlay =
+                document.getElementById(
+                    "more-overlay"
+                );
+
+
+            const closeMoreBtn =
+                document.getElementById(
+                    "close-more-btn"
+                );
+
+
+            function openMoreMenu() {
+
+
+                moreOverlay.classList.remove(
+                    "hidden"
+                );
+
+
+                setTimeout(() => {
+
+
+                    moreSheet.classList.remove(
+                        "translate-y-full"
+                    );
+
+
+                }, 10);
+
+            }
+
+
+            function closeMoreMenu() {
+
+
+                moreSheet.classList.add(
+                    "translate-y-full"
+                );
+
+
+                setTimeout(() => {
+
+
+                    moreOverlay.classList.add(
+                        "hidden"
+                    );
+
+
+                }, 300);
+
+            }
+
+
+            if (moreBtn) {
+
+                moreBtn.addEventListener(
+                    "click",
+                    openMoreMenu
+                );
+
+            }
+
+
+            if (closeMoreBtn) {
+
+                closeMoreBtn.addEventListener(
+                    "click",
+                    closeMoreMenu
+                );
+
+            }
+
+
+            if (moreOverlay) {
+
+                moreOverlay.addEventListener(
+                    "click",
+                    closeMoreMenu
+                );
+
+            }
+
+
+            /* ===============================
+               INITIAL LOAD
+            =============================== */
+
+            fetchProducts();
+
+
+            setCategory(
+                currentCategory
+            );
+
+
+            updateCartUI();
+
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
