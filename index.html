@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Quest Academy | Lesson 1.1</title>
+  <style>
+    :root {
+      --bg: #f3f6ff;
+      --card: #ffffff;
+      --text: #172554;
+      --muted: #5b6685;
+      --primary: #5b5ce2;
+      --primary-dark: #3939a8;
+      --pink: #ff5fa2;
+      --yellow: #ffd166;
+      --mint: #80edc7;
+      --blue: #6ecbff;
+      --border: #dfe5ff;
+      --code: #111827;
+      --code-text: #e5edff;
+      --shadow: 0 12px 30px rgba(46, 57, 140, .10);
+    }
+    [data-theme="dark"] {
+      --bg: #101426;
+      --card: #1b2238;
+      --text: #f2f5ff;
+      --muted: #b6c0df;
+      --primary: #9293ff;
+      --primary-dark: #696af0;
+      --pink: #ff83b7;
+      --yellow: #ffe08b;
+      --mint: #9af5d6;
+      --blue: #8edbff;
+      --border: #343d5c;
+      --code: #090d18;
+      --code-text: #e5edff;
+      --shadow: 0 12px 30px rgba(0, 0, 0, .22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    button, textarea { font: inherit; }
+    button { cursor: pointer; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10; display: flex; align-items: center;
+      justify-content: space-between; gap: 14px; flex-wrap: wrap;
+      padding: 14px clamp(16px, 4vw, 48px); background: var(--card);
+      border-bottom: 1px solid var(--border); box-shadow: var(--shadow);
+    }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:900; font-size:1.1rem; }
+    .logo { display:grid; place-items:center; width:42px; height:42px; border-radius:14px; background:linear-gradient(135deg,var(--yellow),var(--pink)); font-size:1.4rem; }
+    .top-actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .pill { background:var(--bg); border:1px solid var(--border); padding:6px 12px; border-radius:999px; font-size:.9rem; font-weight:800; }
+    .btn {
+      border:0; border-radius:12px; padding:10px 15px; font-weight:800;
+      background:var(--primary); color:white; box-shadow:0 5px 0 var(--primary-dark);
+      transition:transform .15s, box-shadow .15s;
+    }
+    .btn:hover { transform:translateY(-2px); box-shadow:0 7px 0 var(--primary-dark); }
+    .btn:active { transform:translateY(2px); box-shadow:0 2px 0 var(--primary-dark); }
+    .btn.secondary { background:var(--yellow); color:#382a00; box-shadow:0 5px 0 #d69e27; }
+    .btn.ghost { background:var(--card); color:var(--text); border:1px solid var(--border); box-shadow:none; }
+    .hero {
+      padding:52px 20px 38px; text-align:center; overflow:hidden;
+      background:radial-gradient(circle at 15% 15%, rgba(255,95,162,.20), transparent 25%),
+                 radial-gradient(circle at 85% 10%, rgba(110,203,255,.28), transparent 25%),
+                 radial-gradient(circle at 50% 100%, rgba(128,237,199,.22), transparent 32%);
+    }
+    .eyebrow { display:inline-block; border:1px solid var(--border); background:var(--card); padding:6px 13px; border-radius:999px; font-weight:800; font-size:.86rem; }
+    h1 { font-size:clamp(2.1rem, 5vw, 4rem); line-height:1.08; margin:18px auto 14px; max-width:900px; letter-spacing:-.04em; }
+    .gradient-text { background:linear-gradient(90deg,var(--primary),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .hero p { color:var(--muted); max-width:720px; margin:0 auto 22px; font-size:1.08rem; }
+    .hero-buttons { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+    .wrap { max-width:1160px; margin:0 auto; padding:22px clamp(14px, 3vw, 28px) 60px; }
+    .progress-card { display:grid; grid-template-columns:1fr auto; align-items:center; gap:14px; padding:17px 20px; background:var(--card); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); margin-bottom:22px; }
+    .progress-track { height:11px; background:var(--bg); border-radius:99px; overflow:hidden; margin-top:8px; border:1px solid var(--border); }
+    .progress-fill { width:0%; height:100%; background:linear-gradient(90deg,var(--primary),var(--pink),var(--yellow)); transition:width .3s; }
+    .tabs { display:flex; gap:9px; overflow:auto; padding:3px 2px 14px; margin-bottom:10px; }
+    .tab { flex:0 0 auto; border:1px solid var(--border); border-radius:13px; padding:11px 14px; color:var(--text); background:var(--card); font-weight:800; }
+    .tab.active { background:var(--primary); color:white; border-color:var(--primary); }
+    .panel { display:none; animation:pop .25s ease; }
+    .panel.active { display:block; }
+    @keyframes pop { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:clamp(18px,3vw,28px); margin-bottom:18px; box-shadow:var(--shadow); }
+    .card h2 { margin:0 0 10px; font-size:clamp(1.35rem,3vw,1.8rem); letter-spacing:-.02em; }
+    .card h3 { margin:0 0 7px; }
+    .muted { color:var(--muted); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:16px; }
+    .concept { border:1px solid var(--border); border-radius:16px; padding:17px; background:var(--bg); }
+    .concept .emoji { font-size:1.8rem; }
+    .concept:nth-child(1) { border-top:5px solid var(--blue); }
+    .concept:nth-child(2) { border-top:5px solid var(--pink); }
+    .concept:nth-child(3) { border-top:5px solid var(--mint); }
+    .tag { display:inline-block; padding:5px 9px; border-radius:8px; background:rgba(110,203,255,.22); font-family:ui-monospace,monospace; font-weight:800; overflow-wrap:anywhere; }
+    .term-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:13px; margin-top:16px; }
+    .term { border:1px solid var(--border); border-radius:15px; padding:16px; }
+    .term h3 { color:var(--primary); font-family:ui-monospace,monospace; font-size:1.05rem; overflow-wrap:anywhere; }
+    .note { border-left:5px solid var(--yellow); background:rgba(255,209,102,.17); border-radius:10px; padding:13px 15px; margin-top:15px; }
+    .success-note { border-left-color:var(--mint); background:rgba(128,237,199,.15); }
+    .code-block { background:var(--code); color:var(--code-text); padding:17px; border-radius:14px; overflow:auto; font: .93rem/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; white-space:pre; }
+    .code-layout { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .editor-shell { background:var(--code); border:1px solid var(--border); border-radius:15px; overflow:hidden; }
+    .editor-head { padding:10px 13px; background:rgba(255,255,255,.07); color:var(--yellow); font-weight:800; font-size:.85rem; }
+    textarea.editor { display:block; width:100%; min-height:330px; resize:vertical; padding:15px; border:0; outline:none; background:var(--code); color:var(--code-text); font: .9rem/1.6 ui-monospace,Consolas,monospace; tab-size:2; }
+    .preview-shell { background:white; border:1px solid var(--border); border-radius:15px; overflow:hidden; min-height:380px; color:#172554; }
+    .fake-browser { display:flex; align-items:center; gap:8px; padding:10px; background:#e9edfa; color:#25304f; border-bottom:1px solid #d6dcef; font-size:.85rem; }
+    .dots { display:flex; gap:4px; }
+    .dots i { width:9px;height:9px;border-radius:50%;background:#ff6b6b; }
+    .dots i:nth-child(2) { background:#ffd166; } .dots i:nth-child(3) { background:#80edc7; }
+    .fake-tab { background:white; padding:5px 10px; border-radius:7px 7px 0 0; max-width:70%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    iframe { width:100%; height:340px; border:0; display:block; background:white; }
+    .quiz-question { border:1px solid var(--border); padding:17px; border-radius:15px; margin:14px 0; }
+    .options { display:grid; gap:8px; margin-top:10px; }
+    .option { border:2px solid var(--border); border-radius:11px; padding:10px 12px; background:var(--bg); text-align:left; color:var(--text); font-weight:650; }
+    .option:hover { border-color:var(--primary); }
+    .option.correct { border-color:#16a875; background:rgba(128,237,199,.25); }
+    .option.wrong { border-color:#f05b78; background:rgba(255,95,162,.15); }
+    .feedback { min-height:24px; margin-top:8px; font-weight:750; }
+    .checklist { display:grid; gap:10px; list-style:none; padding:0; }
+    .checklist li { padding:10px 12px; background:var(--bg); border:1px solid var(--border); border-radius:10px; }
+    .checklist li.pass { border-color:#16a875; background:rgba(128,237,199,.18); }
+    .small { font-size:.9rem; }
+    .footer { text-align:center; color:var(--muted); padding:25px 12px; }
+    #toast { position:fixed; bottom:18px; right:18px; z-index:20; display:none; background:var(--text); color:var(--card); padding:13px 17px; border-radius:13px; box-shadow:var(--shadow); max-width:calc(100vw - 36px); font-weight:800; }
+    .mascot { display:inline-block; animation:bounce 1.8s infinite; transform-origin:bottom; }
+    @keyframes bounce { 0%,100%{transform:rotate(0)} 50%{transform:rotate(8deg) translateY(-3px)} }
+    @media(max-width:760px) { .code-layout{grid-template-columns:1fr;} .progress-card{grid-template-columns:1fr;} .topbar{position:relative;} }
+  </style>
+</head>
+<body data-theme="light">
+  <header class="topbar">
+    <div class="brand"><span class="logo">🧑‍🚀</span><span>HTML Quest Academy<br><small class="muted">Module 1 · Lesson 1.1</small></span></div>
+    <div class="top-actions">
+      <span class="pill">⭐ XP: <span id="xp">0</span></span>
+      <span class="pill">🏅 Rank: <span id="rank">Rookie</span></span>
+      <button class="btn ghost" id="themeBtn" type="button">🌙 Night mode</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">🎮 LEARN · PLAY · BUILD</span>
+    <h1>Welcome to the <span class="gradient-text">HTML Adventure!</span></h1>
+    <p>HTML looks scary? Not today! Learn one tiny idea at a time, hunt silly bugs, edit code live, and defeat the final boss. No experience needed.</p>
+    <div class="hero-buttons">
+      <button class="btn" type="button" onclick="goToLesson()">🚀 Start learning</button>
+      <button class="btn secondary" type="button" onclick="switchTab('sandbox')">🧪 Open code playground</button>
+    </div>
+  </section>
+
+  <main class="wrap" id="lesson">
+    <section class="progress-card">
+      <div>
+        <strong>🗺️ Your learning journey</strong>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="muted small" id="progressText">0 of 4 activities completed. Let's collect some XP!</div>
+      </div>
+      <div class="pill">🎯 Goal: understand page structure</div>
+    </section>
+
+    <nav class="tabs" aria-label="Lesson sections">
+      <button class="tab active" data-tab="theory" type="button">📚 1. Learn it</button>
+      <button class="tab" data-tab="bug" type="button">🕵️ 2. Bug hunter</button>
+      <button class="tab" data-tab="sandbox" type="button">🧪 3. Code lab</button>
+      <button class="tab" data-tab="quiz" type="button">🎯 4. Quiz game</button>
+      <button class="tab" data-tab="boss" type="button">👑 5. Final boss</button>
+    </nav>
+
+    <section class="panel active" id="panel-theory">
+      <article class="card">
+        <h2>🏠 First, what is HTML?</h2>
+        <p><strong>HTML</strong> means <strong>HyperText Markup Language</strong>. It gives a web page its structure. Think of a website like a house:</p>
+        <div class="grid">
+          <div class="concept"><div class="emoji">🧱</div><h3>HTML = Structure</h3><p class="muted">The walls, doors and rooms. HTML says what content exists and what it means.</p></div>
+          <div class="concept"><div class="emoji">🎨</div><h3>CSS = Appearance</h3><p class="muted">The paint, colours, layout and decorations. CSS makes the page look beautiful.</p></div>
+          <div class="concept"><div class="emoji">⚡</div><h3>JavaScript = Behaviour</h3><p class="muted">The switches and moving parts. JavaScript makes the page interactive.</p></div>
+        </div>
+        <div class="note"><strong>🧠 Tiny memory trick:</strong> HTML builds the structure. CSS dresses it up. JavaScript makes it do things.</div>
+      </article>
+
+      <article class="card">
+        <h2>🧩 The six important terms</h2>
+        <p class="muted">Read each card, then explain it in your own words. That is how you know you understand it!</p>
+        <div class="term-grid">
+          <div class="term"><h3>&lt;!DOCTYPE html&gt;</h3><p>Tells the browser to use modern HTML standards mode. It is a declaration, not a normal HTML element, so it does not need a closing tag.</p><span class="tag">Write it first</span></div>
+          <div class="term"><h3>&lt;html lang="en"&gt;</h3><p>The root element: the main container for the whole HTML document. <code>lang="en"</code> says the page language is English.</p><span class="tag">Whole document</span></div>
+          <div class="term"><h3>&lt;head&gt;</h3><p>Holds information about the page, such as its title, character encoding, metadata and links to CSS files. It is not the main visible content area.</p><span class="tag">Page information</span></div>
+          <div class="term"><h3>&lt;title&gt;</h3><p>Sets the document title, usually shown in the browser tab. Put it inside <code>&lt;head&gt;</code>, not inside <code>&lt;body&gt;</code>.</p><span class="tag">Browser tab name</span></div>
+          <div class="term"><h3>&lt;body&gt;</h3><p>Contains the main page content, such as headings, paragraphs, images, links and buttons.</p><span class="tag">Page content</span></div>
+          <div class="term"><h3>&lt;!-- comment --&gt;</h3><p>A note for people reading the source code. The browser does not show it as normal page content. Never put passwords or secrets in comments.</p><span class="tag">Developer note</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>🪆 Tags are like boxes inside boxes</h2>
+        <p>An opening tag starts an element. A closing tag usually has a slash <code>/</code> and ends that element.</p>
+        <div class="code-block">&lt;body&gt;                  &lt;!-- opening tag --&gt;
+  &lt;h1&gt;Hello!&lt;/h1&gt;       &lt;!-- heading element --&gt;
+&lt;/body&gt;                 &lt;!-- closing tag --&gt;</div>
+        <div class="note success-note"><strong>Remember:</strong> Some elements, such as <code>&lt;meta&gt;</code> and <code>&lt;img&gt;</code>, are void elements and do not need closing tags. But <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>, <code>&lt;title&gt;</code>, <code>&lt;h1&gt;</code> and <code>&lt;p&gt;</code> normally do.</div>
+      </article>
+
+      <article class="card">
+        <h2>🧠 The complete page skeleton</h2>
+        <p>Learn the shape first. You do not have to memorise every extra line today.</p>
+        <div class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My First Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Visible page content starts here --&gt;
+    &lt;h1&gt;Hello, world!&lt;/h1&gt;
+    &lt;p&gt;I am learning HTML.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+        <p><strong>What is the viewport line?</strong> It helps the page use the device's width on phones and other screens. <code>UTF-8</code> is a character encoding that supports many languages, including Sinhala.</p>
+        <button class="btn" type="button" onclick="completeActivity('theory',20)">✅ I understand the theory (+20 XP)</button>
+      </article>
+    </section>
+
+    <section class="panel" id="panel-bug">
+      <article class="card">
+        <h2>🕵️ Bug Hunter Arcade</h2>
+        <p>A tiny HTML monster has eaten one piece of code. Find the bug to rescue the page! 🐛</p>
+        <div class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;title&gt;My Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to my website
+    &lt;p&gt;I am learning HTML.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+        <h3>What is wrong?</h3>
+        <div class="options" id="bugOptions">
+          <button class="option" type="button" data-correct="false">A. The doctype is written in capital letters.</button>
+          <button class="option" type="button" data-correct="true">B. The heading is missing its closing &lt;/h1&gt; tag.</button>
+          <button class="option" type="button" data-correct="false">C. The title should be inside the body.</button>
+        </div>
+        <div class="feedback" id="bugFeedback" aria-live="polite"></div>
+        <button class="btn secondary" type="button" id="bugReset">🔁 Try again</button>
+      </article>
+    </section>
+
+    <section class="panel" id="panel-sandbox">
+      <article class="card">
+        <h2>🧪 Code Lab: You are the developer!</h2>
+        <p>Edit the HTML on the left. The preview and pretend browser tab on the right will update as you type. Try changing the title, heading, and paragraph.</p>
+        <div class="code-layout">
+          <div class="editor-shell">
+            <div class="editor-head">⌨️ YOUR HTML CODE</div>
+            <textarea class="editor" id="sandboxCode" spellcheck="false" aria-label="Edit HTML code"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Cool Website</title>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 24px; color: #172554;">
+  <!-- Main heading -->
+  <h1 style="color: #5b5ce2;">Hello, coder! 🚀</h1>
+  <p>My name is Vinuda and I am learning HTML.</p>
+  <p>Today I defeated my fear of code. 🏆</p>
+</body>
+</html></textarea>
+          </div>
+          <div>
+            <div class="preview-shell">
+              <div class="fake-browser"><span class="dots"><i></i><i></i><i></i></span><span class="fake-tab">🌐 <span id="previewTitle">My Cool Website</span></span></div>
+              <iframe id="previewFrame" title="Your HTML preview" sandbox=""></iframe>
+            </div>
+            <p class="muted small">This is a preview inside the lesson, not a real Chrome tab.</p>
+          </div>
+        </div>
+        <div class="note"><strong>🎮 Try these mini missions:</strong><br>1. Change the title to your own name.<br>2. Change the heading to “I am an HTML Hero!”.<br>3. Add another paragraph.<br>4. Remove <code>&lt;/h1&gt;</code> and observe what changes, then put it back.</div>
+        <button class="btn ghost" type="button" id="resetSandbox">↩️ Reset example code</button>
+      </article>
+    </section>
+
+    <section class="panel" id="panel-quiz">
+      <article class="card">
+        <h2>🎯 Quiz Game: 5 quick questions</h2>
+        <p class="muted">Pick one answer for each question. No pressure—wrong answers are just clues for learning!</p>
+        <div id="quizArea"></div>
+        <button class="btn" type="button" id="quizFinish">🧮 Check my score</button>
+        <button class="btn ghost" type="button" id="quizRetry">🔁 Reset quiz</button>
+        <div class="feedback" id="quizResult" aria-live="polite"></div>
+      </article>
+    </section>
+
+    <section class="panel" id="panel-boss">
+      <article class="card">
+        <h2>👑 Final Boss: Build your own page</h2>
+        <p>Build a complete personal portfolio skeleton. The checklist gives you hints while you type. It checks a few basic patterns; it is a learning helper, not a full HTML validator.</p>
+        <div class="code-layout">
+          <div class="editor-shell">
+            <div class="editor-head">⚔️ BOSS CODE EDITOR</div>
+            <textarea class="editor" id="bossCode" spellcheck="false" placeholder="Start typing your complete HTML page here..."></textarea>
+          </div>
+          <div class="card" style="margin:0;box-shadow:none;background:var(--bg)">
+            <h3>📋 Mission checklist</h3>
+            <ul class="checklist">
+              <li id="rule1">⬜ 1. Includes &lt;!DOCTYPE html&gt;</li>
+              <li id="rule2">⬜ 2. Includes the html root element</li>
+              <li id="rule3">⬜ 3. Has a title inside the head</li>
+              <li id="rule4">⬜ 4. Has a heading and paragraph inside the body</li>
+              <li id="rule5">⬜ 5. Includes an HTML comment</li>
+            </ul>
+            <p class="muted small">Tip: You can use the skeleton from the Learn It tab as a guide, but try typing it yourself first.</p>
+            <button class="btn" type="button" id="bossCheck">🔎 Check my code</button>
+            <div class="feedback" id="bossFeedback" aria-live="polite"></div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">Made for curious beginners 💜 One small step at a time. Keep experimenting!</footer>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const state = { xp: 0, completed: new Set(), bugSolved: false, quizChecked: false, bossWon: false };
+    const activityIds = ['theory', 'bug', 'quiz', 'boss'];
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.display = 'block';
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.style.display = 'none', 2400);
+    }
+    function updateStats() {
+      document.getElementById('xp').textContent = state.xp;
+      let rank = 'Rookie 🌱';
+      if (state.xp >= 100) rank = 'HTML Wizard 🧙';
+      else if (state.xp >= 60) rank = 'Code Explorer 🚀';
+      else if (state.xp >= 20) rank = 'Tag Tamer 🐉';
+      document.getElementById('rank').textContent = rank;
+      const count = state.completed.size;
+      document.getElementById('progressFill').style.width = (count / activityIds.length * 100) + '%';
+      document.getElementById('progressText').textContent = `${count} of ${activityIds.length} activities completed. ${count === 4 ? 'Amazing! You cleared the lesson!' : 'Keep going and collect XP!'}`;
+    }
+    function completeActivity(id, points) {
+      if (state.completed.has(id)) { showToast('You already collected this reward! ⭐'); return; }
+      state.completed.add(id);
+      state.xp += points;
+      updateStats();
+      showToast(`🎉 +${points} XP! Activity complete!`);
+    }
+    function switchTab(id) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.toggle('active', tab.dataset.tab === id));
+      document.querySelectorAll('.panel').forEach(panel => panel.classList.toggle('active', panel.id === 'panel-' + id));
+      if (id === 'sandbox') updatePreview();
+      if (id === 'boss') checkBoss(false);
+      document.getElementById('lesson').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    function goToLesson() { document.getElementById('lesson').scrollIntoView({behavior:'smooth'}); }
+    document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
+
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      const dark = document.body.dataset.theme !== 'dark';
+      document.body.dataset.theme = dark ? 'dark' : 'light';
+      document.getElementById('themeBtn').textContent = dark ? '☀️ Day mode' : '🌙 Night mode';
+    });
+
+    const bugOptions = document.querySelectorAll('#bugOptions .option');
+    bugOptions.forEach(option => option.addEventListener('click', () => {
+      bugOptions.forEach(o => o.classList.remove('correct', 'wrong'));
+      const correct = option.dataset.correct === 'true';
+      option.classList.add(correct ? 'correct' : 'wrong');
+      const feedback = document.getElementById('bugFeedback');
+      if (correct) {
+        feedback.textContent = '🎯 Correct! The <h1> was opened but never closed. Add </h1> before the paragraph.';
+        feedback.style.color = '#16a875';
+        if (!state.bugSolved) {
+          state.bugSolved = true;
+          completeActivity('bug', 25);
+        }
+      } else {
+        feedback.textContent = '🙈 Not quite! Hint: look for an opening tag that has no matching closing tag.';
+        feedback.style.color = '#f05b78';
+      }
+    }));
+    document.getElementById('bugReset').addEventListener('click', () => {
+      bugOptions.forEach(o => o.classList.remove('correct', 'wrong'));
+      document.getElementById('bugFeedback').textContent = '';
+    });
+
+    const initialCode = document.getElementById('sandboxCode').value;
+    function updatePreview() {
+      const code = document.getElementById('sandboxCode').value;
+      const frame = document.getElementById('previewFrame');
+      // The sandboxed iframe has no script permission, so previewed scripts cannot run.
+      frame.srcdoc = code;
+      const match = code.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+      document.getElementById('previewTitle').textContent = match ? match[1].trim() : 'Untitled Page';
+    }
+    document.getElementById('sandboxCode').addEventListener('input', updatePreview);
+    document.getElementById('resetSandbox').addEventListener('click', () => {
+      document.getElementById('sandboxCode').value = initialCode;
+      updatePreview();
+      showToast('🧼 Example restored!');
+    });
+
+    const quiz = [
+      { q:'1. What is HTML mainly used for?', options:['To structure web page content','To make coffee ☕','Only to change colours'], answer:0, why:'HTML describes the structure and meaning of page content.' },
+      { q:'2. Where should <title> go?', options:['Inside <body>','Inside <head>','After </html>'], answer:1, why:'The document title belongs in the head section.' },
+      { q:'3. Which element contains the main page content?', options:['<head>','<title>','<body>'], answer:2, why:'Headings, paragraphs, images and links usually go in the body.' },
+      { q:'4. Which is a valid HTML comment?', options:['// hello','<!-- hello -->','<comment>hello'], answer:1, why:'An HTML comment starts with <!-- and ends with -->.' },
+      { q:'5. What is missing from <h1>Hello?', options:['The opening tag','The closing </h1> tag','The browser'], answer:1, why:'The heading should normally be closed with </h1>.' }
+    ];
+    const quizArea = document.getElementById('quizArea');
+    const quizAnswers = {};
+    function renderQuiz() {
+      quizArea.innerHTML = '';
+      quiz.forEach((item, i) => {
+        const box = document.createElement('div');
+        box.className = 'quiz-question';
+        const heading = document.createElement('h3');
+        heading.textContent = item.q;
+        box.appendChild(heading);
+        const options = document.createElement('div');
+        options.className = 'options';
+        item.options.forEach((label, j) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'option';
+          btn.textContent = label;
+          btn.addEventListener('click', () => {
+            if (state.quizChecked) return;
+            quizAnswers[i] = j;
+            options.querySelectorAll('button').forEach(b => b.classList.remove('correct','wrong'));
+            btn.classList.add('correct');
+          });
+          options.appendChild(btn);
+        });
+        const feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        feedback.id = 'quiz-feedback-' + i;
+        box.append(options, feedback);
+        quizArea.appendChild(box);
+      });
+    }
+    document.getElementById('quizFinish').addEventListener('click', () => {
+      if (state.quizChecked) { showToast('Reset the quiz to play again.'); return; }
+      if (Object.keys(quizAnswers).length < quiz.length) {
+        document.getElementById('quizResult').textContent = '👀 Answer all 5 questions first, then check your score.';
+        return;
+      }
+      let score = 0;
+      quiz.forEach((item, i) => {
+        const box = quizArea.children[i];
+        const buttons = box.querySelectorAll('.option');
+        buttons.forEach((b, j) => {
+          if (j === item.answer) b.classList.add('correct');
+          else if (j === quizAnswers[i]) b.classList.add('wrong');
+        });
+        box.querySelector('.feedback').textContent = (quizAnswers[i] === item.answer ? '✅ Correct! ' : '💡 Learn: ') + item.why;
+        if (quizAnswers[i] === item.answer) score++;
+      });
+      state.quizChecked = true;
+      document.getElementById('quizResult').textContent = `🏁 You scored ${score}/5 ${score === 5 ? '— perfect score!' : '— review the explanations and keep practising!'}`;
+      if (!state.completed.has('quiz')) {
+        state.completed.add('quiz');
+        state.xp += score * 5;
+        updateStats();
+        showToast(`🎉 Quiz finished! +${score * 5} XP`);
+      }
+    });
+    document.getElementById('quizRetry').addEventListener('click', () => {
+      Object.keys(quizAnswers).forEach(k => delete quizAnswers[k]);
+      state.quizChecked = false;
+      document.getElementById('quizResult').textContent = '';
+      renderQuiz();
+    });
+
+    function checkBoss(showMessage = true) {
+      const code = document.getElementById('bossCode').value;
+      const head = (code.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i) || [,''])[1];
+      const body = (code.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i) || [,''])[1];
+      const rules = [
+        /<!doctype\s+html\s*>/i.test(code),
+        /<html\b[^>]*>/i.test(code) && /<\/html\s*>/i.test(code),
+        /<title\b[^>]*>[\s\S]*?<\/title>/i.test(head),
+        /<h1\b[^>]*>[\s\S]*?<\/h1>/i.test(body) && /<p\b[^>]*>[\s\S]*?<\/p>/i.test(body),
+        /<!--[\s\S]*?-->/.test(code)
+      ];
+      rules.forEach((pass, i) => {
+        const li = document.getElementById('rule' + (i+1));
+        li.classList.toggle('pass', pass);
+        li.textContent = (pass ? '✅' : '⬜') + ' ' + [
+          '1. Includes <!DOCTYPE html>',
+          '2. Includes the html root element',
+          '3. Has a title inside the head',
+          '4. Has a heading and paragraph inside the body',
+          '5. Includes an HTML comment'
+        ][i];
+      });
+      const count = rules.filter(Boolean).length;
+      const feedback = document.getElementById('bossFeedback');
+      if (count === 5) {
+        feedback.textContent = '👑 BOSS DEFEATED! You built the required page structure!';
+        feedback.style.color = '#16a875';
+        if (!state.bossWon) {
+          state.bossWon = true;
+          completeActivity('boss', 50);
+        }
+      } else if (showMessage) {
+        feedback.textContent = `${count}/5 requirements passed. Fix the unchecked items and check again. You can do it! 💪`;
+        feedback.style.color = 'var(--muted)';
+      }
+    }
+    document.getElementById('bossCheck').addEventListener('click', () => checkBoss(true));
+    document.getElementById('bossCode').addEventListener('input', () => checkBoss(false));
+
+    renderQuiz();
+    updatePreview();
+    updateStats();
+  </script>
+</body>
+</html>
